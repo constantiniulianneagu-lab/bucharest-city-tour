@@ -178,6 +178,14 @@ nav.scrolled .lang-toggle{background:rgba(255,255,255,.08);border-color:rgba(255
 .rcard.blue .rs-dot{background:var(--b)}
 .rs-name{font-weight:600;color:var(--dk);flex:1}
 .rs-en{font-size:11px;color:var(--mu)}
+.rs-extras-container{list-style:none;overflow:hidden;max-height:0;transition:max-height .45s ease;padding:0}
+.rs-extras-container.open{max-height:900px}
+.rs-extras-container ul{list-style:none}
+.rs-more-li{list-style:none}
+.rs-more-btn{background:none;border:none;cursor:pointer;font-family:inherit;font-size:13px;color:var(--mu);display:flex;align-items:center;gap:8px;padding:10px 0;width:100%;text-align:left;transition:color .2s;border-top:1px dashed var(--brd)}
+.rs-more-btn:hover{color:var(--dk)}
+.rs-more-ico{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;border:1.5px solid var(--mu);font-size:11px;flex-shrink:0;transition:all .3s}
+.rs-more-btn:hover .rs-more-ico{border-color:var(--r);color:var(--r)}
 
 /* GALLERY */
 .gallery-section{padding:88px 0;background:var(--off)}
@@ -1165,7 +1173,24 @@ let currentLang='ro';
   STOPS[line].slice(0,8).forEach(s=>{
     ul.innerHTML+=`<li class="rs-item"><span class="rs-dot">${s.n}</span><div><div class="rs-name">${s.name}</div><div class="rs-en">${s.en}</div></div></li>`;
   });
-  if(STOPS[line].length>8)ul.innerHTML+=`<li class="rs-item" style="color:var(--mu);font-size:12px;padding:8px 0">+ ${STOPS[line].length-8} <span data-i18n="more-stops">stații suplimentare</span> →</li>`;
+  const rest=STOPS[line].slice(8);
+  if(rest.length){
+    let x=`<li class="rs-extras-container" id="${line}-extras"><ul>`;
+    rest.forEach(s=>{x+=`<li class="rs-item"><span class="rs-dot">${s.n}</span><div><div class="rs-name">${s.name}</div><div class="rs-en">${s.en}</div></div></li>`;});
+    x+=`</ul></li><li class="rs-more-li"><button class="rs-more-btn" data-for="${line}" data-count="${rest.length}"><span class="rs-more-ico">▾</span><span>+ ${rest.length} stații suplimentare</span></button></li>`;
+    ul.innerHTML+=x;
+  }
+});
+// Expand extra stops
+document.querySelectorAll('.rs-more-btn').forEach(btn=>{
+  btn.addEventListener('click',function(){
+    const line=this.dataset.for;
+    const cnt=+this.dataset.count;
+    const wrap=document.getElementById(line+'-extras');
+    const isOpen=wrap.classList.toggle('open');
+    this.querySelector('.rs-more-ico').textContent=isOpen?'▴':'▾';
+    this.querySelectorAll('span')[1].textContent=isOpen?'↑ Ascunde':`+ ${cnt} stații suplimentare`;
+  });
 });
 
 // Stops detail
