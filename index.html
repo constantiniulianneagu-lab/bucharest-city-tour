@@ -71,7 +71,7 @@ nav.scrolled .lang-toggle{background:rgba(255,255,255,.08);border-color:rgba(255
 .hero-pills{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:36px}
 .hpill{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.13);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.2);border-radius:8px;padding:7px 14px;font-size:13px;color:var(--wh);font-weight:500}
 .hpill.y{background:var(--y);border-color:transparent;color:var(--dk);font-weight:700}
-.hero-btns{display:flex;gap:14px;flex-wrap:wrap}
+.hero-btns{display:flex;gap:12px;flex-wrap:nowrap}
 .btn-hero{background:var(--r);color:var(--wh);border:none;border-radius:8px;padding:16px 32px;font-size:16px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;box-shadow:0 4px 28px rgba(227,30,36,.45);transition:background .2s,transform .15s}
 .btn-hero:hover{background:var(--rd);transform:translateY(-2px)}
 .btn-ghost{background:transparent;color:var(--wh);border:2px solid rgba(255,255,255,.4);border-radius:8px;padding:14px 28px;font-size:16px;font-weight:600;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:border-color .2s,background .2s}
@@ -469,6 +469,7 @@ footer{background:var(--dk);padding:60px 48px 28px}
   .mi-card{padding:14px}
   .mi-row{font-size:12px}
   #bct-map{height:320px}
+  .btn-hero,.btn-ghost{padding:13px 18px;font-size:14px}
 }
 </style>
 </head>
@@ -1301,7 +1302,14 @@ function openMenu(){hamBtn.classList.add('open');mobMenu.classList.add('open');d
 function closeMenu(){hamBtn.classList.remove('open');mobMenu.classList.remove('open');document.body.style.overflow=''}
 hamBtn.addEventListener('click',()=>mobMenu.classList.contains('open')?closeMenu():openMenu());
 mobClose.addEventListener('click',closeMenu);
-mobMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeMenu));
+mobMenu.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',function(e){
+    e.preventDefault();
+    const target=document.querySelector(this.getAttribute('href'));
+    closeMenu();
+    setTimeout(()=>{if(target)target.scrollIntoView({behavior:'smooth'})},360);
+  });
+});
 
 // i18n
 const T={
