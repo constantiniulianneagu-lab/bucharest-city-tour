@@ -24,23 +24,23 @@ html{scroll-behavior:smooth}
 body{font-family:'Inter',sans-serif;color:var(--dk);background:var(--wh);overflow-x:hidden}
 
 /* NAV */
-nav{position:sticky;top:0;z-index:200;background:var(--wh);border-bottom:1px solid var(--brd);height:72px;padding:0 48px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 12px rgba(0,0,0,.06)}
-.nav-logo img{height:44px;object-fit:contain}
-.nav-links{display:flex;gap:32px}
-.nav-links a{text-decoration:none;font-size:14px;font-weight:500;color:var(--dk2);transition:color .2s}
-.nav-links a:hover{color:var(--r)}
-.nav-right{display:flex;align-items:center;gap:14px}
+nav{position:sticky;top:0;z-index:200;background:var(--dk);border-bottom:1px solid rgba(255,255,255,.07);height:68px;padding:0 48px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 20px rgba(0,0,0,.3)}
+.nav-logo img{height:40px;object-fit:contain}
+.nav-links{display:flex;gap:28px}
+.nav-links a{text-decoration:none;font-size:13px;font-weight:500;color:rgba(255,255,255,.65);transition:color .2s;letter-spacing:.2px}
+.nav-links a:hover{color:var(--y)}
+.nav-right{display:flex;align-items:center;gap:12px}
 .live-dot{width:8px;height:8px;border-radius:50%;background:#2ecc71;animation:pulse 1.5s infinite}
 
 /* LANG TOGGLE */
-.lang-toggle{display:flex;align-items:center;gap:2px;background:var(--off);border:1px solid var(--brd);border-radius:6px;padding:3px}
-.lang-btn{background:none;border:none;cursor:pointer;font-size:12px;font-weight:700;color:var(--mu);padding:3px 8px;border-radius:4px;transition:all .2s;font-family:'Montserrat',sans-serif;letter-spacing:.5px}
-.lang-btn.active{background:var(--wh);color:var(--dk);box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.lang-toggle{display:flex;align-items:center;gap:2px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:6px;padding:3px}
+.lang-btn{background:none;border:none;cursor:pointer;font-size:12px;font-weight:700;color:rgba(255,255,255,.4);padding:3px 8px;border-radius:4px;transition:all .2s;font-family:'Montserrat',sans-serif;letter-spacing:.5px}
+.lang-btn.active{background:rgba(255,255,255,.12);color:var(--wh)}
 
 /* HAMBURGER */
-.ham-btn{display:flex;flex-direction:column;gap:5px;cursor:pointer;background:none;border:1px solid var(--brd);border-radius:8px;padding:9px 10px;transition:border-color .2s}
-.ham-btn:hover{border-color:var(--r)}
-.ham-btn span{display:block;width:20px;height:2px;background:var(--dk);border-radius:2px;transition:all .3s}
+.ham-btn{display:flex;flex-direction:column;gap:5px;cursor:pointer;background:none;border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:9px 10px;transition:border-color .2s}
+.ham-btn:hover{border-color:var(--y)}
+.ham-btn span{display:block;width:20px;height:2px;background:var(--wh);border-radius:2px;transition:all .3s}
 .ham-btn.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
 .ham-btn.open span:nth-child(2){opacity:0;transform:translateX(8px)}
 .ham-btn.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
@@ -68,7 +68,7 @@ nav{position:sticky;top:0;z-index:200;background:var(--wh);border-bottom:1px sol
 .hero-img img{width:100%;height:100%;object-fit:cover;object-position:center 40%;transform:scale(1.02);transition:transform 10s ease}
 .hero-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.15) 0%,rgba(0,0,0,.04) 30%,rgba(0,0,0,.52) 65%,rgba(0,0,0,.88) 100%)}
 .hero-content{position:relative;z-index:2;width:100%;max-width:1200px;margin:0 auto;padding:0 48px 88px}
-.hero-h1{font-family:'Montserrat',sans-serif;font-size:clamp(52px,7.5vw,100px);font-weight:800;letter-spacing:-2px;color:var(--wh);line-height:.9;margin-bottom:20px;text-shadow:0 2px 28px rgba(0,0,0,.25)}
+.hero-h1{font-family:'Montserrat',sans-serif;font-size:clamp(36px,6.5vw,88px);font-weight:800;letter-spacing:-1.5px;color:var(--wh);line-height:.95;margin-bottom:20px;text-shadow:0 2px 28px rgba(0,0,0,.25)}
 .hero-h1 span{color:var(--y)}
 .hero-sub{font-size:18px;color:rgba(255,255,255,.75);max-width:500px;line-height:1.65;margin-bottom:32px}
 .hero-pills{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:36px}
@@ -99,41 +99,49 @@ nav{position:sticky;top:0;z-index:200;background:var(--wh);border-bottom:1px sol
 .sec-sub{font-size:16px;color:var(--mu);margin-bottom:52px;max-width:560px;line-height:1.7}
 
 /* TICKETS */
-.tickets-section{background:var(--off);padding:88px 0}
+.tickets-section{background:var(--off);padding:80px 0}
 .tickets-inner{max-width:1140px;margin:0 auto;padding:0 48px}
-.tickets-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-bottom:24px}
-.tcard{background:var(--wh);border-radius:var(--rad);padding:32px 28px;border:2px solid var(--brd);position:relative;overflow:hidden;transition:transform .2s,box-shadow .2s}
-.tcard:hover{transform:translateY(-5px);box-shadow:0 16px 48px rgba(0,0,0,.1)}
+.tickets-scroll-wrap{margin:0 -48px;padding:0 48px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.tickets-scroll-wrap::-webkit-scrollbar{display:none}
+.tickets-grid{display:flex;gap:20px;padding-bottom:8px;width:max-content}
+.tcard{background:var(--wh);border-radius:14px;border:2px solid var(--brd);overflow:hidden;transition:transform .2s,box-shadow .2s;width:300px;flex-shrink:0;display:flex;flex-direction:column}
+.tcard:hover{transform:translateY(-4px);box-shadow:0 12px 36px rgba(0,0,0,.1)}
 .tcard.featured{border-color:var(--y)}
-.tcard.featured::before{content:'RECOMANDAT';position:absolute;top:0;right:0;background:var(--y);color:var(--dk);font-size:10px;font-weight:700;letter-spacing:1px;padding:5px 14px;border-bottom-left-radius:8px}
 .tcard.best{border-color:var(--r)}
-.tcard.best::before{content:'CEL MAI BUN PREȚ';position:absolute;top:0;right:0;background:var(--r);color:var(--wh);font-size:10px;font-weight:700;letter-spacing:.5px;padding:5px 12px;border-bottom-left-radius:8px}
-.tc-kicker{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--mu);margin-bottom:10px}
-.tc-line{display:inline-flex;align-items:center;gap:5px;border-radius:4px;padding:3px 10px;font-size:11px;font-weight:700;margin-bottom:16px;letter-spacing:.3px}
-.tc-line.r{background:#fff0f0;color:var(--r)}
-.tc-line.b{background:#eff5ff;color:var(--b)}
-.tc-line.rb{background:linear-gradient(90deg,#fff0f0,#eff5ff);color:var(--dk2)}
-.tc-orig{font-size:14px;color:var(--mu2);text-decoration:line-through;height:20px;margin-bottom:2px}
-.tc-amount{font-family:'Montserrat',sans-serif;font-size:60px;font-weight:800;letter-spacing:-2px;line-height:1;color:var(--dk)}
-.tc-unit{font-size:18px;vertical-align:super;font-weight:700}
-.tc-period{font-size:13px;color:var(--mu);margin-bottom:8px}
-.tc-name{font-family:'Montserrat',sans-serif;font-size:20px;font-weight:700;color:var(--dk);margin-bottom:16px}
-.tc-child{background:#eff5ff;border-radius:8px;padding:8px 12px;font-size:13px;color:var(--b);font-weight:600;margin-bottom:18px;display:flex;align-items:center;gap:6px}
-.tc-features{list-style:none;margin-bottom:24px;border-top:1px solid var(--brd);padding-top:16px}
-.tc-features li{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--dk2);padding:5px 0;border-bottom:1px solid var(--brd)}
-.tc-features li:last-child{border-bottom:none}
-.tc-check{width:18px;height:18px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px}
-.tc-check.g{background:rgba(46,204,113,.15);color:#27ae60}
-.tc-check.mu{background:var(--off2);color:var(--mu)}
-.tc-btn{display:block;text-align:center;background:var(--r);color:var(--wh);border:none;border-radius:8px;padding:14px;font-size:14px;font-weight:700;cursor:pointer;text-decoration:none;transition:background .2s,transform .1s}
-.tc-btn:hover{background:var(--rd);transform:translateY(-1px)}
-.tcard.featured .tc-btn{background:var(--yd);color:var(--dk)}
-.tcard.featured .tc-btn:hover{background:#d4a900}
-.tc-note{font-size:11px;color:var(--mu);text-align:center;margin-top:10px}
-.tickets-bottom{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:4px}
-.tc-free{background:var(--wh);border:1.5px solid var(--brd);border-radius:12px;padding:18px 20px;display:flex;align-items:center;gap:12px;font-size:13px;color:var(--dk2)}
-.tc-free strong{color:var(--dk);font-size:15px}
-.tickets-pay{background:var(--yp);border:1.5px solid var(--yd);border-radius:12px;padding:18px 20px;display:flex;align-items:center;gap:12px;font-size:13px;color:var(--dk2);line-height:1.65}
+.tc-img-wrap{position:relative;height:160px;overflow:hidden;flex-shrink:0}
+.tc-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.tcard:hover .tc-img-wrap img{transform:scale(1.05)}
+.tc-img-wrap::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(0,0,0,.55) 100%)}
+.tc-badge{position:absolute;top:12px;left:12px;z-index:1;background:var(--r);color:var(--wh);font-size:11px;font-weight:700;padding:4px 10px;border-radius:4px;letter-spacing:.3px}
+.tcard.featured .tc-badge{background:var(--y);color:var(--dk)}
+.tc-dur{position:absolute;bottom:12px;right:12px;z-index:1;background:rgba(255,255,255,.92);color:var(--dk);font-size:11px;font-weight:600;padding:4px 10px;border-radius:4px;display:flex;align-items:center;gap:4px}
+.tc-body{padding:20px;flex:1;display:flex;flex-direction:column}
+.tc-name{font-family:'Montserrat',sans-serif;font-size:18px;font-weight:800;color:var(--dk);margin-bottom:6px}
+.tc-price-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.tc-from{font-size:13px;color:var(--mu)}
+.tc-from strong{font-size:22px;font-weight:800;color:var(--dk);font-family:'Montserrat',sans-serif}
+.tc-orig-price{font-size:13px;color:var(--mu2);text-decoration:line-through}
+.tc-desc{font-size:13px;color:var(--mu);line-height:1.55;margin-bottom:12px;flex:1}
+.tc-child-note{font-size:12px;color:var(--b);font-weight:600;margin-bottom:14px;display:flex;align-items:center;gap:5px}
+.tc-lines{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
+.tcl{font-size:11px;font-weight:700;padding:3px 9px;border-radius:4px}
+.tcl.r{background:#fff0f0;color:var(--r)}
+.tcl.b{background:#eff5ff;color:var(--b)}
+.tc-actions{display:grid;grid-template-columns:1fr 2fr;gap:8px;margin-top:auto}
+.tc-det{display:flex;align-items:center;justify-content:center;background:var(--off);color:var(--dk);border:none;border-radius:8px;padding:11px;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;transition:background .2s}
+.tc-det:hover{background:var(--off2)}
+.tc-buy{display:flex;align-items:center;justify-content:center;background:var(--y);color:var(--dk);border:none;border-radius:8px;padding:11px;font-size:13px;font-weight:800;cursor:pointer;text-decoration:none;transition:background .2s,transform .1s;letter-spacing:.2px}
+.tc-buy:hover{background:var(--yd);transform:translateY(-1px)}
+.tcard.best .tc-buy{background:var(--r);color:var(--wh)}
+.tcard.best .tc-buy:hover{background:var(--rd)}
+.tickets-bottom{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px}
+.tc-free{background:var(--wh);border:1.5px solid var(--brd);border-radius:12px;padding:16px 18px;display:flex;align-items:center;gap:12px;font-size:13px;color:var(--dk2)}
+.tc-free strong{color:var(--dk);font-size:14px}
+.tickets-pay{background:var(--yp);border:1.5px solid var(--yd);border-radius:12px;padding:16px 18px;display:flex;align-items:center;gap:12px;font-size:13px;color:var(--dk2);line-height:1.6}
+@media(max-width:960px){
+  .tickets-scroll-wrap{margin:0 -20px;padding:0 20px}
+  .tickets-bottom{grid-template-columns:1fr}
+}
 
 /* TICKER */
 .ticker{background:var(--r);overflow:hidden;padding:10px 0;white-space:nowrap}
@@ -499,23 +507,23 @@ footer{background:var(--dk);padding:60px 48px 28px}
   <div class="trust-inner">
     <div class="trust-item">
       <div class="ti-icon">🏆</div>
-      <div><div class="ti-label">#1 TripAdvisor</div><div class="ti-sub">Tur oficial București</div></div>
+      <div><div class="ti-label" data-i18n="trust1-label">#1 TripAdvisor</div><div class="ti-sub" data-i18n="trust1-sub">Tur oficial București</div></div>
     </div>
     <div class="trust-item">
       <div class="ti-icon">📍</div>
-      <div><div class="ti-label">14 Stații</div><div class="ti-sub">Circuit complet 90 min</div></div>
+      <div><div class="ti-label" data-i18n="trust2-label">14 Stații</div><div class="ti-sub" data-i18n="trust2-sub">Circuit complet 90 min</div></div>
     </div>
     <div class="trust-item">
       <div class="ti-icon">🎟️</div>
-      <div><div class="ti-label">3 Pachete</div><div class="ti-sub">1 zi · Weekend · Complet</div></div>
+      <div><div class="ti-label" data-i18n="trust3-label">3 Pachete</div><div class="ti-sub" data-i18n="trust3-sub">1 zi · Weekend · Complet</div></div>
     </div>
     <div class="trust-item">
       <div class="ti-icon">🎧</div>
-      <div><div class="ti-label">Audio ghid GPS</div><div class="ti-sub">Activare automată · 5 limbi</div></div>
+      <div><div class="ti-label" data-i18n="trust4-label">Audio ghid GPS</div><div class="ti-sub" data-i18n="trust4-sub">Activare automată · 5 limbi</div></div>
     </div>
     <div class="trust-item">
       <div class="ti-icon">📡</div>
-      <div><div class="ti-label">Urmărire live</div><div class="ti-sub">InfoTB · Interval ~30 min</div></div>
+      <div><div class="ti-label" data-i18n="trust5-label">Urmărire live</div><div class="ti-sub" data-i18n="trust5-sub">InfoTB · Interval ~30 min</div></div>
     </div>
   </div>
 </div>
@@ -524,83 +532,98 @@ footer{background:var(--dk);padding:60px 48px 28px}
 <section class="tickets-section" id="tickets">
   <div class="tickets-inner">
     <div class="rev">
-      <div class="sec-kicker">Tarife & Bilete</div>
-      <h2 class="sec-h2">Alege <em>pachetul tău</em></h2>
-      <p class="sec-sub">Cu cât cumperi mai multe zile, cu atât economisești mai mult. Biletele sunt valabile de la prima validare, fără restricții de stație.</p>
+      <div class="sec-kicker" data-i18n="tick-kicker">Tarife & Bilete</div>
+      <h2 class="sec-h2" data-i18n-html="tick-h2">Alege <em>pachetul tău</em></h2>
+      <p class="sec-sub" data-i18n="tick-sub">Cu cât cumperi mai multe zile, cu atât economisești mai mult. Biletele sunt valabile de la prima validare, fără restricții de stație.</p>
     </div>
-    <div class="tickets-grid rev">
+    <div class="tickets-scroll-wrap rev">
+    <div class="tickets-grid">
 
       <!-- 1 ZI -->
       <div class="tcard">
-        <div class="tc-kicker">O singură zi</div>
-        <div class="tc-line r">● Linia Roșie (Vineri) sau Linia Albastră (Sâm/Dum)</div>
-        <div class="tc-orig">&nbsp;</div>
-        <div class="tc-amount"><span class="tc-unit">lei</span>70</div>
-        <div class="tc-period">adult · 1 zi · Hop On/Hop Off nelimitat</div>
-        <div class="tc-name">Bilet 1 Zi</div>
-        <div class="tc-child">👦 Copil 7–14 ani: <strong>35 lei</strong></div>
-        <ul class="tc-features">
-          <li><span class="tc-check g">✓</span>Hop On · Hop Off nelimitat</li>
-          <li><span class="tc-check g">✓</span>Audio ghid gratuit în app</li>
-          <li><span class="tc-check g">✓</span>Acces punte superioară</li>
-          <li><span class="tc-check g">✓</span>Reduceri la parteneri BCT</li>
-          <li><span class="tc-check mu">—</span>O singură linie (Roșie sau Albastră)</li>
-        </ul>
-        <a href="#" class="tc-btn">Cumpără bilet 1 zi →</a>
-        <div class="tc-note">Disponibil la STB sau direct în autobuz (card)</div>
+        <div class="tc-img-wrap">
+          <img src="https://freetourinbucharest.com/wp-content/uploads/2025/09/hop-on-hop-off-bucharest.jpg" alt="Bilet 1 Zi">
+          <div class="tc-dur" data-i18n="tk1-dur">⏱ 24 ore</div>
+        </div>
+        <div class="tc-body">
+          <div class="tc-name" data-i18n="tk1-name">Bilet 1 Zi</div>
+          <div class="tc-price-row">
+            <div><div class="tc-orig-price">85 lei</div><div class="tc-from"><span data-i18n="from-label">de la</span> <strong>70 lei</strong></div></div>
+          </div>
+          <p class="tc-desc" data-i18n="tk1-desc">Hop On/Off nelimitat o zi întreagă. Alege Linia Roșie (Vineri) sau Linia Albastră (Weekend).</p>
+          <div class="tc-child-note">👦 <span data-i18n="tk1-child">Copil 7–14 ani: 35 lei</span></div>
+          <div class="tc-lines">
+            <span class="tcl r" data-i18n="red-line">● Linia Roșie</span>
+            <span class="tcl b" data-i18n="blue-line">● Linia Albastră</span>
+          </div>
+          <div class="tc-actions">
+            <a href="#" class="tc-det" data-i18n="btn-details">Detalii</a>
+            <a href="#tickets" class="tc-buy" data-i18n="btn-buy-now">Cumpără →</a>
+          </div>
+        </div>
       </div>
 
       <!-- WEEKEND -->
       <div class="tcard featured">
-        <div class="tc-kicker">Cel mai popular</div>
-        <div class="tc-line b">● Linia Albastră · Sâmbătă + Duminică</div>
-        <div class="tc-orig">140 lei</div>
-        <div class="tc-amount"><span class="tc-unit">lei</span>120</div>
-        <div class="tc-period">adult · 2 zile · economisești 20 lei</div>
-        <div class="tc-name">Pachet Weekend</div>
-        <div class="tc-child">👦 Copil 7–14 ani: <strong>60 lei</strong></div>
-        <ul class="tc-features">
-          <li><span class="tc-check g">✓</span>Hop On · Hop Off 2 zile</li>
-          <li><span class="tc-check g">✓</span>Audio ghid gratuit în app</li>
-          <li><span class="tc-check g">✓</span>Acces punte superioară</li>
-          <li><span class="tc-check g">✓</span>Reduceri la parteneri BCT</li>
-          <li><span class="tc-check g">✓</span>Valabil Sâmbătă și Duminică</li>
-        </ul>
-        <a href="#" class="tc-btn">Cumpără pachet weekend →</a>
-        <div class="tc-note">Economisești 20 lei față de 2 bilete separate</div>
+        <div class="tc-img-wrap">
+          <img src="https://freetourinbucharest.com/wp-content/uploads/2020/07/TRIUMPHAL-ARCH-BUCHAREST.jpg" alt="Weekend">
+          <div class="tc-badge" data-i18n="tk2-badge">Econom. 20 lei</div>
+          <div class="tc-dur" data-i18n="tk2-dur">⏱ 48 ore</div>
+        </div>
+        <div class="tc-body">
+          <div class="tc-name" data-i18n="tk2-name">Pachet Weekend</div>
+          <div class="tc-price-row">
+            <div><div class="tc-orig-price">140 lei</div><div class="tc-from"><span data-i18n="from-label">de la</span> <strong>120 lei</strong></div></div>
+          </div>
+          <p class="tc-desc" data-i18n="tk2-desc">Sâmbătă + Duminică pe Linia Albastră. Hop On/Off nelimitat ambele zile.</p>
+          <div class="tc-child-note">👦 <span data-i18n="tk2-child">Copil 7–14 ani: 60 lei</span></div>
+          <div class="tc-lines">
+            <span class="tcl b" data-i18n="blue-line">● Linia Albastră</span>
+          </div>
+          <div class="tc-actions">
+            <a href="#" class="tc-det" data-i18n="btn-details">Detalii</a>
+            <a href="#tickets" class="tc-buy" data-i18n="btn-buy-now">Cumpără →</a>
+          </div>
+        </div>
       </div>
 
       <!-- COMPLET -->
       <div class="tcard best">
-        <div class="tc-kicker">Cea mai bună valoare</div>
-        <div class="tc-line rb">● Linia Roșie + Linia Albastră · 3 zile</div>
-        <div class="tc-orig">210 lei</div>
-        <div class="tc-amount"><span class="tc-unit">lei</span>160</div>
-        <div class="tc-period">adult · 3 zile · economisești 50 lei</div>
-        <div class="tc-name">Pachet Complet</div>
-        <div class="tc-child">👦 Copil 7–14 ani: <strong>80 lei</strong></div>
-        <ul class="tc-features">
-          <li><span class="tc-check g">✓</span>Hop On · Hop Off 3 zile</li>
-          <li><span class="tc-check g">✓</span>Ambele linii: Roșie + Albastră</li>
-          <li><span class="tc-check g">✓</span>Audio ghid gratuit în app</li>
-          <li><span class="tc-check g">✓</span>Reduceri extinse la parteneri</li>
-          <li><span class="tc-check g">✓</span>Vineri + Sâmbătă + Duminică</li>
-        </ul>
-        <a href="#" class="tc-btn">Cumpără pachet complet →</a>
-        <div class="tc-note">Economisești 50 lei față de bilete separate</div>
+        <div class="tc-img-wrap">
+          <img src="https://freetourinbucharest.com/wp-content/uploads/2025/02/parliament-palace-bucharest.jpg" alt="Pachet Complet">
+          <div class="tc-badge" data-i18n="tk3-badge">Econom. 50 lei</div>
+          <div class="tc-dur" data-i18n="tk3-dur">⏱ 3 zile</div>
+        </div>
+        <div class="tc-body">
+          <div class="tc-name" data-i18n="tk3-name">Pachet Complet</div>
+          <div class="tc-price-row">
+            <div><div class="tc-orig-price">210 lei</div><div class="tc-from"><span data-i18n="from-label">de la</span> <strong>160 lei</strong></div></div>
+          </div>
+          <p class="tc-desc" data-i18n="tk3-desc">Vineri + Sâmbătă + Duminică. Ambele linii, cea mai bună valoare.</p>
+          <div class="tc-child-note">👦 <span data-i18n="tk3-child">Copil 7–14 ani: 80 lei</span></div>
+          <div class="tc-lines">
+            <span class="tcl r" data-i18n="red-line">● Linia Roșie</span>
+            <span class="tcl b" data-i18n="blue-line">● Linia Albastră</span>
+          </div>
+          <div class="tc-actions">
+            <a href="#" class="tc-det" data-i18n="btn-details">Detalii</a>
+            <a href="#tickets" class="tc-buy" data-i18n="btn-buy-now">Cumpără →</a>
+          </div>
+        </div>
       </div>
 
+    </div>
     </div>
 
     <div class="tickets-bottom rev">
       <div class="tc-free">
-        <span style="font-size:24px">🎁</span>
-        <div><strong>Sub 7 ani — Gratuit</strong><br>
-        <span style="color:var(--mu);font-size:12px">Fără bilet necesar, însoțit de adult cu bilet valid</span></div>
+        <span style="font-size:22px">🎁</span>
+        <div><strong data-i18n="free-title">Sub 7 ani — Gratuit</strong><br>
+        <span style="color:var(--mu);font-size:12px" data-i18n="free-sub">Fără bilet necesar, însoțit de adult cu bilet valid</span></div>
       </div>
       <div class="tickets-pay">
-        <span style="font-size:24px">💳</span>
-        <div><strong>Unde cumperi:</strong> ① Puncte de vânzare <strong>STB</strong> din București (numerar sau card) · ② Direct <strong>în autobuz</strong> (exclusiv card) · ③ <strong>Aplicația BCT</strong> (în curând)</div>
+        <span style="font-size:22px">💳</span>
+        <div data-i18n-html="pay-text"><strong>Unde cumperi:</strong> ① Puncte de vânzare <strong>STB</strong> (numerar sau card) · ② Direct <strong>în autobuz</strong> (card) · ③ <strong>Aplicația BCT</strong> (în curând)</div>
       </div>
     </div>
   </div>
@@ -632,27 +655,27 @@ footer{background:var(--dk);padding:60px 48px 28px}
 <section class="routes-section" id="routes">
   <div class="routes-inner">
     <div class="rev">
-      <div class="sec-kicker">Traseu</div>
-      <h2 class="sec-h2">Două linii, <em>tot Bucureștiul</em></h2>
-      <p class="sec-sub" style="margin-bottom:0">Linia Roșie operează <strong>Vineri</strong>, Linia Albastră <strong>Sâmbătă și Duminică</strong>. Circuit complet 90 min — sau coboară oricând cu Hop On/Hop Off.</p>
+      <div class="sec-kicker" data-i18n="routes-kicker">Traseu</div>
+      <h2 class="sec-h2" data-i18n-html="routes-h2">Două linii, <em>tot Bucureștiul</em></h2>
+      <p class="sec-sub" style="margin-bottom:0" data-i18n-html="routes-sub">Linia Roșie operează <strong>Vineri</strong>, Linia Albastră <strong>Sâmbătă și Duminică</strong>. Circuit complet 90 min — sau coboară oricând cu Hop On/Hop Off.</p>
     </div>
     <div class="routes-grid rev">
 
       <!-- RED LINE -->
       <div class="rcard red">
         <div class="rcard-head">
-          <div class="rcard-title">Linia Roșie</div>
-          <div class="rcard-days">Vineri · Red Line · Calea Victoriei</div>
+          <div class="rcard-title" data-i18n="rline-red">Linia Roșie</div>
+          <div class="rcard-days" data-i18n="rline-red-days">Vineri · Red Line · Calea Victoriei</div>
         </div>
         <div class="rcard-body">
           <div class="rcard-stats">
-            <div class="rst"><div class="rst-n">14</div><div class="rst-l">Stații</div></div>
-            <div class="rst"><div class="rst-n">~30'</div><div class="rst-l">Interval</div></div>
-            <div class="rst"><div class="rst-n">90'</div><div class="rst-l">Circuit</div></div>
+            <div class="rst"><div class="rst-n">14</div><div class="rst-l" data-i18n="stat-stops">Stații</div></div>
+            <div class="rst"><div class="rst-n">~30'</div><div class="rst-l" data-i18n="stat-interval">Interval</div></div>
+            <div class="rst"><div class="rst-n">90'</div><div class="rst-l" data-i18n="stat-circuit">Circuit</div></div>
           </div>
           <div class="hoh-row">
-            <div class="hoh"><div class="hoh-ico">🚌</div><div><div class="hoh-t">Tur complet</div><div class="hoh-s">Rămâi în autobuz · 90 min · tot traseul</div></div></div>
-            <div class="hoh"><div class="hoh-ico">🚶</div><div><div class="hoh-t">Hop On/Hop Off</div><div class="hoh-s">Coboară, explorează, urcă oricând</div></div></div>
+            <div class="hoh"><div class="hoh-ico">🚌</div><div><div class="hoh-t" data-i18n="hoh-tour-t">Tur complet</div><div class="hoh-s" data-i18n="hoh-tour-s">Rămâi în autobuz · 90 min · tot traseul</div></div></div>
+            <div class="hoh"><div class="hoh-ico">🚶</div><div><div class="hoh-t" data-i18n="hoh-hop-t">Hop On/Hop Off</div><div class="hoh-s" data-i18n="hoh-hop-s">Coboară, explorează, urcă oricând</div></div></div>
           </div>
           <ul class="rcard-stops" id="red-stops"></ul>
         </div>
@@ -661,18 +684,18 @@ footer{background:var(--dk);padding:60px 48px 28px}
       <!-- BLUE LINE -->
       <div class="rcard blue">
         <div class="rcard-head">
-          <div class="rcard-title">Linia Albastră</div>
-          <div class="rcard-days">Sâmbătă · Duminică · Blue Line · Bd. Magheru</div>
+          <div class="rcard-title" data-i18n="rline-blue">Linia Albastră</div>
+          <div class="rcard-days" data-i18n="rline-blue-days">Sâmbătă · Duminică · Blue Line · Bd. Magheru</div>
         </div>
         <div class="rcard-body">
           <div class="rcard-stats">
-            <div class="rst"><div class="rst-n">14</div><div class="rst-l">Stații</div></div>
-            <div class="rst"><div class="rst-n">~30'</div><div class="rst-l">Interval</div></div>
-            <div class="rst"><div class="rst-n">90'</div><div class="rst-l">Circuit</div></div>
+            <div class="rst"><div class="rst-n">14</div><div class="rst-l" data-i18n="stat-stops">Stații</div></div>
+            <div class="rst"><div class="rst-n">~30'</div><div class="rst-l" data-i18n="stat-interval">Interval</div></div>
+            <div class="rst"><div class="rst-n">90'</div><div class="rst-l" data-i18n="stat-circuit">Circuit</div></div>
           </div>
           <div class="hoh-row">
-            <div class="hoh"><div class="hoh-ico">🚌</div><div><div class="hoh-t">Tur complet</div><div class="hoh-s">Rămâi în autobuz · 90 min · tot traseul</div></div></div>
-            <div class="hoh"><div class="hoh-ico">🚶</div><div><div class="hoh-t">Hop On/Hop Off</div><div class="hoh-s">Coboară, explorează, urcă oricând</div></div></div>
+            <div class="hoh"><div class="hoh-ico">🚌</div><div><div class="hoh-t" data-i18n="hoh-tour-t">Tur complet</div><div class="hoh-s" data-i18n="hoh-tour-s">Rămâi în autobuz · 90 min · tot traseul</div></div></div>
+            <div class="hoh"><div class="hoh-ico">🚶</div><div><div class="hoh-t" data-i18n="hoh-hop-t">Hop On/Hop Off</div><div class="hoh-s" data-i18n="hoh-hop-s">Coboară, explorează, urcă oricând</div></div></div>
           </div>
           <ul class="rcard-stops" id="blue-stops"></ul>
         </div>
@@ -686,8 +709,8 @@ footer{background:var(--dk);padding:60px 48px 28px}
 <section class="gallery-section" id="gallery">
   <div class="gallery-inner">
     <div class="rev">
-      <div class="sec-kicker">Obiective pe traseu</div>
-      <h2 class="sec-h2">Ce vei <em>vedea</em></h2>
+      <div class="sec-kicker" data-i18n="gall-kicker">Obiective pe traseu</div>
+      <h2 class="sec-h2" data-i18n-html="gall-h2">Ce vei <em>vedea</em></h2>
     </div>
     <div class="photo-grid rev">
       <div class="pgcard big">
@@ -741,35 +764,35 @@ footer{background:var(--dk);padding:60px 48px 28px}
   <div class="map-inner">
     <div class="map-head rev">
       <div>
-        <div class="sec-kicker">Hartă interactivă</div>
-        <div class="sec-h2">Traseul <em>live</em></div>
+        <div class="sec-kicker" data-i18n="map-kicker">Hartă interactivă</div>
+        <div class="sec-h2" data-i18n-html="map-h2">Traseul <em>live</em></div>
       </div>
       <div class="map-legend">
-        <div class="ml"><div class="ml-line r"></div>Linia Roșie · Vineri</div>
-        <div class="ml"><div class="ml-line b"></div>Linia Albastră · S–D</div>
+        <div class="ml"><div class="ml-line r"></div><span data-i18n="map-leg-red">Linia Roșie · Vineri</span></div>
+        <div class="ml"><div class="ml-line b"></div><span data-i18n="map-leg-blue">Linia Albastră · S–D</span></div>
       </div>
     </div>
     <div class="map-wrap rev">
       <div id="bct-map"></div>
       <div class="map-info">
         <div class="mi-card">
-          <div class="mi-title">Informații traseu</div>
-          <div class="mi-row"><span class="mi-key">Interval autobuz</span><span class="mi-val">~30 min</span></div>
-          <div class="mi-row"><span class="mi-key">Dus (45 min)</span><span class="mi-val r">Presei → Unirii</span></div>
-          <div class="mi-row"><span class="mi-key">Întors (45 min)</span><span class="mi-val b">Unirii → Presei</span></div>
-          <div class="mi-row"><span class="mi-key">Circuit complet</span><span class="mi-val">90 min</span></div>
-          <div class="mi-row"><span class="mi-key">Stații</span><span class="mi-val">14</span></div>
+          <div class="mi-title" data-i18n="minfo-title">Informații traseu</div>
+          <div class="mi-row"><span class="mi-key" data-i18n="minfo-int-bus">Interval autobuz</span><span class="mi-val">~30 min</span></div>
+          <div class="mi-row"><span class="mi-key" data-i18n="minfo-outbound">Dus (45 min)</span><span class="mi-val r">Presei → Unirii</span></div>
+          <div class="mi-row"><span class="mi-key" data-i18n="minfo-return">Întors (45 min)</span><span class="mi-val b">Unirii → Presei</span></div>
+          <div class="mi-row"><span class="mi-key" data-i18n="minfo-circuit">Circuit complet</span><span class="mi-val">90 min</span></div>
+          <div class="mi-row"><span class="mi-key" data-i18n="minfo-stops-key">Stații</span><span class="mi-val">14</span></div>
         </div>
         <div class="mi-card">
-          <div class="mi-title">Program</div>
-          <div class="mi-row"><span class="mi-key">Vineri</span><span class="mi-val r">Linia Roșie</span></div>
-          <div class="mi-row"><span class="mi-key">Sâmbătă</span><span class="mi-val b">Linia Albastră</span></div>
-          <div class="mi-row"><span class="mi-key">Duminică</span><span class="mi-val b">Linia Albastră</span></div>
-          <div class="mi-row"><span class="mi-key">Funcționare</span><span class="mi-val">10:00–20:00</span></div>
+          <div class="mi-title" data-i18n="minfo-prog-title">Program</div>
+          <div class="mi-row"><span class="mi-key" data-i18n="minfo-fri">Vineri</span><span class="mi-val r" data-i18n="red-line">Linia Roșie</span></div>
+          <div class="mi-row"><span class="mi-key" data-i18n="minfo-sat">Sâmbătă</span><span class="mi-val b" data-i18n="blue-line">Linia Albastră</span></div>
+          <div class="mi-row"><span class="mi-key" data-i18n="minfo-sun">Duminică</span><span class="mi-val b" data-i18n="blue-line">Linia Albastră</span></div>
+          <div class="mi-row"><span class="mi-key" data-i18n="minfo-func">Funcționare</span><span class="mi-val">10:00–20:00</span></div>
         </div>
         <div class="mi-live">
           <div class="mi-live-dot"></div>
-          <div class="mi-live-text">Urmărire în timp real la <strong>info.stb.ro</strong> sau în <strong>aplicația BCT</strong></div>
+          <div class="mi-live-text" data-i18n-html="map-live-text">Urmărire în timp real la <strong>info.stb.ro</strong> sau în <strong>aplicația BCT</strong></div>
         </div>
       </div>
     </div>
@@ -779,34 +802,34 @@ footer{background:var(--dk);padding:60px 48px 28px}
 <!-- SCHEDULE -->
 <section class="sched-section" id="schedule">
   <div class="sched-inner">
-    <div class="sec-kicker rev">Program</div>
-    <div class="sec-h2 rev">Când și cum <em style="color:var(--r)">călătorești</em></div>
+    <div class="sec-kicker rev" data-i18n="sched-kicker">Program</div>
+    <div class="sec-h2 rev" data-i18n-html="sched-h2">Când și cum <em style="color:var(--r)">călătorești</em></div>
     <div class="sched-grid rev">
       <div class="scard">
         <span class="scard-ico">🕙</span>
-        <div class="scard-t">Program de funcționare</div>
-        <div class="srow"><span class="skey">Ore funcționare</span><span class="sval r">10:00 – 20:00</span></div>
-        <div class="srow"><span class="skey">Interval</span><span class="sval">~30 minute</span></div>
-        <div class="srow"><span class="skey">Circuit complet</span><span class="sval">90 min</span></div>
-        <div class="srow"><span class="skey">Dus / Întors</span><span class="sval">45 min + 45 min</span></div>
-        <div class="srow"><span class="skey">Vineri</span><span class="sval r">Linia Roșie</span></div>
-        <div class="srow"><span class="skey">Sâmbătă · Duminică</span><span class="sval b">Linia Albastră</span></div>
+        <div class="scard-t" data-i18n="scard1-t">Program de funcționare</div>
+        <div class="srow"><span class="skey" data-i18n="sk-ore">Ore funcționare</span><span class="sval r">10:00 – 20:00</span></div>
+        <div class="srow"><span class="skey" data-i18n="sk-interval">Interval</span><span class="sval">~30 minute</span></div>
+        <div class="srow"><span class="skey" data-i18n="sk-circuit">Circuit complet</span><span class="sval">90 min</span></div>
+        <div class="srow"><span class="skey" data-i18n="sk-dus">Dus / Întors</span><span class="sval">45 min + 45 min</span></div>
+        <div class="srow"><span class="skey" data-i18n="sk-vineri">Vineri</span><span class="sval r" data-i18n="red-line">Linia Roșie</span></div>
+        <div class="srow"><span class="skey" data-i18n="sk-sat-sun">Sâmbătă · Duminică</span><span class="sval b" data-i18n="blue-line">Linia Albastră</span></div>
       </div>
       <div class="scard">
         <span class="scard-ico">🚌</span>
-        <div class="scard-t">Ultimele curse</div>
-        <div class="dep-row"><span class="ddot r"></span><span class="dep-label">Piața Presei → Unirii</span><span class="dep-time">19:20</span></div>
-        <div class="dep-row"><span class="ddot b"></span><span class="dep-label">Piața Unirii → Presei</span><span class="dep-time">20:00</span></div>
-        <div class="infotb-box"><span class="itbdg">InfoTB</span><span>Urmărește autobuzele în timp real la <strong style="color:var(--t)">info.stb.ro</strong> sau în aplicația BCT</span></div>
+        <div class="scard-t" data-i18n="scard2-t">Ultimele curse</div>
+        <div class="dep-row"><span class="ddot r"></span><span class="dep-label" data-i18n="dep-r-label">Piața Presei → Unirii</span><span class="dep-time">19:20</span></div>
+        <div class="dep-row"><span class="ddot b"></span><span class="dep-label" data-i18n="dep-b-label">Piața Unirii → Presei</span><span class="dep-time">20:00</span></div>
+        <div class="infotb-box"><span class="itbdg">InfoTB</span><span data-i18n-html="infotb-text">Urmărește autobuzele în timp real la <strong style="color:var(--t)">info.stb.ro</strong> sau în aplicația BCT</span></div>
       </div>
       <div class="scard">
         <span class="scard-ico">💡</span>
-        <div class="scard-t">Sfaturi practice</div>
-        <div class="srow"><span class="skey">🌤 Puntea superioară</span><span class="sval" style="font-size:12px">Cel mai bun loc</span></div>
-        <div class="srow"><span class="skey">📸 Foto ideal</span><span class="sval" style="font-size:12px">Arcul de Triumf · St. 03</span></div>
-        <div class="srow"><span class="skey">🏛 Palatul Parlamentului</span><span class="sval" style="font-size:12px">Reducere cu app BCT</span></div>
-        <div class="srow"><span class="skey">🎧 Audio ghid</span><span class="sval" style="font-size:12px">Activare automată GPS</span></div>
-        <div class="srow"><span class="skey">💳 Plată la bord</span><span class="sval" style="font-size:12px">Doar card bancar</span></div>
+        <div class="scard-t" data-i18n="scard3-t">Sfaturi practice</div>
+        <div class="srow"><span class="skey" data-i18n="tip1-key">🌤 Puntea superioară</span><span class="sval" style="font-size:12px" data-i18n="tip1-val">Cel mai bun loc</span></div>
+        <div class="srow"><span class="skey" data-i18n="tip2-key">📸 Foto ideal</span><span class="sval" style="font-size:12px" data-i18n="tip2-val">Arcul de Triumf · St. 03</span></div>
+        <div class="srow"><span class="skey" data-i18n="tip3-key">🏛 Palatul Parlamentului</span><span class="sval" style="font-size:12px" data-i18n="tip3-val">Reducere cu app BCT</span></div>
+        <div class="srow"><span class="skey" data-i18n="tip4-key">🎧 Audio ghid</span><span class="sval" style="font-size:12px" data-i18n="tip4-val">Activare automată GPS</span></div>
+        <div class="srow"><span class="skey" data-i18n="tip5-key">💳 Plată la bord</span><span class="sval" style="font-size:12px" data-i18n="tip5-val">Doar card bancar</span></div>
       </div>
     </div>
   </div>
@@ -816,42 +839,42 @@ footer{background:var(--dk);padding:60px 48px 28px}
 <section class="app-section" id="app">
   <div class="app-inner">
     <div class="rev">
-      <div class="app-kicker">Aplicația oficială</div>
-      <h2 class="app-h2">Bucureștiul<br>în <em>buzunarul tău</em></h2>
-      <p class="app-sub">Descarcă aplicația Bucharest City Tour și ai tot ce-ți trebuie pentru o zi perfectă în capitală — de la bilet până la povestea fiecărui obiectiv.</p>
+      <div class="app-kicker" data-i18n="app-kicker">Aplicația oficială</div>
+      <h2 class="app-h2" data-i18n-html="app-h2">Bucureștiul<br>în <em>buzunarul tău</em></h2>
+      <p class="app-sub" data-i18n="app-sub">Descarcă aplicația Bucharest City Tour și ai tot ce-ți trebuie pentru o zi perfectă în capitală — de la bilet până la povestea fiecărui obiectiv.</p>
       <ul class="app-feats">
         <li class="app-feat">
           <div class="af-ico">🎫</div>
-          <div><div class="af-t">Cumpără bilet direct din telefon</div><div class="af-s">Plată online, bilet instant — fără coadă, fără ghișeu</div></div>
+          <div><div class="af-t" data-i18n="af1-t">Cumpără bilet direct din telefon</div><div class="af-s" data-i18n="af1-s">Plată online, bilet instant — fără coadă, fără ghișeu</div></div>
         </li>
         <li class="app-feat">
           <div class="af-ico">🎧</div>
-          <div><div class="af-t">Audio ghid GPS automat</div><div class="af-s">Ce e pe stânga, pe dreapta — se activează singur la fiecare obiectiv</div></div>
+          <div><div class="af-t" data-i18n="af2-t">Audio ghid GPS automat</div><div class="af-s" data-i18n="af2-s">Ce e pe stânga, pe dreapta — se activează singur la fiecare obiectiv</div></div>
         </li>
         <li class="app-feat">
           <div class="af-ico">🗺️</div>
-          <div><div class="af-t">Hartă live & urmărire autobuz</div><div class="af-s">Unde e autobuzul acum, cât timp mai ai de așteptat</div></div>
+          <div><div class="af-t" data-i18n="af3-t">Hartă live & urmărire autobuz</div><div class="af-s" data-i18n="af3-s">Unde e autobuzul acum, cât timp mai ai de așteptat</div></div>
         </li>
         <li class="app-feat">
           <div class="af-ico">🎟️</div>
-          <div><div class="af-t">Bilete reduse la obiective</div><div class="af-s">Palatul Parlamentului, teatre, muzee partenere — reduceri exclusive</div></div>
+          <div><div class="af-t" data-i18n="af4-t">Bilete reduse la obiective</div><div class="af-s" data-i18n="af4-s">Palatul Parlamentului, teatre, muzee partenere — reduceri exclusive</div></div>
         </li>
         <li class="app-feat">
           <div class="af-ico">🔔</div>
-          <div><div class="af-t">Notificări în timp real</div><div class="af-s">„Autobuzul ajunge în 3 minute la stația ta"</div></div>
+          <div><div class="af-t" data-i18n="af5-t">Notificări în timp real</div><div class="af-s" data-i18n="af5-s">„Autobuzul ajunge în 3 minute la stația ta"</div></div>
         </li>
       </ul>
       <div class="app-downloads">
         <div class="app-btn">
           <div class="app-btn-ico">🍎</div>
-          <div><span class="app-btn-label">Descarcă pe</span><span class="app-btn-store">App Store</span></div>
+          <div><span class="app-btn-label" data-i18n="app-dl-ios">Descarcă pe</span><span class="app-btn-store">App Store</span></div>
         </div>
         <div class="app-btn">
           <div class="app-btn-ico">▶️</div>
-          <div><span class="app-btn-label">Disponibil pe</span><span class="app-btn-store">Google Play</span></div>
+          <div><span class="app-btn-label" data-i18n="app-dl-android">Disponibil pe</span><span class="app-btn-store">Google Play</span></div>
         </div>
       </div>
-      <div class="app-note">⏳ Aplicația BCT — lansare în curând</div>
+      <div class="app-note" data-i18n="app-note-text">⏳ Aplicația BCT — lansare în curând</div>
     </div>
     <div class="phone-wrap rev">
       <div class="phone-glow"></div>
@@ -890,12 +913,12 @@ footer{background:var(--dk);padding:60px 48px 28px}
   <div class="stops-inner">
     <div class="stops-head rev">
       <div>
-        <div class="stops-kicker">Traseul complet</div>
-        <div class="stops-h2">Cele 14 stații</div>
+        <div class="stops-kicker" data-i18n="stops-kicker">Traseul complet</div>
+        <div class="stops-h2" data-i18n="stops-h2">Cele 14 stații</div>
       </div>
       <div class="ltgl">
-        <button class="ltg on r" data-line="red">● Linia Roșie · Vineri</button>
-        <button class="ltg b" data-line="blue">● Linia Albastră · S–D</button>
+        <button class="ltg on r" data-line="red" data-i18n="ltg-red">● Linia Roșie · Vineri</button>
+        <button class="ltg b" data-line="blue" data-i18n="ltg-blue">● Linia Albastră · S–D</button>
       </div>
     </div>
     <div class="stops-grid rev" id="stops-grid"></div>
@@ -906,9 +929,9 @@ footer{background:var(--dk);padding:60px 48px 28px}
 <section class="audio-section" id="audio">
   <div class="audio-inner">
     <div class="rev">
-      <div class="a-kicker">Audio Ghid GPS</div>
-      <h2 class="a-h2">Poveștile orașului<br>în <em>5 limbi</em></h2>
-      <p class="a-sub">Activat automat pe GPS, ghidul îți spune ce e pe stânga și pe dreapta la fiecare obiectiv. Fără căști, fără buton — pornește singur când te apropii.</p>
+      <div class="a-kicker" data-i18n="audio-kicker">Audio Ghid GPS</div>
+      <h2 class="a-h2" data-i18n-html="audio-h2">Poveștile orașului<br>în <em>5 limbi</em></h2>
+      <p class="a-sub" data-i18n="audio-sub">Activat automat pe GPS, ghidul îți spune ce e pe stânga și pe dreapta la fiecare obiectiv. Fără căști, fără buton — pornește singur când te apropii.</p>
       <div class="a-flags">
         <div class="aflag"><img src="https://flagcdn.com/w80/ro.png" alt="RO"><span>Română</span></div>
         <div class="aflag"><img src="https://flagcdn.com/w80/gb.png" alt="EN"><span>English</span></div>
@@ -916,15 +939,15 @@ footer{background:var(--dk);padding:60px 48px 28px}
         <div class="aflag"><img src="https://flagcdn.com/w80/it.png" alt="IT"><span>Italiano</span></div>
         <div class="aflag"><img src="https://flagcdn.com/w80/de.png" alt="DE"><span>Deutsch</span></div>
       </div>
-      <div class="a-app-note">📱 <span>Disponibil în <strong style="color:var(--t)">Aplicația Bucharest City Tour</strong> — în curând pe App Store și Google Play</span></div>
+      <div class="a-app-note">📱 <span data-i18n-html="audio-app-note">Disponibil în <strong style="color:var(--t)">Aplicația Bucharest City Tour</strong> — în curând pe App Store și Google Play</span></div>
     </div>
     <div class="a-steps rev">
-      <div class="ast-title">Cum funcționează</div>
-      <div class="astep"><div class="asn">1</div><div class="ast">Descarcă <strong style="color:var(--t)">Aplicația Bucharest City Tour</strong> pe telefon</div></div>
-      <div class="astep"><div class="asn">2</div><div class="ast">Activează GPS-ul și conectează-te la internet (Wi-Fi gratuit în autobuz)</div></div>
-      <div class="astep"><div class="asn">3</div><div class="ast">Selectează limba preferată: RO / EN / FR / IT / DE</div></div>
-      <div class="astep"><div class="asn">4</div><div class="ast">Apasă Start Tour — ghidul pornește automat la fiecare stație</div></div>
-      <div class="astep"><div class="asn">5</div><div class="ast">Ascultă poveștile pe stânga și pe dreapta — arhitectură, istorie, anecdote</div></div>
+      <div class="ast-title" data-i18n="audio-steps-title">Cum funcționează</div>
+      <div class="astep"><div class="asn">1</div><div class="ast" data-i18n-html="astep1">Descarcă <strong style="color:var(--t)">Aplicația Bucharest City Tour</strong> pe telefon</div></div>
+      <div class="astep"><div class="asn">2</div><div class="ast" data-i18n="astep2">Activează GPS-ul și conectează-te la internet (Wi-Fi gratuit în autobuz)</div></div>
+      <div class="astep"><div class="asn">3</div><div class="ast" data-i18n="astep3">Selectează limba preferată: RO / EN / FR / IT / DE</div></div>
+      <div class="astep"><div class="asn">4</div><div class="ast" data-i18n="astep4">Apasă Start Tour — ghidul pornește automat la fiecare stație</div></div>
+      <div class="astep"><div class="asn">5</div><div class="ast" data-i18n="astep5">Ascultă poveștile pe stânga și pe dreapta — arhitectură, istorie, anecdote</div></div>
     </div>
   </div>
 </section>
@@ -933,20 +956,20 @@ footer{background:var(--dk);padding:60px 48px 28px}
 <section class="btrip-section">
   <div class="btrip-inner">
     <div class="rev">
-      <div class="bt-kicker">Parteneriat · BTrip Walking Tours</div>
-      <h2 class="bt-h2">Prima zi<br>perfectă</h2>
-      <p class="bt-sub">Autobuzul îți arată Bucureștiul de sus. Turul pe jos te duce în poveste. Combinația ideală pentru prima vizită în capitală.</p>
-      <div class="bt-rating">⭐⭐⭐⭐⭐ &nbsp;<strong>#1 tur în București</strong> · 2.400+ recenzii TripAdvisor</div>
-      <div class="bt-tip">📍 <span>Coboară la <strong>Stația 05 · Piața Revoluției</strong> — punct de întâlnire la Ateneul Român</span></div>
-      <a href="https://freetourinbucharest.com/bucharest-essential-tour/" target="_blank" class="btn-dk">🚶 Rezervă tur walking BTrip</a>
+      <div class="bt-kicker" data-i18n="btrip-kicker">Parteneriat · BTrip Walking Tours</div>
+      <h2 class="bt-h2" data-i18n-html="btrip-h2">Prima zi<br>perfectă</h2>
+      <p class="bt-sub" data-i18n="btrip-sub">Autobuzul îți arată Bucureștiul de sus. Turul pe jos te duce în poveste. Combinația ideală pentru prima vizită în capitală.</p>
+      <div class="bt-rating" data-i18n-html="btrip-rating">⭐⭐⭐⭐⭐ &nbsp;<strong>#1 tur în București</strong> · 2.400+ recenzii TripAdvisor</div>
+      <div class="bt-tip">📍 <span data-i18n-html="btrip-tip">Coboară la <strong>Stația 05 · Piața Revoluției</strong> — punct de întâlnire la Ateneul Român</span></div>
+      <a href="https://freetourinbucharest.com/bucharest-essential-tour/" target="_blank" class="btn-dk" data-i18n="btrip-btn">🚶 Rezervă tur walking BTrip</a>
     </div>
     <div class="ccard rev">
       <div class="ccard-row">
-        <div class="cbox"><div class="cico">🚌</div><div class="clbl">BCT</div><div class="clbl2">Panoramic · Hop On Off</div></div>
+        <div class="cbox"><div class="cico">🚌</div><div class="clbl">BCT</div><div class="clbl2" data-i18n="cbox-bct-sub">Panoramic · Hop On Off</div></div>
         <div class="cplus">+</div>
-        <div class="cbox"><div class="cico">🚶</div><div class="clbl">BTrip</div><div class="clbl2">Walking Tour · Povești</div></div>
+        <div class="cbox"><div class="cico">🚶</div><div class="clbl">BTrip</div><div class="clbl2" data-i18n="cbox-btrip-sub">Walking Tour · Povești</div></div>
       </div>
-      <div class="cres"><div class="cres-t">= Prima zi perfectă în București</div><div class="cres-s">recomandat de 2.400+ turiști</div></div>
+      <div class="cres"><div class="cres-t" data-i18n="cres-t">= Prima zi perfectă în București</div><div class="cres-s" data-i18n="cres-s">recomandat de 2.400+ turiști</div></div>
     </div>
   </div>
 </section>
@@ -955,33 +978,33 @@ footer{background:var(--dk);padding:60px 48px 28px}
 <section class="faq-section" id="faq">
   <div class="faq-inner">
     <div class="rev">
-      <div class="sec-kicker">Întrebări frecvente</div>
-      <h2 class="sec-h2">Informații <em>utile</em></h2>
+      <div class="sec-kicker" data-i18n="faq-kicker">Întrebări frecvente</div>
+      <h2 class="sec-h2" data-i18n-html="faq-h2">Informații <em>utile</em></h2>
     </div>
     <div class="faq-list rev">
       <div class="faq-item">
-        <div class="faq-q">În ce zile funcționează autobuzul?<div class="faq-icon">+</div></div>
-        <div class="faq-a"><div class="faq-a-inner">Bucharest City Tour funcționează <strong>Vineri, Sâmbătă și Duminică</strong>. Vineri operează Linia Roșie (Calea Victoriei), iar Sâmbătă și Duminică operează Linia Albastră (Bd. Magheru). Cu Pachetul Complet ai acces în toate trei zile, pe ambele linii.</div></div>
+        <div class="faq-q"><span data-i18n="faq-q1">În ce zile funcționează autobuzul?</span><div class="faq-icon">+</div></div>
+        <div class="faq-a"><div class="faq-a-inner" data-i18n-html="faq-a1">Bucharest City Tour funcționează <strong>Vineri, Sâmbătă și Duminică</strong>. Vineri operează Linia Roșie (Calea Victoriei), iar Sâmbătă și Duminică operează Linia Albastră (Bd. Magheru). Cu Pachetul Complet ai acces în toate trei zile, pe ambele linii.</div></div>
       </div>
       <div class="faq-item">
-        <div class="faq-q">Ce înseamnă Hop On · Hop Off?<div class="faq-icon">+</div></div>
-        <div class="faq-a"><div class="faq-a-inner">Cu un singur bilet poți coborî la oricare din cele 14 stații, vizita obiectivul, apoi urca în autobuzul următor — de câte ori dorești, în limita valabilității biletului tău (1, 2 sau 3 zile). Poți și rămâne în autobuz pentru turul complet de 90 de minute.</div></div>
+        <div class="faq-q"><span data-i18n="faq-q2">Ce înseamnă Hop On · Hop Off?</span><div class="faq-icon">+</div></div>
+        <div class="faq-a"><div class="faq-a-inner" data-i18n-html="faq-a2">Cu un singur bilet poți coborî la oricare din cele 14 stații, vizita obiectivul, apoi urca în autobuzul următor — de câte ori dorești, în limita valabilității biletului tău (1, 2 sau 3 zile). Poți și rămâne în autobuz pentru turul complet de 90 de minute.</div></div>
       </div>
       <div class="faq-item">
-        <div class="faq-q">Cum funcționează pachetele de reducere?<div class="faq-icon">+</div></div>
-        <div class="faq-a"><div class="faq-a-inner">Cu cât cumperi mai multe zile, cu atât economisești: Pachetul Weekend (2 zile) costă 120 lei în loc de 140 lei (economisești 20 lei). Pachetul Complet (3 zile) costă 160 lei în loc de 210 lei (economisești 50 lei). Copiii 7–14 ani beneficiază de jumătate din prețul adultului la orice pachet.</div></div>
+        <div class="faq-q"><span data-i18n="faq-q3">Cum funcționează pachetele de reducere?</span><div class="faq-icon">+</div></div>
+        <div class="faq-a"><div class="faq-a-inner" data-i18n-html="faq-a3">Cu cât cumperi mai multe zile, cu atât economisești: Pachetul Weekend (2 zile) costă 120 lei în loc de 140 lei (economisești 20 lei). Pachetul Complet (3 zile) costă 160 lei în loc de 210 lei (economisești 50 lei). Copiii 7–14 ani beneficiază de jumătate din prețul adultului la orice pachet.</div></div>
       </div>
       <div class="faq-item">
-        <div class="faq-q">Unde pot cumpăra biletul?<div class="faq-icon">+</div></div>
-        <div class="faq-a"><div class="faq-a-inner">① La toate punctele de vânzare STB din București (numerar sau card). ② Direct în autobuz, exclusiv cu card bancar (Visa, Mastercard, Maestro). ③ În curând în aplicația Bucharest City Tour — cumpărare online înainte de a urca în autobuz.</div></div>
+        <div class="faq-q"><span data-i18n="faq-q4">Unde pot cumpăra biletul?</span><div class="faq-icon">+</div></div>
+        <div class="faq-a"><div class="faq-a-inner" data-i18n-html="faq-a4">① La toate punctele de vânzare STB din București (numerar sau card). ② Direct în autobuz, exclusiv cu card bancar (Visa, Mastercard, Maestro). ③ În curând în aplicația Bucharest City Tour — cumpărare online înainte de a urca în autobuz.</div></div>
       </div>
       <div class="faq-item">
-        <div class="faq-q">Cum funcționează audio ghidul din aplicație?<div class="faq-icon">+</div></div>
-        <div class="faq-a"><div class="faq-a-inner">Aplicația Bucharest City Tour folosește GPS-ul telefonului pentru a detecta automat stația la care ești. Când autobuzul se apropie de un obiectiv, ghidul pornește automat și îți spune ce e pe stânga și pe dreapta — în română, engleză, franceză, italiană sau germană.</div></div>
+        <div class="faq-q"><span data-i18n="faq-q5">Cum funcționează audio ghidul din aplicație?</span><div class="faq-icon">+</div></div>
+        <div class="faq-a"><div class="faq-a-inner" data-i18n-html="faq-a5">Aplicația Bucharest City Tour folosește GPS-ul telefonului pentru a detecta automat stația la care ești. Când autobuzul se apropie de un obiectiv, ghidul pornește automat și îți spune ce e pe stânga și pe dreapta — în română, engleză, franceză, italiană sau germană.</div></div>
       </div>
       <div class="faq-item">
-        <div class="faq-q">Copiii sub 7 ani plătesc bilet?<div class="faq-icon">+</div></div>
-        <div class="faq-a"><div class="faq-a-inner">Nu. Copiii sub 7 ani călătoresc gratuit, fără bilet, însoțiți de un adult care deține bilet valid. Copiii între 7 și 14 ani beneficiază de bilet la jumătate din prețul adultului pentru orice pachet ales.</div></div>
+        <div class="faq-q"><span data-i18n="faq-q6">Copiii sub 7 ani plătesc bilet?</span><div class="faq-icon">+</div></div>
+        <div class="faq-a"><div class="faq-a-inner" data-i18n-html="faq-a6">Nu. Copiii sub 7 ani călătoresc gratuit, fără bilet, însoțiți de un adult care deține bilet valid. Copiii între 7 și 14 ani beneficiază de bilet la jumătate din prețul adultului pentru orice pachet ales.</div></div>
       </div>
     </div>
   </div>
@@ -1035,8 +1058,8 @@ footer{background:var(--dk);padding:60px 48px 28px}
 </footer>
 
 <div id="sticky">
-  <div><div class="sp">de la 70 lei</div><div class="sl">1 Zi · Weekend · Pachet Complet</div></div>
-  <a href="#tickets" class="sbtn">🎫 Cumpără bilet</a>
+  <div><div class="sp" data-i18n="sticky-price">de la 70 lei</div><div class="sl" data-i18n="sticky-sub">1 Zi · Weekend · Pachet Complet</div></div>
+  <a href="#tickets" class="sbtn" data-i18n="btn-buy">🎫 Cumpără bilet</a>
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -1160,29 +1183,32 @@ const STOPS={
   ]
 };
 
+let currentLang='ro';
+
 // Route stop lists
 ['red','blue'].forEach(line=>{
   const ul=document.getElementById(line+'-stops');
   STOPS[line].slice(0,8).forEach(s=>{
     ul.innerHTML+=`<li class="rs-item"><span class="rs-dot">${s.n}</span><div><div class="rs-name">${s.name}</div><div class="rs-en">${s.en}</div></div></li>`;
   });
-  if(STOPS[line].length>8)ul.innerHTML+=`<li class="rs-item" style="color:var(--mu);font-size:12px;padding:8px 0">+ ${STOPS[line].length-8} stații suplimentare →</li>`;
+  if(STOPS[line].length>8)ul.innerHTML+=`<li class="rs-item" style="color:var(--mu);font-size:12px;padding:8px 0">+ ${STOPS[line].length-8} <span data-i18n="more-stops">stații suplimentare</span> →</li>`;
 });
 
 // Stops detail
 function renderStops(line){
   const cls=line==='red'?'r':'b';
+  const isEn=currentLang==='en';
   document.getElementById('stops-grid').innerHTML=STOPS[line].map(s=>`
     <div class="sc">
       <div class="sc-img-wrap">
-        <img src="${s.img}" alt="${s.name}" loading="lazy">
+        <img src="${s.img}" alt="${isEn?s.en:s.name}" loading="lazy">
         <div class="sc-overlay"></div>
         <div class="sc-n ${cls}">${s.n}</div>
-        <div class="sc-audio">🎧 Audio ghid</div>
+        <div class="sc-audio">🎧 ${isEn?'Audio guide':'Audio ghid'}</div>
       </div>
       <div class="sc-body">
-        <div class="sc-name">${s.name}</div>
-        <div class="sc-en">${s.en}</div>
+        <div class="sc-name">${isEn?s.en:s.name}</div>
+        <div class="sc-en">${isEn?s.name:s.en}</div>
         <div class="sc-desc">${s.desc}</div>
         <div class="sc-sights">${s.sights.map(si=>`<span class="sc-sight">📍 ${si}</span>`).join('')}</div>
         ${s.tag?`<div class="sc-tag">${s.tag}</div>`:''}
@@ -1242,25 +1268,166 @@ mobMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeMenu));
 // i18n
 const T={
   ro:{
-    'nav-routes':'Traseu & Hartă','nav-tickets':'Bilete','nav-schedule':'Program',
-    'nav-stops':'Hartă','nav-obj':'Obiective',
+    'nav-routes':'Traseu & Hartă','nav-tickets':'Bilete','nav-schedule':'Program','nav-stops':'Hartă','nav-obj':'Obiective',
     'hero-line1':'Descoperă','hero-line2':'Bucureștiul','hero-line3':'altfel',
     'hero-sub':'Urcă pe puntea superioară a autobuzului oficial și explorezi capitala la propriul ritm — 14 stații, Hop On · Hop Off nelimitat.',
     'btn-buy':'🎫 Cumpără bilet','btn-route':'🗺️ Vezi traseul',
-    'pill-days':'🗓 Vineri · Sâmbătă · Duminică','pill-stops':'🚏 14 stații',
-    'pill-interval':'🕐 ~30 min interval','pill-audio':'🔊 Audio ghid inclus',
+    'pill-days':'🗓 Vineri · Sâmbătă · Duminică','pill-stops':'🚏 14 stații','pill-interval':'🕐 ~30 min interval','pill-audio':'🔊 Audio ghid inclus',
+    'trust1-label':'#1 TripAdvisor','trust1-sub':'Tur oficial București',
+    'trust2-label':'14 Stații','trust2-sub':'Circuit complet 90 min',
+    'trust3-label':'3 Pachete','trust3-sub':'1 zi · Weekend · Complet',
+    'trust4-label':'Audio ghid GPS','trust4-sub':'Activare automată · 5 limbi',
+    'trust5-label':'Urmărire live','trust5-sub':'InfoTB · Interval ~30 min',
+    'tick-kicker':'Tarife & Bilete','tick-h2':'Alege <em>pachetul tău</em>',
+    'tick-sub':'Cu cât cumperi mai multe zile, cu atât economisești mai mult. Biletele sunt valabile de la prima validare, fără restricții de stație.',
+    'from-label':'de la','btn-details':'Detalii','btn-buy-now':'Cumpără →',
+    'red-line':'● Linia Roșie','blue-line':'● Linia Albastră',
+    'tk1-dur':'⏱ 24 ore','tk1-name':'Bilet 1 Zi','tk1-desc':'Hop On/Off nelimitat o zi întreagă. Alege Linia Roșie (Vineri) sau Linia Albastră (Weekend).','tk1-child':'Copil 7–14 ani: 35 lei',
+    'tk2-badge':'Econom. 20 lei','tk2-dur':'⏱ 48 ore','tk2-name':'Pachet Weekend','tk2-desc':'Sâmbătă + Duminică pe Linia Albastră. Hop On/Off nelimitat ambele zile.','tk2-child':'Copil 7–14 ani: 60 lei',
+    'tk3-badge':'Econom. 50 lei','tk3-dur':'⏱ 3 zile','tk3-name':'Pachet Complet','tk3-desc':'Vineri + Sâmbătă + Duminică. Ambele linii, cea mai bună valoare.','tk3-child':'Copil 7–14 ani: 80 lei',
+    'free-title':'Sub 7 ani — Gratuit','free-sub':'Fără bilet necesar, însoțit de adult cu bilet valid',
+    'pay-text':'<strong>Unde cumperi:</strong> ① Puncte de vânzare <strong>STB</strong> (numerar sau card) · ② Direct <strong>în autobuz</strong> (card) · ③ <strong>Aplicația BCT</strong> (în curând)',
+    'routes-kicker':'Traseu','routes-h2':'Două linii, <em>tot Bucureștiul</em>',
+    'routes-sub':'Linia Roșie operează <strong>Vineri</strong>, Linia Albastră <strong>Sâmbătă și Duminică</strong>. Circuit complet 90 min — sau coboară oricând cu Hop On/Hop Off.',
+    'rline-red':'Linia Roșie','rline-red-days':'Vineri · Red Line · Calea Victoriei',
+    'rline-blue':'Linia Albastră','rline-blue-days':'Sâmbătă · Duminică · Blue Line · Bd. Magheru',
+    'stat-stops':'Stații','stat-interval':'Interval','stat-circuit':'Circuit',
+    'hoh-tour-t':'Tur complet','hoh-tour-s':'Rămâi în autobuz · 90 min · tot traseul',
+    'hoh-hop-t':'Hop On/Hop Off','hoh-hop-s':'Coboară, explorează, urcă oricând','more-stops':'stații suplimentare',
+    'gall-kicker':'Obiective pe traseu','gall-h2':'Ce vei <em>vedea</em>',
+    'map-kicker':'Hartă interactivă','map-h2':'Traseul <em>live</em>',
+    'map-leg-red':'Linia Roșie · Vineri','map-leg-blue':'Linia Albastră · S–D',
+    'minfo-title':'Informații traseu','minfo-int-bus':'Interval autobuz','minfo-outbound':'Dus (45 min)','minfo-return':'Întors (45 min)','minfo-circuit':'Circuit complet','minfo-stops-key':'Stații',
+    'minfo-prog-title':'Program','minfo-fri':'Vineri','minfo-sat':'Sâmbătă','minfo-sun':'Duminică','minfo-func':'Funcționare',
+    'map-live-text':'Urmărire în timp real la <strong>info.stb.ro</strong> sau în <strong>aplicația BCT</strong>',
+    'sched-kicker':'Program','sched-h2':'Când și cum <em style="color:var(--r)">călătorești</em>',
+    'scard1-t':'Program de funcționare','sk-ore':'Ore funcționare','sk-interval':'Interval','sk-circuit':'Circuit complet','sk-dus':'Dus / Întors','sk-vineri':'Vineri','sk-sat-sun':'Sâmbătă · Duminică',
+    'scard2-t':'Ultimele curse','dep-r-label':'Piața Presei → Unirii','dep-b-label':'Piața Unirii → Presei',
+    'infotb-text':'Urmărește autobuzele în timp real la <strong style="color:var(--t)">info.stb.ro</strong> sau în aplicația BCT',
+    'scard3-t':'Sfaturi practice',
+    'tip1-key':'🌤 Puntea superioară','tip1-val':'Cel mai bun loc','tip2-key':'📸 Foto ideal','tip2-val':'Arcul de Triumf · St. 03',
+    'tip3-key':'🏛 Palatul Parlamentului','tip3-val':'Reducere cu app BCT','tip4-key':'🎧 Audio ghid','tip4-val':'Activare automată GPS','tip5-key':'💳 Plată la bord','tip5-val':'Doar card bancar',
+    'app-kicker':'Aplicația oficială','app-h2':'Bucureștiul<br>în <em>buzunarul tău</em>',
+    'app-sub':'Descarcă aplicația Bucharest City Tour și ai tot ce-ți trebuie pentru o zi perfectă în capitală — de la bilet până la povestea fiecărui obiectiv.',
+    'af1-t':'Cumpără bilet direct din telefon','af1-s':'Plată online, bilet instant — fără coadă, fără ghișeu',
+    'af2-t':'Audio ghid GPS automat','af2-s':'Ce e pe stânga, pe dreapta — se activează singur la fiecare obiectiv',
+    'af3-t':'Hartă live & urmărire autobuz','af3-s':'Unde e autobuzul acum, cât timp mai ai de așteptat',
+    'af4-t':'Bilete reduse la obiective','af4-s':'Palatul Parlamentului, teatre, muzee partenere — reduceri exclusive',
+    'af5-t':'Notificări în timp real','af5-s':'„Autobuzul ajunge în 3 minute la stația ta"',
+    'app-dl-ios':'Descarcă pe','app-dl-android':'Disponibil pe','app-note-text':'⏳ Aplicația BCT — lansare în curând',
+    'stops-kicker':'Traseul complet','stops-h2':'Cele 14 stații','ltg-red':'● Linia Roșie · Vineri','ltg-blue':'● Linia Albastră · S–D',
+    'audio-kicker':'Audio Ghid GPS','audio-h2':'Poveștile orașului<br>în <em>5 limbi</em>',
+    'audio-sub':'Activat automat pe GPS, ghidul îți spune ce e pe stânga și pe dreapta la fiecare obiectiv. Fără căști, fără buton — pornește singur când te apropii.',
+    'audio-app-note':'Disponibil în <strong style="color:var(--t)">Aplicația Bucharest City Tour</strong> — în curând pe App Store și Google Play',
+    'audio-steps-title':'Cum funcționează',
+    'astep1':'Descarcă <strong style="color:var(--t)">Aplicația Bucharest City Tour</strong> pe telefon',
+    'astep2':'Activează GPS-ul și conectează-te la internet (Wi-Fi gratuit în autobuz)',
+    'astep3':'Selectează limba preferată: RO / EN / FR / IT / DE',
+    'astep4':'Apasă Start Tour — ghidul pornește automat la fiecare stație',
+    'astep5':'Ascultă poveștile pe stânga și pe dreapta — arhitectură, istorie, anecdote',
+    'btrip-kicker':'Parteneriat · BTrip Walking Tours','btrip-h2':'Prima zi<br>perfectă',
+    'btrip-sub':'Autobuzul îți arată Bucureștiul de sus. Turul pe jos te duce în poveste. Combinația ideală pentru prima vizită în capitală.',
+    'btrip-rating':'⭐⭐⭐⭐⭐ &nbsp;<strong>#1 tur în București</strong> · 2.400+ recenzii TripAdvisor',
+    'btrip-tip':'Coboară la <strong>Stația 05 · Piața Revoluției</strong> — punct de întâlnire la Ateneul Român',
+    'btrip-btn':'🚶 Rezervă tur walking BTrip',
+    'cbox-bct-sub':'Panoramic · Hop On Off','cbox-btrip-sub':'Walking Tour · Povești',
+    'cres-t':'= Prima zi perfectă în București','cres-s':'recomandat de 2.400+ turiști',
+    'faq-kicker':'Întrebări frecvente','faq-h2':'Informații <em>utile</em>',
+    'faq-q1':'În ce zile funcționează autobuzul?',
+    'faq-a1':'Bucharest City Tour funcționează <strong>Vineri, Sâmbătă și Duminică</strong>. Vineri operează Linia Roșie (Calea Victoriei), iar Sâmbătă și Duminică operează Linia Albastră (Bd. Magheru). Cu Pachetul Complet ai acces în toate trei zile, pe ambele linii.',
+    'faq-q2':'Ce înseamnă Hop On · Hop Off?',
+    'faq-a2':'Cu un singur bilet poți coborî la oricare din cele 14 stații, vizita obiectivul, apoi urca în autobuzul următor — de câte ori dorești, în limita valabilității biletului tău (1, 2 sau 3 zile). Poți și rămâne în autobuz pentru turul complet de 90 de minute.',
+    'faq-q3':'Cum funcționează pachetele de reducere?',
+    'faq-a3':'Cu cât cumperi mai multe zile, cu atât economisești: Pachetul Weekend (2 zile) costă 120 lei în loc de 140 lei (economisești 20 lei). Pachetul Complet (3 zile) costă 160 lei în loc de 210 lei (economisești 50 lei). Copiii 7–14 ani beneficiază de jumătate din prețul adultului la orice pachet.',
+    'faq-q4':'Unde pot cumpăra biletul?',
+    'faq-a4':'① La toate punctele de vânzare STB din București (numerar sau card). ② Direct în autobuz, exclusiv cu card bancar (Visa, Mastercard, Maestro). ③ În curând în aplicația Bucharest City Tour — cumpărare online înainte de a urca în autobuz.',
+    'faq-q5':'Cum funcționează audio ghidul din aplicație?',
+    'faq-a5':'Aplicația Bucharest City Tour folosește GPS-ul telefonului pentru a detecta automat stația la care ești. Când autobuzul se apropie de un obiectiv, ghidul pornește automat și îți spune ce e pe stânga și pe dreapta — în română, engleză, franceză, italiană sau germană.',
+    'faq-q6':'Copiii sub 7 ani plătesc bilet?',
+    'faq-a6':'Nu. Copiii sub 7 ani călătoresc gratuit, fără bilet, însoțiți de un adult care deține bilet valid. Copiii între 7 și 14 ani beneficiază de bilet la jumătate din prețul adultului pentru orice pachet ales.',
+    'sticky-price':'de la 70 lei','sticky-sub':'1 Zi · Weekend · Pachet Complet',
   },
   en:{
-    'nav-routes':'Route & Map','nav-tickets':'Tickets','nav-schedule':'Schedule',
-    'nav-stops':'Map','nav-obj':'Sights',
+    'nav-routes':'Route & Map','nav-tickets':'Tickets','nav-schedule':'Schedule','nav-stops':'Map','nav-obj':'Sights',
     'hero-line1':'Discover','hero-line2':'Bucharest','hero-line3':'differently',
     'hero-sub':'Hop on the upper deck of the official double-decker and explore the capital at your own pace — 14 stops, unlimited Hop On · Hop Off.',
     'btn-buy':'🎫 Buy ticket','btn-route':'🗺️ See route',
-    'pill-days':'🗓 Fri · Sat · Sun','pill-stops':'🚏 14 stops',
-    'pill-interval':'🕐 ~30 min frequency','pill-audio':'🔊 Audio guide included',
+    'pill-days':'🗓 Fri · Sat · Sun','pill-stops':'🚏 14 stops','pill-interval':'🕐 ~30 min frequency','pill-audio':'🔊 Audio guide included',
+    'trust1-label':'#1 TripAdvisor','trust1-sub':'Official Bucharest Tour',
+    'trust2-label':'14 Stops','trust2-sub':'Full circuit 90 min',
+    'trust3-label':'3 Packages','trust3-sub':'1 Day · Weekend · Full',
+    'trust4-label':'GPS Audio Guide','trust4-sub':'Auto-activate · 5 languages',
+    'trust5-label':'Live Tracking','trust5-sub':'InfoTB · ~30 min frequency',
+    'tick-kicker':'Fares & Tickets','tick-h2':'Choose <em>your package</em>',
+    'tick-sub':'The more days you buy, the more you save. Tickets are valid from first validation, with no stop restrictions.',
+    'from-label':'from','btn-details':'Details','btn-buy-now':'Buy Now →',
+    'red-line':'● Red Line','blue-line':'● Blue Line',
+    'tk1-dur':'⏱ 24 hrs','tk1-name':'1 Day Ticket','tk1-desc':'Unlimited Hop On/Off for one full day. Choose the Red Line (Friday) or Blue Line (Weekend).','tk1-child':'Child 7–14 yrs: 35 lei',
+    'tk2-badge':'Save 20 lei','tk2-dur':'⏱ 48 hrs','tk2-name':'Weekend Package','tk2-desc':'Saturday + Sunday on the Blue Line. Unlimited Hop On/Off both days.','tk2-child':'Child 7–14 yrs: 60 lei',
+    'tk3-badge':'Save 50 lei','tk3-dur':'⏱ 3 days','tk3-name':'Complete Package','tk3-desc':'Friday + Saturday + Sunday. Both lines, best value.','tk3-child':'Child 7–14 yrs: 80 lei',
+    'free-title':'Under 7 — Free','free-sub':'No ticket required, accompanied by a valid ticket holder',
+    'pay-text':'<strong>Where to buy:</strong> ① <strong>STB</strong> ticket offices (cash or card) · ② Directly <strong>on the bus</strong> (card) · ③ <strong>BCT App</strong> (coming soon)',
+    'routes-kicker':'Route','routes-h2':'Two lines, <em>all of Bucharest</em>',
+    'routes-sub':'The Red Line operates on <strong>Fridays</strong>, the Blue Line on <strong>Saturdays and Sundays</strong>. Full circuit 90 min — or hop off whenever you like.',
+    'rline-red':'Red Line','rline-red-days':'Friday · Red Line · Calea Victoriei',
+    'rline-blue':'Blue Line','rline-blue-days':'Sat · Sun · Blue Line · Bd. Magheru',
+    'stat-stops':'Stops','stat-interval':'Frequency','stat-circuit':'Circuit',
+    'hoh-tour-t':'Full Tour','hoh-tour-s':'Stay on the bus · 90 min · full route',
+    'hoh-hop-t':'Hop On/Hop Off','hoh-hop-s':'Get off, explore, hop on anytime','more-stops':'more stops',
+    'gall-kicker':'Highlights on route','gall-h2':'What you will <em>see</em>',
+    'map-kicker':'Interactive Map','map-h2':'Live <em>route</em>',
+    'map-leg-red':'Red Line · Friday','map-leg-blue':'Blue Line · Sat–Sun',
+    'minfo-title':'Route Info','minfo-int-bus':'Bus frequency','minfo-outbound':'Outbound (45 min)','minfo-return':'Return (45 min)','minfo-circuit':'Full circuit','minfo-stops-key':'Stops',
+    'minfo-prog-title':'Schedule','minfo-fri':'Friday','minfo-sat':'Saturday','minfo-sun':'Sunday','minfo-func':'Operating hours',
+    'map-live-text':'Live tracking at <strong>info.stb.ro</strong> or in the <strong>BCT app</strong>',
+    'sched-kicker':'Schedule','sched-h2':'When and how you <em style="color:var(--r)">travel</em>',
+    'scard1-t':'Operating Hours','sk-ore':'Operating hours','sk-interval':'Frequency','sk-circuit':'Full circuit','sk-dus':'Outbound / Return','sk-vineri':'Friday','sk-sat-sun':'Sat · Sun',
+    'scard2-t':'Last Departures','dep-r-label':'Presei Sq → Unirii','dep-b-label':'Unirii Sq → Presei',
+    'infotb-text':'Track buses in real time at <strong style="color:var(--t)">info.stb.ro</strong> or in the BCT app',
+    'scard3-t':'Practical Tips',
+    'tip1-key':'🌤 Upper deck','tip1-val':'Best spot on the bus','tip2-key':'📸 Best photo','tip2-val':'Arch of Triumph · Stop 03',
+    'tip3-key':'🏛 Palace of Parliament','tip3-val':'Discount with BCT app','tip4-key':'🎧 Audio guide','tip4-val':'GPS auto-activate','tip5-key':'💳 Pay on board','tip5-val':'Bank card only',
+    'app-kicker':'Official App','app-h2':'Bucharest<br>in <em>your pocket</em>',
+    'app-sub':'Download the Bucharest City Tour app and have everything you need for a perfect day in the capital — from your ticket to the story of every landmark.',
+    'af1-t':'Buy your ticket right from your phone','af1-s':'Pay online, instant ticket — no queue, no counter',
+    'af2-t':'Automatic GPS Audio Guide','af2-s':"What's on the left, on the right — auto-activates at each landmark",
+    'af3-t':'Live Map & Bus Tracking','af3-s':'Where the bus is now, how long until it arrives',
+    'af4-t':'Discounted Attraction Tickets','af4-s':'Palace of Parliament, theatres, partner museums — exclusive discounts',
+    'af5-t':'Real-time Notifications','af5-s':'"Bus arriving in 3 minutes at your stop"',
+    'app-dl-ios':'Download on','app-dl-android':'Get it on','app-note-text':'⏳ BCT App — coming soon',
+    'stops-kicker':'Full Route','stops-h2':'All 14 Stops','ltg-red':'● Red Line · Friday','ltg-blue':'● Blue Line · Sat–Sun',
+    'audio-kicker':'GPS Audio Guide','audio-h2':"The city's stories<br>in <em>5 languages</em>",
+    'audio-sub':"Auto-activated by GPS, the guide tells you what's on the left and right at each landmark. No headphones, no button — it starts by itself as you approach.",
+    'audio-app-note':'Available in the <strong style="color:var(--t)">Bucharest City Tour App</strong> — coming soon on App Store and Google Play',
+    'audio-steps-title':'How it works',
+    'astep1':'Download the <strong style="color:var(--t)">Bucharest City Tour App</strong> on your phone',
+    'astep2':'Enable GPS and connect to the internet (free Wi-Fi on board)',
+    'astep3':'Choose your preferred language: RO / EN / FR / IT / DE',
+    'astep4':'Tap Start Tour — the guide starts automatically at each stop',
+    'astep5':"Listen to stories about what's on both sides — architecture, history, anecdotes",
+    'btrip-kicker':'Partner · BTrip Walking Tours','btrip-h2':'The perfect<br>first day',
+    'btrip-sub':'The bus shows you Bucharest from above. The walking tour takes you into the story. The ideal combination for your first visit.',
+    'btrip-rating':'⭐⭐⭐⭐⭐ &nbsp;<strong>#1 tour in Bucharest</strong> · 2,400+ TripAdvisor reviews',
+    'btrip-tip':'Get off at <strong>Stop 05 · Revolution Square</strong> — meeting point at the Romanian Athenaeum',
+    'btrip-btn':'🚶 Book BTrip Walking Tour',
+    'cbox-bct-sub':'Panoramic · Hop On Off','cbox-btrip-sub':'Walking Tour · Stories',
+    'cres-t':'= The perfect first day in Bucharest','cres-s':'recommended by 2,400+ visitors',
+    'faq-kicker':'Frequently Asked Questions','faq-h2':'Useful <em>information</em>',
+    'faq-q1':'Which days does the bus operate?',
+    'faq-a1':'Bucharest City Tour operates on <strong>Fridays, Saturdays and Sundays</strong>. On Fridays the Red Line runs (Calea Victoriei), and on Saturdays and Sundays the Blue Line runs (Bd. Magheru). With the Complete Package you have access all three days, on both lines.',
+    'faq-q2':'What does Hop On · Hop Off mean?',
+    'faq-a2':'With a single ticket you can get off at any of the 14 stops, visit the landmark, then board the next bus — as many times as you like, within the validity of your ticket (1, 2 or 3 days). You can also stay on the bus for the full 90-minute tour.',
+    'faq-q3':'How do the discount packages work?',
+    'faq-a3':'The more days you buy, the more you save: the Weekend Package (2 days) costs 120 lei instead of 140 lei (save 20 lei). The Complete Package (3 days) costs 160 lei instead of 210 lei (save 50 lei). Children aged 7–14 get half the adult price on any package.',
+    'faq-q4':'Where can I buy a ticket?',
+    'faq-a4':'① At all STB ticket offices in Bucharest (cash or card). ② Directly on the bus, bank card only (Visa, Mastercard, Maestro). ③ Coming soon in the Bucharest City Tour app — buy online before boarding.',
+    'faq-q5':'How does the in-app audio guide work?',
+    'faq-a5':"The Bucharest City Tour app uses your phone's GPS to automatically detect which stop you're at. As the bus approaches a landmark, the guide starts automatically and tells you what's on the left and right — in Romanian, English, French, Italian or German.",
+    'faq-q6':'Do children under 7 pay for a ticket?',
+    'faq-a6':'No. Children under 7 travel free, without a ticket, accompanied by an adult with a valid ticket. Children aged 7–14 get a ticket at half the adult price for any package.',
+    'sticky-price':'from 70 lei','sticky-sub':'1 Day · Weekend · Complete',
   }
 };
-let currentLang='ro';
 document.querySelectorAll('.lang-btn').forEach(btn=>{
   btn.addEventListener('click',function(){
     currentLang=this.dataset.lang;
@@ -1270,9 +1437,11 @@ document.querySelectorAll('.lang-btn').forEach(btn=>{
       const key=el.dataset.i18n;
       if(T[currentLang][key])el.textContent=T[currentLang][key];
     });
-    // restore emoji for btn-buy (textContent strips emoji from innerHTML)
-    document.querySelectorAll('[data-i18n="btn-buy"]').forEach(el=>el.textContent=T[currentLang]['btn-buy']);
-    document.querySelector('[data-i18n="btn-route"]').textContent=T[currentLang]['btn-route'];
+    document.querySelectorAll('[data-i18n-html]').forEach(el=>{
+      const key=el.dataset.i18nHtml;
+      if(T[currentLang][key])el.innerHTML=T[currentLang][key];
+    });
+    renderStops(document.querySelector('.ltg.on').dataset.line);
   });
 });
 
