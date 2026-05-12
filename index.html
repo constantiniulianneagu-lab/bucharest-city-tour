@@ -395,6 +395,42 @@ footer{background:var(--dk);padding:60px 48px 28px}
 .sbtn{background:var(--r);color:var(--wh);border:none;border-radius:10px;padding:10px 18px;font-size:13px;font-weight:700;cursor:pointer;text-decoration:none;transition:background .2s}
 .sbtn:hover{background:var(--rd)}
 
+/* INTERACTIVE ROUTE TIMELINE */
+.itroute-section{background:var(--wh);padding:88px 0}
+.itroute-inner{max-width:1100px;margin:0 auto;padding:0 48px}
+.itroute-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:52px;flex-wrap:wrap;gap:20px}
+.itroute-meta{display:flex;gap:32px;margin-top:16px}
+.irm-stat{display:flex;flex-direction:column}
+.irm-n{font-family:'Montserrat',sans-serif;font-size:30px;font-weight:800;color:var(--dk);line-height:1}
+.irm-l{font-size:11px;color:var(--mu);text-transform:uppercase;letter-spacing:1px;margin-top:4px}
+.itroute-timeline{position:relative;padding-left:68px}
+.itroute-timeline::before{content:'';position:absolute;left:23px;top:24px;bottom:24px;width:4px;background:var(--r);border-radius:2px;transition:background .35s}
+.itroute-timeline.blue::before{background:var(--b)}
+.itr-stop{display:flex;align-items:stretch;margin-bottom:20px;position:relative}
+.itr-stop:last-child{margin-bottom:0}
+.itr-dot{position:absolute;left:-68px;top:0;width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-size:14px;font-weight:800;color:var(--wh);z-index:2;border:3px solid var(--wh);transition:transform .3s,box-shadow .3s}
+.itr-dot.r{background:var(--r);box-shadow:0 2px 12px rgba(227,30,36,.3)}
+.itr-dot.b{background:var(--b);box-shadow:0 2px 12px rgba(26,94,168,.3)}
+.itr-stop.active .itr-dot.r{transform:scale(1.13);box-shadow:0 0 0 8px rgba(227,30,36,.13),0 2px 16px rgba(227,30,36,.35)}
+.itr-stop.active .itr-dot.b{transform:scale(1.13);box-shadow:0 0 0 8px rgba(26,94,168,.13),0 2px 16px rgba(26,94,168,.35)}
+.itr-card{flex:1;background:var(--off);border-radius:14px;overflow:hidden;border:1.5px solid var(--brd);display:flex;min-height:140px;opacity:0;transform:translateX(28px);transition:opacity .55s ease,transform .55s ease,border-color .2s,box-shadow .2s}
+.itr-card.vis{opacity:1;transform:none}
+.itr-card:hover{border-color:rgba(0,0,0,.13);box-shadow:0 8px 32px rgba(0,0,0,.09)}
+.itr-img{width:200px;flex-shrink:0;overflow:hidden}
+.itr-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .45s}
+.itr-card:hover .itr-img img{transform:scale(1.05)}
+.itr-body{padding:20px 24px;flex:1;display:flex;flex-direction:column}
+.itr-name{font-family:'Montserrat',sans-serif;font-size:17px;font-weight:700;color:var(--dk);margin-bottom:2px}
+.itr-en{font-size:11px;color:var(--mu2);margin-bottom:9px}
+.itr-desc{font-size:13px;color:var(--dk2);line-height:1.65;margin-bottom:12px;flex:1}
+.itr-sights{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
+.itr-sight{background:var(--off2);border:1px solid var(--brd);border-radius:4px;padding:3px 8px;font-size:11px;color:var(--mu)}
+.itr-footer{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.itr-tag{display:inline-flex;align-items:center;font-size:11px;font-weight:600;border-radius:5px;padding:4px 10px}
+.itr-tag.r{background:rgba(227,30,36,.08);color:var(--r)}
+.itr-tag.b{background:rgba(26,94,168,.08);color:var(--b)}
+.itr-audio{font-size:11px;color:var(--mu);display:flex;align-items:center;gap:4px}
+
 /* UTILS */
 .rev{opacity:0;transform:translateY(24px);transition:opacity .65s ease,transform .65s ease}
 .rev.in{opacity:1;transform:none}
@@ -411,7 +447,7 @@ footer{background:var(--dk);padding:60px 48px 28px}
   .hero-content{padding:0 20px 64px}
   .trust-inner{flex-wrap:wrap;padding:0 20px}
   .trust-item{flex:calc(50% - 12px);border-right:none;border-bottom:1px solid var(--brd)}
-  .tickets-inner,.routes-inner,.gallery-inner,.map-inner,.sched-inner,.stops-inner,.audio-inner,.btrip-inner,.faq-inner,.app-inner{padding:0 20px}
+  .tickets-inner,.routes-inner,.gallery-inner,.map-inner,.sched-inner,.stops-inner,.audio-inner,.btrip-inner,.faq-inner,.app-inner,.itroute-inner{padding:0 20px}
   .tickets-grid,.routes-grid,.sched-grid{grid-template-columns:1fr}
   .stops-grid{grid-template-columns:1fr 1fr}
   .map-wrap{grid-template-columns:1fr}
@@ -426,6 +462,13 @@ footer{background:var(--dk);padding:60px 48px 28px}
   .hoh-row{grid-template-columns:1fr}
   .tickets-bottom{grid-template-columns:1fr}
   #sticky{left:16px;right:16px;border-radius:12px;bottom:16px}
+  .itroute-timeline{padding-left:52px}
+  .itroute-timeline::before{left:17px}
+  .itr-dot{left:-52px;width:36px;height:36px;font-size:12px;border-width:2px}
+  .itr-card{flex-direction:column}
+  .itr-img{width:100%;height:150px}
+  .itroute-meta{gap:20px}
+  .irm-n{font-size:24px}
 }
 @media(max-width:580px){
   .stops-grid{grid-template-columns:1fr}
@@ -438,10 +481,10 @@ footer{background:var(--dk);padding:60px 48px 28px}
 <nav>
   <a href="#top"><img src="logo1.png" alt="Bucharest City Tour" style="height:44px"></a>
   <div class="nav-links">
-    <a href="#routes" data-i18n="nav-routes">Traseu & Hartă</a>
+    <a href="#routes" data-i18n="nav-routes">Traseu & Stații</a>
     <a href="#tickets" data-i18n="nav-tickets">Bilete</a>
     <a href="#schedule" data-i18n="nav-schedule">Program</a>
-    <a href="#stops" data-i18n="nav-stops">Hartă</a>
+    <a href="#map" data-i18n="nav-stops">Hartă</a>
     <a href="#gallery" data-i18n="nav-obj">Obiective</a>
   </div>
   <div class="nav-right">
@@ -460,10 +503,10 @@ footer{background:var(--dk);padding:60px 48px 28px}
     <button class="mob-menu-close" id="mob-close">✕</button>
   </div>
   <div class="mob-menu-links">
-    <a href="#routes" data-i18n="nav-routes">Traseu & Hartă</a>
+    <a href="#routes" data-i18n="nav-routes">Traseu & Stații</a>
     <a href="#tickets" data-i18n="nav-tickets">Bilete</a>
     <a href="#schedule" data-i18n="nav-schedule">Program</a>
-    <a href="#stops" data-i18n="nav-stops">Hartă</a>
+    <a href="#map" data-i18n="nav-stops">Hartă</a>
     <a href="#gallery" data-i18n="nav-obj">Obiective</a>
   </div>
   <div class="mob-menu-footer">
@@ -628,57 +671,25 @@ footer{background:var(--dk);padding:60px 48px 28px}
   </div>
 </div>
 
-<!-- ROUTES -->
-<section class="routes-section" id="routes">
-  <div class="routes-inner">
-    <div class="rev">
-      <div class="sec-kicker">Traseu</div>
-      <h2 class="sec-h2">Două linii, <em>tot Bucureștiul</em></h2>
-      <p class="sec-sub" style="margin-bottom:0">Linia Roșie operează <strong>Vineri</strong>, Linia Albastră <strong>Sâmbătă și Duminică</strong>. Circuit complet 90 min — sau coboară oricând cu Hop On/Hop Off.</p>
-    </div>
-    <div class="routes-grid rev">
-
-      <!-- RED LINE -->
-      <div class="rcard red">
-        <div class="rcard-head">
-          <div class="rcard-title">Linia Roșie</div>
-          <div class="rcard-days">Vineri · Red Line · Calea Victoriei</div>
-        </div>
-        <div class="rcard-body">
-          <div class="rcard-stats">
-            <div class="rst"><div class="rst-n">14</div><div class="rst-l">Stații</div></div>
-            <div class="rst"><div class="rst-n">~30'</div><div class="rst-l">Interval</div></div>
-            <div class="rst"><div class="rst-n">90'</div><div class="rst-l">Circuit</div></div>
-          </div>
-          <div class="hoh-row">
-            <div class="hoh"><div class="hoh-ico">🚌</div><div><div class="hoh-t">Tur complet</div><div class="hoh-s">Rămâi în autobuz · 90 min · tot traseul</div></div></div>
-            <div class="hoh"><div class="hoh-ico">🚶</div><div><div class="hoh-t">Hop On/Hop Off</div><div class="hoh-s">Coboară, explorează, urcă oricând</div></div></div>
-          </div>
-          <ul class="rcard-stops" id="red-stops"></ul>
+<!-- INTERACTIVE ROUTE TIMELINE -->
+<section class="itroute-section" id="routes">
+  <div class="itroute-inner">
+    <div class="itroute-header rev">
+      <div>
+        <div class="sec-kicker">Traseu complet</div>
+        <h2 class="sec-h2">Cele <em>14 stații</em></h2>
+        <div class="itroute-meta">
+          <div class="irm-stat"><div class="irm-n">14</div><div class="irm-l">Stații</div></div>
+          <div class="irm-stat"><div class="irm-n">90'</div><div class="irm-l">Circuit</div></div>
+          <div class="irm-stat"><div class="irm-n">~30'</div><div class="irm-l">Interval</div></div>
         </div>
       </div>
-
-      <!-- BLUE LINE -->
-      <div class="rcard blue">
-        <div class="rcard-head">
-          <div class="rcard-title">Linia Albastră</div>
-          <div class="rcard-days">Sâmbătă · Duminică · Blue Line · Bd. Magheru</div>
-        </div>
-        <div class="rcard-body">
-          <div class="rcard-stats">
-            <div class="rst"><div class="rst-n">14</div><div class="rst-l">Stații</div></div>
-            <div class="rst"><div class="rst-n">~30'</div><div class="rst-l">Interval</div></div>
-            <div class="rst"><div class="rst-n">90'</div><div class="rst-l">Circuit</div></div>
-          </div>
-          <div class="hoh-row">
-            <div class="hoh"><div class="hoh-ico">🚌</div><div><div class="hoh-t">Tur complet</div><div class="hoh-s">Rămâi în autobuz · 90 min · tot traseul</div></div></div>
-            <div class="hoh"><div class="hoh-ico">🚶</div><div><div class="hoh-t">Hop On/Hop Off</div><div class="hoh-s">Coboară, explorează, urcă oricând</div></div></div>
-          </div>
-          <ul class="rcard-stops" id="blue-stops"></ul>
-        </div>
+      <div class="ltgl">
+        <button class="ltg on r" data-line="red">● Linia Roșie · Vineri</button>
+        <button class="ltg b" data-line="blue">● Linia Albastră · S–D</button>
       </div>
-
     </div>
+    <div class="itroute-timeline" id="route-timeline"></div>
   </div>
 </section>
 
@@ -737,7 +748,7 @@ footer{background:var(--dk);padding:60px 48px 28px}
 </section>
 
 <!-- MAP -->
-<section class="map-section">
+<section class="map-section" id="map">
   <div class="map-inner">
     <div class="map-head rev">
       <div>
@@ -882,23 +893,6 @@ footer{background:var(--dk);padding:60px 48px 28px}
         </div>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- STOPS DETAIL -->
-<section class="stops-section" id="stops">
-  <div class="stops-inner">
-    <div class="stops-head rev">
-      <div>
-        <div class="stops-kicker">Traseul complet</div>
-        <div class="stops-h2">Cele 14 stații</div>
-      </div>
-      <div class="ltgl">
-        <button class="ltg on r" data-line="red">● Linia Roșie · Vineri</button>
-        <button class="ltg b" data-line="blue">● Linia Albastră · S–D</button>
-      </div>
-    </div>
-    <div class="stops-grid rev" id="stops-grid"></div>
   </div>
 </section>
 
@@ -1160,42 +1154,60 @@ const STOPS={
   ]
 };
 
-// Route stop lists
-['red','blue'].forEach(line=>{
-  const ul=document.getElementById(line+'-stops');
-  STOPS[line].slice(0,8).forEach(s=>{
-    ul.innerHTML+=`<li class="rs-item"><span class="rs-dot">${s.n}</span><div><div class="rs-name">${s.name}</div><div class="rs-en">${s.en}</div></div></li>`;
-  });
-  if(STOPS[line].length>8)ul.innerHTML+=`<li class="rs-item" style="color:var(--mu);font-size:12px;padding:8px 0">+ ${STOPS[line].length-8} stații suplimentare →</li>`;
-});
-
-// Stops detail
-function renderStops(line){
+// Interactive route timeline
+let timelineObserver = null;
+function renderTimeline(line){
   const cls=line==='red'?'r':'b';
-  document.getElementById('stops-grid').innerHTML=STOPS[line].map(s=>`
-    <div class="sc">
-      <div class="sc-img-wrap">
-        <img src="${s.img}" alt="${s.name}" loading="lazy">
-        <div class="sc-overlay"></div>
-        <div class="sc-n ${cls}">${s.n}</div>
-        <div class="sc-audio">🎧 Audio ghid</div>
-      </div>
-      <div class="sc-body">
-        <div class="sc-name">${s.name}</div>
-        <div class="sc-en">${s.en}</div>
-        <div class="sc-desc">${s.desc}</div>
-        <div class="sc-sights">${s.sights.map(si=>`<span class="sc-sight">📍 ${si}</span>`).join('')}</div>
-        ${s.tag?`<div class="sc-tag">${s.tag}</div>`:''}
+  const tl=document.getElementById('route-timeline');
+  tl.className='itroute-timeline'+(line==='blue'?' blue':'');
+  tl.innerHTML=STOPS[line].map(s=>`
+    <div class="itr-stop" data-n="${s.n}">
+      <div class="itr-dot ${cls}">${s.n}</div>
+      <div class="itr-card">
+        <div class="itr-img"><img src="${s.img}" alt="${s.name}" loading="lazy"></div>
+        <div class="itr-body">
+          <div class="itr-name">${s.name}</div>
+          <div class="itr-en">${s.en}</div>
+          <div class="itr-desc">${s.desc}</div>
+          <div class="itr-sights">${s.sights.map(si=>`<span class="itr-sight">📍 ${si}</span>`).join('')}</div>
+          <div class="itr-footer">
+            ${s.tag?`<span class="itr-tag ${cls}">${s.tag}</span>`:''}
+            <span class="itr-audio">🎧 Audio ghid</span>
+          </div>
+        </div>
       </div>
     </div>`).join('');
+
+  if(timelineObserver)timelineObserver.disconnect();
+  timelineObserver=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting)e.target.querySelector('.itr-card').classList.add('vis')});
+  },{threshold:0.15});
+  document.querySelectorAll('.itr-stop').forEach(s=>timelineObserver.observe(s));
+  updateActiveStop();
 }
-renderStops('red');
+renderTimeline('red');
+
+// Active dot tracking on scroll
+function updateActiveStop(){
+  const stops=document.querySelectorAll('.itr-stop');
+  let active=null,minDist=Infinity;
+  stops.forEach(s=>{
+    const r=s.getBoundingClientRect();
+    const dist=Math.abs(r.top+r.height/2-window.innerHeight*0.42);
+    if(dist<minDist){minDist=dist;active=s;}
+  });
+  stops.forEach(s=>s.classList.remove('active'));
+  if(active)active.classList.add('active');
+}
+window.addEventListener('scroll',updateActiveStop,{passive:true});
+
+// Line toggle
 document.querySelectorAll('.ltg').forEach(btn=>{
   btn.addEventListener('click',function(){
     document.querySelectorAll('.ltg').forEach(b=>b.classList.remove('on','r','b'));
     const line=this.dataset.line;
     this.classList.add('on',line==='red'?'r':'b');
-    renderStops(line);
+    renderTimeline(line);
     redPoly.setStyle({opacity:line==='red'?.85:.2});
     bluePoly.setStyle({opacity:line==='blue'?.85:.2});
   });
@@ -1242,7 +1254,7 @@ mobMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeMenu));
 // i18n
 const T={
   ro:{
-    'nav-routes':'Traseu & Hartă','nav-tickets':'Bilete','nav-schedule':'Program',
+    'nav-routes':'Traseu & Stații','nav-tickets':'Bilete','nav-schedule':'Program',
     'nav-stops':'Hartă','nav-obj':'Obiective',
     'hero-line1':'Descoperă','hero-line2':'Bucureștiul','hero-line3':'altfel',
     'hero-sub':'Urcă pe puntea superioară a autobuzului oficial și explorezi capitala la propriul ritm — 14 stații, Hop On · Hop Off nelimitat.',
@@ -1251,7 +1263,7 @@ const T={
     'pill-interval':'🕐 ~30 min interval','pill-audio':'🔊 Audio ghid inclus',
   },
   en:{
-    'nav-routes':'Route & Map','nav-tickets':'Tickets','nav-schedule':'Schedule',
+    'nav-routes':'Route & Stops','nav-tickets':'Tickets','nav-schedule':'Schedule',
     'nav-stops':'Map','nav-obj':'Sights',
     'hero-line1':'Discover','hero-line2':'Bucharest','hero-line3':'differently',
     'hero-sub':'Hop on the upper deck of the official double-decker and explore the capital at your own pace — 14 stops, unlimited Hop On · Hop Off.',
