@@ -24,7 +24,7 @@ html{scroll-behavior:smooth}
 body{font-family:'Inter',sans-serif;color:var(--dk);background:var(--wh);overflow-x:hidden}
 
 /* NAV */
-nav{position:fixed;top:0;z-index:200;background:transparent;border-bottom:1px solid transparent;height:68px;padding:0 48px;display:flex;align-items:center;justify-content:space-between;transition:background .4s,border-color .4s,box-shadow .4s}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;background:transparent;border-bottom:1px solid transparent;height:68px;padding:0 48px;display:flex;align-items:center;justify-content:space-between;transition:background .4s,border-color .4s,box-shadow .4s}
 nav.scrolled{background:var(--dk);border-bottom:1px solid rgba(255,255,255,.07);box-shadow:0 2px 20px rgba(0,0,0,.3)}
 .nav-logo img{height:40px;object-fit:contain}
 .nav-right{display:flex;align-items:center;gap:12px}
@@ -445,6 +445,7 @@ footer{background:var(--dk);padding:60px 48px 28px}
   .stops-grid{grid-template-columns:1fr}
 }
 @media(max-width:600px){
+  nav{padding:0 20px}
   .tickets-nav{display:flex}
   .tickets-scroll-wrap{overflow:hidden;margin:0 -20px;padding:0 20px}
   .tcard{width:calc(100vw - 40px)}
