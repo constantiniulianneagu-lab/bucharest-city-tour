@@ -24,43 +24,40 @@ html{scroll-behavior:smooth}
 body{font-family:'Inter',sans-serif;color:var(--dk);background:var(--wh);overflow-x:hidden}
 
 /* NAV */
-nav{position:sticky;top:0;z-index:200;background:var(--dk);border-bottom:1px solid rgba(255,255,255,.07);height:68px;padding:0 48px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 20px rgba(0,0,0,.3)}
+nav{position:fixed;top:0;z-index:200;background:transparent;border-bottom:1px solid transparent;height:68px;padding:0 48px;display:flex;align-items:center;justify-content:space-between;transition:background .4s,border-color .4s,box-shadow .4s}
+nav.scrolled{background:var(--dk);border-bottom:1px solid rgba(255,255,255,.07);box-shadow:0 2px 20px rgba(0,0,0,.3)}
 .nav-logo img{height:40px;object-fit:contain}
-.nav-links{display:flex;gap:28px}
-.nav-links a{text-decoration:none;font-size:13px;font-weight:500;color:rgba(255,255,255,.65);transition:color .2s;letter-spacing:.2px}
-.nav-links a:hover{color:var(--y)}
 .nav-right{display:flex;align-items:center;gap:12px}
 .live-dot{width:8px;height:8px;border-radius:50%;background:#2ecc71;animation:pulse 1.5s infinite}
 
 /* LANG TOGGLE */
-.lang-toggle{display:flex;align-items:center;gap:2px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:6px;padding:3px}
-.lang-btn{background:none;border:none;cursor:pointer;font-size:12px;font-weight:700;color:rgba(255,255,255,.4);padding:3px 8px;border-radius:4px;transition:all .2s;font-family:'Montserrat',sans-serif;letter-spacing:.5px}
-.lang-btn.active{background:rgba(255,255,255,.12);color:var(--wh)}
+.lang-toggle{display:flex;align-items:center;gap:2px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:6px;padding:3px;transition:background .4s,border-color .4s}
+nav.scrolled .lang-toggle{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.15)}
+.lang-btn{background:none;border:none;cursor:pointer;font-size:12px;font-weight:700;color:rgba(255,255,255,.5);padding:3px 8px;border-radius:4px;transition:all .2s;font-family:'Montserrat',sans-serif;letter-spacing:.5px}
+.lang-btn.active{background:rgba(255,255,255,.15);color:var(--wh)}
 
 /* HAMBURGER */
-.ham-btn{display:flex;flex-direction:column;gap:5px;cursor:pointer;background:none;border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:9px 10px;transition:border-color .2s}
+.ham-btn{display:flex;flex-direction:column;gap:5px;cursor:pointer;background:none;border:1px solid rgba(255,255,255,.28);border-radius:8px;padding:9px 10px;transition:border-color .2s}
 .ham-btn:hover{border-color:var(--y)}
 .ham-btn span{display:block;width:20px;height:2px;background:var(--wh);border-radius:2px;transition:all .3s}
 .ham-btn.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
 .ham-btn.open span:nth-child(2){opacity:0;transform:translateX(8px)}
 .ham-btn.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
 
-/* MOBILE MENU */
-.mob-menu{position:fixed;inset:0;background:var(--wh);z-index:500;display:flex;flex-direction:column;padding:0;opacity:0;pointer-events:none;transition:opacity .3s;transform:translateY(-8px)}
+/* MOBILE MENU — dark */
+.mob-menu{position:fixed;inset:0;background:#0f0f0f;z-index:500;display:flex;flex-direction:column;padding:0;opacity:0;pointer-events:none;transition:opacity .35s;transform:translateY(-10px)}
 .mob-menu.open{opacity:1;pointer-events:auto;transform:none}
-.mob-menu-top{display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:72px;border-bottom:1px solid var(--brd)}
-.mob-menu-close{background:none;border:1px solid var(--brd);border-radius:8px;width:40px;height:40px;font-size:18px;cursor:pointer;color:var(--mu);display:flex;align-items:center;justify-content:center;transition:all .2s}
-.mob-menu-close:hover{border-color:var(--r);color:var(--r)}
-.mob-menu-links{padding:8px 0;flex:1}
-.mob-menu-links a{display:flex;align-items:center;justify-content:space-between;font-family:'Montserrat',sans-serif;font-size:22px;font-weight:700;color:var(--dk);text-decoration:none;padding:18px 28px;border-bottom:1px solid var(--off2);transition:color .15s,background .15s}
-.mob-menu-links a::after{content:'→';font-size:16px;color:var(--mu2);transition:transform .2s,color .2s}
-.mob-menu-links a:hover{color:var(--r);background:var(--off)}
-.mob-menu-links a:hover::after{transform:translateX(4px);color:var(--r)}
+.mob-menu-top{display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:72px;border-bottom:1px solid rgba(255,255,255,.07)}
+.mob-menu-close{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;width:40px;height:40px;font-size:16px;cursor:pointer;color:rgba(255,255,255,.45);display:flex;align-items:center;justify-content:center;transition:all .2s}
+.mob-menu-close:hover{border-color:var(--y);color:var(--y)}
+.mob-menu-links{padding:12px 0;flex:1;overflow-y:auto}
+.mob-menu-links a{display:flex;align-items:center;justify-content:space-between;font-family:'Montserrat',sans-serif;font-size:19px;font-weight:500;letter-spacing:.3px;color:rgba(255,255,255,.6);text-decoration:none;padding:17px 28px;border-bottom:1px solid rgba(255,255,255,.05);transition:color .2s,background .2s}
+.mob-menu-links a::after{content:'→';font-size:14px;color:rgba(255,255,255,.18);transition:transform .2s,color .2s}
+.mob-menu-links a:hover{color:var(--y);background:rgba(255,255,255,.03)}
+.mob-menu-links a:hover::after{transform:translateX(5px);color:var(--y)}
 .mob-menu-links a:last-child{border-bottom:none}
-.mob-menu-footer{padding:24px 28px;border-top:1px solid var(--brd)}
-.mob-cta{display:block;background:var(--r);color:var(--wh);text-align:center;border-radius:10px;padding:16px;font-size:16px;font-weight:700;text-decoration:none;font-family:'Montserrat',sans-serif;box-shadow:0 4px 16px rgba(227,30,36,.3)}
-
-@media(max-width:960px){.nav-links{display:none}}
+.mob-menu-footer{padding:24px 28px;border-top:1px solid rgba(255,255,255,.07)}
+.mob-cta{display:block;background:var(--r);color:var(--wh);text-align:center;border-radius:10px;padding:16px;font-size:15px;font-weight:700;text-decoration:none;font-family:'Montserrat',sans-serif;box-shadow:0 4px 20px rgba(227,30,36,.35);letter-spacing:.3px}
 
 /* HERO */
 .hero{position:relative;height:100vh;min-height:620px;overflow:hidden;display:flex;align-items:flex-end}
@@ -103,7 +100,7 @@ nav{position:sticky;top:0;z-index:200;background:var(--dk);border-bottom:1px sol
 .tickets-inner{max-width:1140px;margin:0 auto;padding:0 48px}
 .tickets-scroll-wrap{margin:0 -48px;padding:0 48px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
 .tickets-scroll-wrap::-webkit-scrollbar{display:none}
-.tickets-grid{display:flex;gap:20px;padding-bottom:8px;width:max-content}
+.tickets-grid{display:flex;gap:20px;padding-bottom:8px;width:max-content;transition:transform .35s cubic-bezier(.4,0,.2,1)}
 .tcard{background:var(--wh);border-radius:14px;border:2px solid var(--brd);overflow:hidden;transition:transform .2s,box-shadow .2s;width:300px;flex-shrink:0;display:flex;flex-direction:column}
 .tcard:hover{transform:translateY(-4px);box-shadow:0 12px 36px rgba(0,0,0,.1)}
 .tcard.featured{border-color:var(--y)}
@@ -152,7 +149,8 @@ nav{position:sticky;top:0;z-index:200;background:var(--dk);border-bottom:1px sol
 /* ROUTES */
 .routes-section{background:var(--wh);padding:88px 0}
 .routes-inner{max-width:1200px;margin:0 auto;padding:0 48px}
-.routes-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:52px}
+.routes-toggle{margin:32px 0 24px}
+.routes-grid{display:grid;grid-template-columns:1fr;gap:24px}
 .rcard{border-radius:var(--rad);overflow:hidden;border:2px solid var(--brd);transition:transform .2s,box-shadow .2s}
 .rcard:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.09)}
 .rcard-head{padding:28px;display:flex;flex-direction:column;gap:4px}
@@ -413,6 +411,14 @@ footer{background:var(--dk);padding:60px 48px 28px}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.7)}}
 
 /* RESPONSIVE */
+/* TICKET NAV (mobile) */
+.tickets-nav{display:none;justify-content:center;align-items:center;gap:20px;margin-top:18px}
+.tnav-btn{background:var(--wh);border:1.5px solid var(--brd);border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;color:var(--dk);transition:all .2s;user-select:none}
+.tnav-btn:hover{border-color:var(--y);background:var(--y)}
+.tnav-dots{display:flex;gap:7px;align-items:center}
+.tdot{width:8px;height:8px;border-radius:50%;background:var(--brd);transition:all .3s}
+.tdot.on{background:var(--r);width:22px;border-radius:4px}
+
 @media(max-width:960px){
   .topbar,.nav-links,.nav-track{display:none}
   nav{padding:0 20px}
@@ -438,6 +444,11 @@ footer{background:var(--dk);padding:60px 48px 28px}
 @media(max-width:580px){
   .stops-grid{grid-template-columns:1fr}
 }
+@media(max-width:600px){
+  .tickets-nav{display:flex}
+  .tickets-scroll-wrap{overflow:hidden;margin:0 -20px;padding:0 20px}
+  .tcard{width:calc(100vw - 40px)}
+}
 </style>
 </head>
 <body>
@@ -445,13 +456,6 @@ footer{background:var(--dk);padding:60px 48px 28px}
 <!-- NAV -->
 <nav>
   <a href="#top"><img src="logo1.png" alt="Bucharest City Tour" style="height:44px"></a>
-  <div class="nav-links">
-    <a href="#routes" data-i18n="nav-routes">Traseu & Hartă</a>
-    <a href="#tickets" data-i18n="nav-tickets">Bilete</a>
-    <a href="#schedule" data-i18n="nav-schedule">Program</a>
-    <a href="#stops" data-i18n="nav-stops">Hartă</a>
-    <a href="#gallery" data-i18n="nav-obj">Obiective</a>
-  </div>
   <div class="nav-right">
     <div class="lang-toggle">
       <button class="lang-btn active" data-lang="ro">RO</button>
@@ -505,10 +509,6 @@ footer{background:var(--dk);padding:60px 48px 28px}
 <!-- TRUST BAND -->
 <div class="trust-band">
   <div class="trust-inner">
-    <div class="trust-item">
-      <div class="ti-icon">🏆</div>
-      <div><div class="ti-label" data-i18n="trust1-label">#1 TripAdvisor</div><div class="ti-sub" data-i18n="trust1-sub">Tur oficial București</div></div>
-    </div>
     <div class="trust-item">
       <div class="ti-icon">📍</div>
       <div><div class="ti-label" data-i18n="trust2-label">14 Stații</div><div class="ti-sub" data-i18n="trust2-sub">Circuit complet 90 min</div></div>
@@ -614,6 +614,15 @@ footer{background:var(--dk);padding:60px 48px 28px}
 
     </div>
     </div>
+    <div class="tickets-nav">
+      <button class="tnav-btn" id="tk-prev">←</button>
+      <div class="tnav-dots">
+        <div class="tdot on"></div>
+        <div class="tdot"></div>
+        <div class="tdot"></div>
+      </div>
+      <button class="tnav-btn" id="tk-next">→</button>
+    </div>
 
     <div class="tickets-bottom rev">
       <div class="tc-free">
@@ -659,10 +668,16 @@ footer{background:var(--dk);padding:60px 48px 28px}
       <h2 class="sec-h2" data-i18n-html="routes-h2">Două linii, <em>tot Bucureștiul</em></h2>
       <p class="sec-sub" style="margin-bottom:0" data-i18n-html="routes-sub">Linia Roșie operează <strong>Vineri</strong>, Linia Albastră <strong>Sâmbătă și Duminică</strong>. Circuit complet 90 min — sau coboară oricând cu Hop On/Hop Off.</p>
     </div>
+    <div class="routes-toggle rev">
+      <div class="ltgl">
+        <button class="ltg on r" data-rline="red" data-i18n="ltg-red">● Linia Roșie · Vineri</button>
+        <button class="ltg b" data-rline="blue" data-i18n="ltg-blue">● Linia Albastră · S–D</button>
+      </div>
+    </div>
     <div class="routes-grid rev">
 
       <!-- RED LINE -->
-      <div class="rcard red">
+      <div class="rcard red" id="rcard-red">
         <div class="rcard-head">
           <div class="rcard-title" data-i18n="rline-red">Linia Roșie</div>
           <div class="rcard-days" data-i18n="rline-red-days">Vineri · Red Line · Calea Victoriei</div>
@@ -682,7 +697,7 @@ footer{background:var(--dk);padding:60px 48px 28px}
       </div>
 
       <!-- BLUE LINE -->
-      <div class="rcard blue">
+      <div class="rcard blue" id="rcard-blue" style="display:none">
         <div class="rcard-head">
           <div class="rcard-title" data-i18n="rline-blue">Linia Albastră</div>
           <div class="rcard-days" data-i18n="rline-blue-days">Sâmbătă · Duminică · Blue Line · Bd. Magheru</div>
@@ -711,32 +726,6 @@ footer{background:var(--dk);padding:60px 48px 28px}
     <div class="rev">
       <div class="sec-kicker" data-i18n="gall-kicker">Obiective pe traseu</div>
       <h2 class="sec-h2" data-i18n-html="gall-h2">Ce vei <em>vedea</em></h2>
-    </div>
-    <div class="photo-grid rev">
-      <div class="pgcard big">
-        <img src="https://freetourinbucharest.com/wp-content/uploads/2025/02/parliament-palace-bucharest.jpg" alt="Palatul Parlamentului">
-        <div class="pg-cap"><span class="pg-num">Stația 07</span><div class="pg-name">Palatul Parlamentului</div><div class="pg-sub">A 2-a cea mai mare clădire admin. din lume</div></div>
-      </div>
-      <div class="pgcard sm">
-        <img src="https://freetourinbucharest.com/wp-content/uploads/2020/07/TRIUMPHAL-ARCH-BUCHAREST.jpg" alt="Arcul de Triumf">
-        <div class="pg-cap"><span class="pg-num">Stația 03</span><div class="pg-name">Arcul de Triumf</div><div class="pg-sub">Cel mai fotografiat obiectiv</div></div>
-      </div>
-      <div class="pgcard sm">
-        <img src="https://freetourinbucharest.com/wp-content/uploads/2024/08/BMR5109_1.jpg" alt="Piața Revoluției">
-        <div class="pg-cap"><span class="pg-num">Stația 05</span><div class="pg-name">Piața Revoluției</div><div class="pg-sub">Ateneul Român · 1989</div></div>
-      </div>
-      <div class="pgcard sm">
-        <img src="https://freetourinbucharest.com/wp-content/uploads/2021/01/Village-Museums-Bucharest.jpg" alt="Muzeul Satului">
-        <div class="pg-cap"><span class="pg-num">Stația 02</span><div class="pg-name">Muzeul Satului</div><div class="pg-sub">Case tradiționale · Parcul Herăstrău</div></div>
-      </div>
-      <div class="pgcard sm">
-        <img src="https://freetourinbucharest.com/wp-content/uploads/2025/12/Calea-Victoriei.webp" alt="Calea Victoriei">
-        <div class="pg-cap"><span class="pg-num">Stația 04–06</span><div class="pg-name">Calea Victoriei</div><div class="pg-sub">Belle Époque · Piața Victoriei</div></div>
-      </div>
-      <div class="pgcard sm">
-        <img src="https://freetourinbucharest.com/wp-content/uploads/2025/02/old-town-bucharest-city.jpg" alt="Centrul Vechi">
-        <div class="pg-cap"><span class="pg-num">Stația 08–09</span><div class="pg-name">Centrul Vechi</div><div class="pg-sub">Piața Unirii · Universitate</div></div>
-      </div>
     </div>
     <div class="strip-wrap rev">
       <div class="pstrip">
@@ -767,9 +756,9 @@ footer{background:var(--dk);padding:60px 48px 28px}
         <div class="sec-kicker" data-i18n="map-kicker">Hartă interactivă</div>
         <div class="sec-h2" data-i18n-html="map-h2">Traseul <em>live</em></div>
       </div>
-      <div class="map-legend">
-        <div class="ml"><div class="ml-line r"></div><span data-i18n="map-leg-red">Linia Roșie · Vineri</span></div>
-        <div class="ml"><div class="ml-line b"></div><span data-i18n="map-leg-blue">Linia Albastră · S–D</span></div>
+      <div class="ltgl">
+        <button class="ltg on r" data-mapline="both" data-i18n="map-leg-red" style="min-width:140px">● Linia Roșie · Vineri</button>
+        <button class="ltg b" data-mapline="blue" data-i18n="map-leg-blue" style="min-width:140px">● Linia Albastră · S–D</button>
       </div>
     </div>
     <div class="map-wrap rev">
@@ -948,28 +937,6 @@ footer{background:var(--dk);padding:60px 48px 28px}
       <div class="astep"><div class="asn">3</div><div class="ast" data-i18n="astep3">Selectează limba preferată: RO / EN / FR / IT / DE</div></div>
       <div class="astep"><div class="asn">4</div><div class="ast" data-i18n="astep4">Apasă Start Tour — ghidul pornește automat la fiecare stație</div></div>
       <div class="astep"><div class="asn">5</div><div class="ast" data-i18n="astep5">Ascultă poveștile pe stânga și pe dreapta — arhitectură, istorie, anecdote</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- BTRIP -->
-<section class="btrip-section">
-  <div class="btrip-inner">
-    <div class="rev">
-      <div class="bt-kicker" data-i18n="btrip-kicker">Parteneriat · BTrip Walking Tours</div>
-      <h2 class="bt-h2" data-i18n-html="btrip-h2">Prima zi<br>perfectă</h2>
-      <p class="bt-sub" data-i18n="btrip-sub">Autobuzul îți arată Bucureștiul de sus. Turul pe jos te duce în poveste. Combinația ideală pentru prima vizită în capitală.</p>
-      <div class="bt-rating" data-i18n-html="btrip-rating">⭐⭐⭐⭐⭐ &nbsp;<strong>#1 tur în București</strong> · 2.400+ recenzii TripAdvisor</div>
-      <div class="bt-tip">📍 <span data-i18n-html="btrip-tip">Coboară la <strong>Stația 05 · Piața Revoluției</strong> — punct de întâlnire la Ateneul Român</span></div>
-      <a href="https://freetourinbucharest.com/bucharest-essential-tour/" target="_blank" class="btn-dk" data-i18n="btrip-btn">🚶 Rezervă tur walking BTrip</a>
-    </div>
-    <div class="ccard rev">
-      <div class="ccard-row">
-        <div class="cbox"><div class="cico">🚌</div><div class="clbl">BCT</div><div class="clbl2" data-i18n="cbox-bct-sub">Panoramic · Hop On Off</div></div>
-        <div class="cplus">+</div>
-        <div class="cbox"><div class="cico">🚶</div><div class="clbl">BTrip</div><div class="clbl2" data-i18n="cbox-btrip-sub">Walking Tour · Povești</div></div>
-      </div>
-      <div class="cres"><div class="cres-t" data-i18n="cres-t">= Prima zi perfectă în București</div><div class="cres-s" data-i18n="cres-s">recomandat de 2.400+ turiști</div></div>
     </div>
   </div>
 </section>
@@ -1216,14 +1183,23 @@ function renderStops(line){
     </div>`).join('');
 }
 renderStops('red');
-document.querySelectorAll('.ltg').forEach(btn=>{
+document.querySelectorAll('#stops .ltg').forEach(btn=>{
   btn.addEventListener('click',function(){
-    document.querySelectorAll('.ltg').forEach(b=>b.classList.remove('on','r','b'));
+    document.querySelectorAll('#stops .ltg').forEach(b=>b.classList.remove('on','r','b'));
     const line=this.dataset.line;
     this.classList.add('on',line==='red'?'r':'b');
     renderStops(line);
-    redPoly.setStyle({opacity:line==='red'?.85:.2});
-    bluePoly.setStyle({opacity:line==='blue'?.85:.2});
+  });
+});
+
+// Route card toggle
+document.querySelectorAll('.routes-toggle .ltg').forEach(btn=>{
+  btn.addEventListener('click',function(){
+    document.querySelectorAll('.routes-toggle .ltg').forEach(b=>b.classList.remove('on','r','b'));
+    const line=this.dataset.rline;
+    this.classList.add('on',line==='red'?'r':'b');
+    document.getElementById('rcard-red').style.display=line==='red'?'':'none';
+    document.getElementById('rcard-blue').style.display=line==='blue'?'':'none';
   });
 });
 
@@ -1231,10 +1207,34 @@ document.querySelectorAll('.ltg').forEach(btn=>{
 const map=L.map('bct-map',{center:[44.452,26.090],zoom:12,scrollWheelZoom:false});
 L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{attribution:'© OpenStreetMap · © CARTO',subdomains:'abcd',maxZoom:20}).addTo(map);
 const redPoly=L.polyline(STOPS.red.map(s=>[s.lat,s.lng]),{color:'#E31E24',weight:5,opacity:.85}).addTo(map);
-const bluePoly=L.polyline(STOPS.blue.map(s=>[s.lat,s.lng]),{color:'#1A5EA8',weight:4,opacity:.45,dashArray:'10 6'}).addTo(map);
+const bluePoly=L.polyline(STOPS.blue.map(s=>[s.lat,s.lng]),{color:'#1A5EA8',weight:4,opacity:.12,dashArray:'10 6'}).addTo(map);
+const redMarkers=[],blueMarkers=[];
 STOPS.red.forEach(s=>{
-  L.marker([s.lat,s.lng],{icon:L.divIcon({className:'',html:`<div style="background:#E31E24;color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11px;border:2px solid #fff;box-shadow:0 2px 10px rgba(0,0,0,.3);font-family:sans-serif">${s.n}</div>`,iconSize:[28,28],iconAnchor:[14,14],popupAnchor:[0,-16]})}).addTo(map)
+  const m=L.marker([s.lat,s.lng],{icon:L.divIcon({className:'',html:`<div style="background:#E31E24;color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11px;border:2px solid #fff;box-shadow:0 2px 10px rgba(0,0,0,.3);font-family:sans-serif">${s.n}</div>`,iconSize:[28,28],iconAnchor:[14,14],popupAnchor:[0,-16]})}).addTo(map)
   .bindPopup(`<strong>${s.n}. ${s.name}</strong><br><span style="font-size:12px;color:#666">${s.en}</span><br><span style="font-size:11px;color:#999">${s.sights[0]}</span>`);
+  redMarkers.push(m);
+});
+STOPS.blue.forEach(s=>{
+  const m=L.marker([s.lat,s.lng],{icon:L.divIcon({className:'',html:`<div style="background:#1A5EA8;color:#fff;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:10px;border:2px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.25);font-family:sans-serif">${s.n}</div>`,iconSize:[26,26],iconAnchor:[13,13],popupAnchor:[0,-14]})})
+  .bindPopup(`<strong>${s.n}. ${s.name}</strong><br><span style="font-size:12px;color:#666">${s.en}</span><br><span style="font-size:11px;color:#999">${s.sights[0]}</span>`);
+  blueMarkers.push(m);
+});
+// Map line toggle
+document.querySelectorAll('[data-mapline]').forEach(btn=>{
+  btn.addEventListener('click',function(){
+    document.querySelectorAll('[data-mapline]').forEach(b=>b.classList.remove('on','r','b'));
+    const line=this.dataset.mapline;
+    this.classList.add('on',line==='blue'?'b':'r');
+    if(line==='blue'){
+      redPoly.setStyle({opacity:.12});bluePoly.setStyle({opacity:.85,dashArray:null,weight:5});
+      redMarkers.forEach(m=>map.removeLayer(m));
+      blueMarkers.forEach(m=>m.addTo(map));
+    } else {
+      redPoly.setStyle({opacity:.85});bluePoly.setStyle({opacity:.12,dashArray:'10 6',weight:4});
+      blueMarkers.forEach(m=>map.removeLayer(m));
+      redMarkers.forEach(m=>m.addTo(map));
+    }
+  });
 });
 
 // FAQ
@@ -1444,6 +1444,33 @@ document.querySelectorAll('.lang-btn').forEach(btn=>{
     renderStops(document.querySelector('.ltg.on').dataset.line);
   });
 });
+
+// Ticket arrows (mobile)
+let tkIdx=0;
+const tkNext=document.getElementById('tk-next');
+const tkPrev=document.getElementById('tk-prev');
+const tkScrollWrap=document.querySelector('.tickets-scroll-wrap');
+const tkGridEl=document.querySelector('.tickets-grid');
+const tkDots=document.querySelectorAll('.tdot');
+function setTicket(n){
+  const cards=document.querySelectorAll('.tcard');
+  if(!cards.length)return;
+  tkIdx=Math.max(0,Math.min(n,cards.length-1));
+  const gap=20;
+  const w=cards[0].offsetWidth+gap;
+  tkGridEl.style.transform=`translateX(-${tkIdx*w}px)`;
+  tkDots.forEach((d,i)=>d.classList.toggle('on',i===tkIdx));
+}
+if(tkNext){
+  tkNext.addEventListener('click',()=>setTicket(tkIdx+1));
+  tkPrev.addEventListener('click',()=>setTicket(tkIdx-1));
+}
+
+// Nav scroll
+const navEl=document.querySelector('nav');
+function updateNav(){navEl.classList.toggle('scrolled',window.scrollY>60)}
+window.addEventListener('scroll',updateNav,{passive:true});
+updateNav();
 
 // Sticky
 const sticky=document.getElementById('sticky');
