@@ -4,332 +4,414 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bucharest City Tour — Hop On · Hop Off Oficial</title>
-<meta name="description" content="Autobuzul turistic oficial al Bucureștiului. Hop On, Hop Off pe 14 stații, 24 ore, de la 70 lei. Operat de STB și TPBI.">
+<meta name="description" content="Autobuzul turistic oficial al Bucureștiului. Hop On, Hop Off pe 14 stații. Bilete de la 70 lei. Vineri Linia Roșie, Weekend Linia Albastră.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <style>
 :root{
-  --y:#FFD100; --yd:#E6BC00; --yp:#FFFBE6;
-  --r:#E31E24; --rd:#C41A1F;
-  --b:#1A5EA8; --t:#00B0B9;
-  --dk:#111; --dk2:#222; --wh:#fff;
-  --off:#F8F7F5; --off2:#F1F0EC;
-  --mu:#777; --mu2:#aaa;
-  --brd:#E8E6E0;
+  --y:#FFD100;--yd:#E6BC00;--yp:#FFFBE6;
+  --r:#E31E24;--rd:#C41A1F;
+  --b:#1A5EA8;--t:#00B0B9;
+  --dk:#111;--dk2:#222;--wh:#fff;
+  --off:#F8F7F5;--off2:#F1F0EC;
+  --mu:#777;--mu2:#aaa;--brd:#E8E6E0;
+  --rad:16px;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{font-family:'DM Sans',sans-serif;color:var(--dk);background:var(--wh);overflow-x:hidden}
+body{font-family:'Plus Jakarta Sans',sans-serif;color:var(--dk);background:var(--wh);overflow-x:hidden}
 
-/* ══ TOP BAR ══ */
+/* TOP BAR */
 .topbar{background:var(--dk);padding:0 48px;height:36px;display:flex;align-items:center;justify-content:space-between;font-size:12px}
 .tb-l{display:flex;gap:8px;align-items:center}
 .tb-badge{background:var(--y);color:var(--dk);border-radius:3px;padding:1px 7px;font-size:10px;font-weight:700;letter-spacing:.5px}
-.tb-badge.wh{background:rgba(255,255,255,.1);color:rgba(255,255,255,.55)}
+.tb-badge.wh{background:rgba(255,255,255,.1);color:rgba(255,255,255,.5)}
 .tb-r{display:flex;gap:20px}
-.tb-r a{color:rgba(255,255,255,.45);text-decoration:none;font-size:12px;transition:color .2s}
+.tb-r a{color:rgba(255,255,255,.4);text-decoration:none;font-size:12px;transition:color .2s}
 .tb-r a:hover{color:var(--y)}
 
-/* ══ NAV ══ */
+/* NAV */
 nav{position:sticky;top:0;z-index:200;background:var(--wh);border-bottom:1px solid var(--brd);height:72px;padding:0 48px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 12px rgba(0,0,0,.06)}
 .nav-logo img{height:44px;object-fit:contain}
 .nav-links{display:flex;gap:32px}
 .nav-links a{text-decoration:none;font-size:14px;font-weight:500;color:var(--dk2);transition:color .2s}
 .nav-links a:hover{color:var(--r)}
 .nav-right{display:flex;align-items:center;gap:16px}
-.nav-track{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--mu);cursor:pointer;transition:color .2s}
-.nav-track:hover{color:var(--dk)}
+.nav-track{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--mu);cursor:pointer}
 .live-dot{width:8px;height:8px;border-radius:50%;background:#2ecc71;animation:pulse 1.5s infinite}
-.nav-cta{background:var(--r);color:var(--wh);border:none;border-radius:6px;padding:10px 22px;font-size:14px;font-weight:600;cursor:pointer;text-decoration:none;transition:background .2s,transform .1s}
-.nav-cta:hover{background:var(--rd);transform:translateY(-1px)}
+.nav-cta{background:var(--r);color:var(--wh);border:none;border-radius:6px;padding:10px 22px;font-size:14px;font-weight:600;cursor:pointer;text-decoration:none;transition:background .2s}
+.nav-cta:hover{background:var(--rd)}
 
-/* ══ HERO ══ */
-.hero{position:relative;height:100vh;min-height:600px;overflow:hidden;display:flex;align-items:flex-end}
+/* HERO */
+.hero{position:relative;height:100vh;min-height:620px;overflow:hidden;display:flex;align-items:flex-end}
 .hero-img{position:absolute;inset:0}
 .hero-img img{width:100%;height:100%;object-fit:cover;object-position:center 40%;transform:scale(1.02);transition:transform 10s ease}
-.hero-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.15) 0%,rgba(0,0,0,.05) 35%,rgba(0,0,0,.55) 70%,rgba(0,0,0,.85) 100%)}
-.hero-content{position:relative;z-index:2;width:100%;max-width:1200px;margin:0 auto;padding:0 48px 72px}
-.hero-logo{height:64px;margin-bottom:20px;display:block;filter:drop-shadow(0 2px 12px rgba(0,0,0,.5))}
-.hero-h1{font-family:'Anton',sans-serif;font-size:clamp(48px,7vw,88px);letter-spacing:1px;color:var(--wh);line-height:.95;margin-bottom:16px;text-shadow:0 2px 20px rgba(0,0,0,.4)}
+.hero-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.15) 0%,rgba(0,0,0,.04) 30%,rgba(0,0,0,.52) 65%,rgba(0,0,0,.88) 100%)}
+.hero-content{position:relative;z-index:2;width:100%;max-width:1200px;margin:0 auto;padding:0 48px 88px}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--y);color:var(--dk);border-radius:4px;padding:5px 14px;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:22px}
+.hero-h1{font-family:'Syne',sans-serif;font-size:clamp(52px,7.5vw,100px);font-weight:800;letter-spacing:-2px;color:var(--wh);line-height:.9;margin-bottom:20px;text-shadow:0 2px 28px rgba(0,0,0,.25)}
 .hero-h1 span{color:var(--y)}
-.hero-sub{font-size:18px;color:rgba(255,255,255,.8);max-width:520px;line-height:1.6;margin-bottom:28px}
-.hero-pills{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:32px}
-.hpill{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.15);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.25);border-radius:20px;padding:6px 14px;font-size:13px;color:var(--wh);font-weight:500}
-.hpill.y{background:var(--y);border-color:transparent;color:var(--dk)}
-.hero-btns{display:flex;gap:12px;flex-wrap:wrap}
-.btn-hero{background:var(--r);color:var(--wh);border:none;border-radius:8px;padding:16px 32px;font-size:16px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;box-shadow:0 4px 24px rgba(227,30,36,.4);transition:background .2s,transform .15s}
+.hero-sub{font-size:18px;color:rgba(255,255,255,.75);max-width:500px;line-height:1.65;margin-bottom:32px}
+.hero-pills{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:36px}
+.hpill{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.13);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:7px 16px;font-size:13px;color:var(--wh);font-weight:500}
+.hpill.y{background:var(--y);border-color:transparent;color:var(--dk);font-weight:700}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap}
+.btn-hero{background:var(--r);color:var(--wh);border:none;border-radius:8px;padding:16px 32px;font-size:16px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;box-shadow:0 4px 28px rgba(227,30,36,.45);transition:background .2s,transform .15s}
 .btn-hero:hover{background:var(--rd);transform:translateY(-2px)}
-.btn-ghost{background:transparent;color:var(--wh);border:2px solid rgba(255,255,255,.5);border-radius:8px;padding:14px 28px;font-size:16px;font-weight:600;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:border-color .2s,background .2s}
-.btn-ghost:hover{border-color:var(--y);background:rgba(255,215,0,.1)}
-.hero-scroll{position:absolute;bottom:28px;right:48px;z-index:2;display:flex;align-items:center;gap:8px;color:rgba(255,255,255,.5);font-size:12px;letter-spacing:1px}
-.hs-line{width:32px;height:1px;background:rgba(255,255,255,.4)}
+.btn-ghost{background:transparent;color:var(--wh);border:2px solid rgba(255,255,255,.4);border-radius:8px;padding:14px 28px;font-size:16px;font-weight:600;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:border-color .2s,background .2s}
+.btn-ghost:hover{border-color:var(--y);background:rgba(255,209,0,.1)}
+.hero-scroll{position:absolute;bottom:28px;right:48px;z-index:2;display:flex;align-items:center;gap:8px;color:rgba(255,255,255,.4);font-size:11px;letter-spacing:2px;text-transform:uppercase}
+.hs-line{width:32px;height:1px;background:rgba(255,255,255,.3)}
 
-/* ══ TRUST BAND ══ */
-.trust-band{background:var(--wh);border-bottom:1px solid var(--brd);padding:0 48px}
-.trust-inner{max-width:1200px;margin:0 auto;display:flex;align-items:stretch;gap:0}
-.trust-item{flex:1;padding:18px 0;display:flex;align-items:center;gap:10px;border-right:1px solid var(--brd);padding-right:24px;padding-left:24px}
+/* TRUST BAND */
+.trust-band{background:var(--wh);border-bottom:2px solid var(--y)}
+.trust-inner{max-width:1200px;margin:0 auto;padding:0 48px;display:flex;align-items:stretch}
+.trust-item{flex:1;padding:20px 24px;display:flex;align-items:center;gap:12px;border-right:1px solid var(--brd)}
 .trust-item:first-child{padding-left:0}
 .trust-item:last-child{border-right:none}
-.ti-icon{font-size:22px;flex-shrink:0}
-.ti-text{font-size:13px;line-height:1.3}
-.ti-label{font-weight:600;color:var(--dk)}
-.ti-sub{color:var(--mu);font-size:12px}
+.ti-icon{font-size:24px;flex-shrink:0}
+.ti-label{font-weight:700;color:var(--dk);font-size:14px}
+.ti-sub{color:var(--mu);font-size:12px;margin-top:1px}
 
-/* ══ TICKETS ══ */
-.tickets-section{background:var(--off);padding:80px 0}
-.tickets-inner{max-width:1100px;margin:0 auto;padding:0 48px}
-.sec-kicker{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--r);margin-bottom:8px}
-.sec-h2{font-family:'Anton',sans-serif;font-size:clamp(32px,4vw,48px);letter-spacing:.5px;color:var(--dk);line-height:1;margin-bottom:8px}
+/* SECTION COMMONS */
+.sec-kicker{font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--r);margin-bottom:10px}
+.sec-h2{font-family:'Syne',sans-serif;font-size:clamp(32px,4vw,52px);font-weight:800;letter-spacing:-1px;color:var(--dk);line-height:1;margin-bottom:10px}
 .sec-h2 em{font-style:normal;color:var(--r)}
-.sec-sub{font-size:16px;color:var(--mu);margin-bottom:48px;max-width:540px;line-height:1.65}
-.tickets-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.tcard{background:var(--wh);border-radius:16px;padding:32px 28px;border:2px solid var(--brd);position:relative;overflow:hidden;transition:transform .2s,box-shadow .2s}
-.tcard:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.1)}
-.tcard.featured{border-color:var(--r);background:var(--wh)}
-.tcard.featured::before{content:'POPULAR';position:absolute;top:0;right:0;background:var(--r);color:var(--wh);font-size:10px;font-weight:700;letter-spacing:1px;padding:5px 14px;border-bottom-left-radius:8px}
-.tc-kicker{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--mu);margin-bottom:12px}
-.tc-price{margin-bottom:4px}
-.tc-orig{font-size:14px;color:var(--mu2);text-decoration:line-through;margin-bottom:2px;height:20px}
-.tc-amount{font-family:'Anton',sans-serif;font-size:56px;letter-spacing:1px;line-height:1;color:var(--dk)}
-.tc-amount.free{font-size:42px;color:var(--t)}
-.tc-unit{font-size:18px;vertical-align:super}
-.tc-period{font-size:14px;color:var(--mu);margin-bottom:16px}
-.tc-name{font-size:18px;font-weight:700;color:var(--dk);margin-bottom:4px}
-.tc-age{font-size:13px;color:var(--mu);margin-bottom:20px}
+.sec-sub{font-size:16px;color:var(--mu);margin-bottom:52px;max-width:560px;line-height:1.7}
+
+/* TICKETS */
+.tickets-section{background:var(--off);padding:88px 0}
+.tickets-inner{max-width:1140px;margin:0 auto;padding:0 48px}
+.tickets-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-bottom:24px}
+.tcard{background:var(--wh);border-radius:var(--rad);padding:32px 28px;border:2px solid var(--brd);position:relative;overflow:hidden;transition:transform .2s,box-shadow .2s}
+.tcard:hover{transform:translateY(-5px);box-shadow:0 16px 48px rgba(0,0,0,.1)}
+.tcard.featured{border-color:var(--y)}
+.tcard.featured::before{content:'RECOMANDAT';position:absolute;top:0;right:0;background:var(--y);color:var(--dk);font-size:10px;font-weight:700;letter-spacing:1px;padding:5px 14px;border-bottom-left-radius:8px}
+.tcard.best{border-color:var(--r)}
+.tcard.best::before{content:'CEL MAI BUN PREȚ';position:absolute;top:0;right:0;background:var(--r);color:var(--wh);font-size:10px;font-weight:700;letter-spacing:.5px;padding:5px 12px;border-bottom-left-radius:8px}
+.tc-kicker{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--mu);margin-bottom:10px}
+.tc-line{display:inline-flex;align-items:center;gap:5px;border-radius:4px;padding:3px 10px;font-size:11px;font-weight:700;margin-bottom:16px;letter-spacing:.3px}
+.tc-line.r{background:#fff0f0;color:var(--r)}
+.tc-line.b{background:#eff5ff;color:var(--b)}
+.tc-line.rb{background:linear-gradient(90deg,#fff0f0,#eff5ff);color:var(--dk2)}
+.tc-orig{font-size:14px;color:var(--mu2);text-decoration:line-through;height:20px;margin-bottom:2px}
+.tc-amount{font-family:'Syne',sans-serif;font-size:60px;font-weight:800;letter-spacing:-2px;line-height:1;color:var(--dk)}
+.tc-unit{font-size:18px;vertical-align:super;font-weight:700}
+.tc-period{font-size:13px;color:var(--mu);margin-bottom:8px}
+.tc-name{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:var(--dk);margin-bottom:16px}
+.tc-child{background:#eff5ff;border-radius:8px;padding:8px 12px;font-size:13px;color:var(--b);font-weight:600;margin-bottom:18px;display:flex;align-items:center;gap:6px}
 .tc-features{list-style:none;margin-bottom:24px;border-top:1px solid var(--brd);padding-top:16px}
 .tc-features li{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--dk2);padding:5px 0;border-bottom:1px solid var(--brd)}
 .tc-features li:last-child{border-bottom:none}
 .tc-check{width:18px;height:18px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px}
 .tc-check.g{background:rgba(46,204,113,.15);color:#27ae60}
 .tc-check.mu{background:var(--off2);color:var(--mu)}
-.tc-btn{display:block;text-align:center;background:var(--r);color:var(--wh);border:none;border-radius:8px;padding:13px;font-size:14px;font-weight:700;cursor:pointer;text-decoration:none;transition:background .2s}
-.tcard.free .tc-btn{background:var(--off2);color:var(--mu)}
-.tc-btn:hover{background:var(--rd)}
-.tcard.free .tc-btn:hover{background:var(--off2)}
+.tc-btn{display:block;text-align:center;background:var(--r);color:var(--wh);border:none;border-radius:8px;padding:14px;font-size:14px;font-weight:700;cursor:pointer;text-decoration:none;transition:background .2s,transform .1s}
+.tc-btn:hover{background:var(--rd);transform:translateY(-1px)}
+.tcard.featured .tc-btn{background:var(--yd);color:var(--dk)}
+.tcard.featured .tc-btn:hover{background:#d4a900}
 .tc-note{font-size:11px;color:var(--mu);text-align:center;margin-top:10px}
-.tickets-payment{background:var(--yp);border:1.5px solid var(--y);border-radius:12px;padding:20px 24px;margin-top:24px;display:flex;align-items:center;gap:16px}
-.tp-icon{font-size:28px;flex-shrink:0}
-.tp-text{font-size:13px;color:var(--dk2);line-height:1.6}
+.tickets-bottom{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:4px}
+.tc-free{background:var(--wh);border:1.5px solid var(--brd);border-radius:12px;padding:18px 20px;display:flex;align-items:center;gap:12px;font-size:13px;color:var(--dk2)}
+.tc-free strong{color:var(--dk);font-size:15px}
+.tickets-pay{background:var(--yp);border:1.5px solid var(--yd);border-radius:12px;padding:18px 20px;display:flex;align-items:center;gap:12px;font-size:13px;color:var(--dk2);line-height:1.65}
 
-/* ══ TICKER ══ */
+/* TICKER */
 .ticker{background:var(--r);overflow:hidden;padding:10px 0;white-space:nowrap}
 .ticker-inner{display:inline-flex;animation:run-t 32s linear infinite}
-.ti2{display:inline-flex;align-items:center;gap:10px;padding:0 28px;font-family:'Anton',sans-serif;font-size:13px;letter-spacing:1.5px;color:var(--wh)}
+.ti2{display:inline-flex;align-items:center;gap:10px;padding:0 28px;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;color:var(--wh)}
 .td2{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.4)}
 
-/* ══ ROUTES ══ */
-.routes-section{background:var(--wh);padding:80px 0}
+/* ROUTES */
+.routes-section{background:var(--wh);padding:88px 0}
 .routes-inner{max-width:1200px;margin:0 auto;padding:0 48px}
-.routes-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:48px}
-.rcard{border-radius:16px;overflow:hidden;border:2px solid var(--brd)}
-.rcard-head{padding:24px 28px;display:flex;align-items:center;gap:12px}
-.rcard.red .rcard-head{background:var(--r)}
-.rcard.blue .rcard-head{background:var(--b)}
-.rcard-icon{font-size:28px}
-.rcard-title{font-family:'Anton',sans-serif;font-size:22px;letter-spacing:.5px;color:var(--wh)}
-.rcard-days{font-size:13px;color:rgba(255,255,255,.75);margin-top:2px}
+.routes-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:52px}
+.rcard{border-radius:var(--rad);overflow:hidden;border:2px solid var(--brd);transition:transform .2s,box-shadow .2s}
+.rcard:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.09)}
+.rcard-head{padding:28px;display:flex;flex-direction:column;gap:4px}
+.rcard.red .rcard-head{background:linear-gradient(135deg,var(--r) 0%,var(--rd) 100%)}
+.rcard.blue .rcard-head{background:linear-gradient(135deg,var(--b) 0%,#0d3d78 100%)}
+.rcard-title{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;color:var(--wh);letter-spacing:-.5px}
+.rcard-days{font-size:12px;color:rgba(255,255,255,.7);font-weight:500}
 .rcard-body{padding:24px 28px;background:var(--wh)}
-.rcard-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
-.rst{background:var(--off);border-radius:8px;padding:12px;text-align:center}
-.rst-n{font-family:'Anton',sans-serif;font-size:22px;color:var(--dk)}
-.rst-l{font-size:11px;color:var(--mu);margin-top:2px}
+.rcard-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px}
+.rst{background:var(--off);border-radius:10px;padding:14px 8px;text-align:center}
+.rst-n{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--dk)}
+.rst-l{font-size:11px;color:var(--mu);margin-top:3px}
 .rcard.red .rst-n{color:var(--r)}
 .rcard.blue .rst-n{color:var(--b)}
+.hoh-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}
+.hoh{background:var(--off);border-radius:10px;padding:14px;display:flex;align-items:flex-start;gap:10px}
+.hoh-ico{font-size:20px;flex-shrink:0}
+.hoh-t{font-size:13px;font-weight:700;color:var(--dk);margin-bottom:2px}
+.hoh-s{font-size:11px;color:var(--mu);line-height:1.4}
 .rcard-stops{list-style:none}
 .rs-item{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--brd);font-size:13px}
 .rs-item:last-child{border-bottom:none}
-.rs-dot{width:22px;height:22px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--wh)}
-.rcard.red  .rs-dot{background:var(--r)}
+.rs-dot{width:24px;height:24px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--wh)}
+.rcard.red .rs-dot{background:var(--r)}
 .rcard.blue .rs-dot{background:var(--b)}
-.rs-name{font-weight:500;color:var(--dk);flex:1}
+.rs-name{font-weight:600;color:var(--dk);flex:1}
 .rs-en{font-size:11px;color:var(--mu)}
 
-/* ══ PHOTO GALLERY ══ */
-.gallery-section{padding:80px 0;background:var(--off)}
+/* GALLERY */
+.gallery-section{padding:88px 0;background:var(--off)}
 .gallery-inner{max-width:1200px;margin:0 auto;padding:0 48px}
-.photo-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:auto auto;gap:16px;margin-top:48px}
-.pgcard{border-radius:16px;overflow:hidden;position:relative;cursor:pointer}
+.photo-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:auto auto;gap:16px;margin-top:52px}
+.pgcard{border-radius:var(--rad);overflow:hidden;position:relative;cursor:pointer}
 .pgcard img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s}
 .pgcard:hover img{transform:scale(1.06)}
 .pgcard.big{grid-row:span 2}
-.pgcard.big img{height:500px}
-.pgcard.sm img{height:238px}
-.pg-cap{position:absolute;bottom:0;left:0;right:0;padding:20px 18px 16px;background:linear-gradient(to top,rgba(0,0,0,.72),transparent);color:var(--wh)}
+.pgcard.big img{height:512px}
+.pgcard.sm img{height:244px}
+.pg-cap{position:absolute;bottom:0;left:0;right:0;padding:24px 18px 18px;background:linear-gradient(to top,rgba(0,0,0,.82) 0%,rgba(0,0,0,.35) 55%,transparent 100%);color:var(--wh)}
 .pg-num{display:inline-block;background:var(--r);color:var(--wh);font-size:10px;font-weight:700;letter-spacing:.5px;border-radius:4px;padding:2px 8px;margin-bottom:6px}
-.pg-name{font-size:16px;font-weight:700}
+.pg-name{font-family:'Syne',sans-serif;font-size:18px;font-weight:700}
 .pg-sub{font-size:12px;opacity:.7;margin-top:2px}
-
-/* photo strip */
 .strip-wrap{margin-top:16px;overflow:hidden}
 .pstrip{display:flex;gap:16px;animation:run-s 40s linear infinite;width:max-content}
 .pstrip:hover{animation-play-state:paused}
 .psitem{width:260px;height:170px;border-radius:12px;overflow:hidden;flex-shrink:0;position:relative}
 .psitem img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
 .psitem:hover img{transform:scale(1.06)}
-.pslabel{position:absolute;bottom:0;left:0;right:0;padding:14px 12px 10px;background:linear-gradient(to top,rgba(0,0,0,.65),transparent);color:var(--wh);font-size:13px;font-weight:600}
+.pslabel{position:absolute;bottom:0;left:0;right:0;padding:14px 12px 10px;background:linear-gradient(to top,rgba(0,0,0,.7),transparent);color:var(--wh);font-size:13px;font-weight:600}
 
-/* ══ MAP ══ */
-.map-section{background:var(--wh);padding:80px 0}
+/* MAP */
+.map-section{background:var(--wh);padding:88px 0}
 .map-inner{max-width:1200px;margin:0 auto;padding:0 48px}
-.map-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:32px;flex-wrap:wrap;gap:16px}
+.map-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:24px;flex-wrap:wrap;gap:16px}
 .map-legend{display:flex;gap:20px}
-.ml{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:500}
+.ml{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600}
 .ml-line{width:28px;height:4px;border-radius:2px}
 .ml-line.r{background:var(--r)}
 .ml-line.b{background:var(--b)}
-#bct-map{height:460px;border-radius:16px;overflow:hidden;border:2px solid var(--brd);box-shadow:0 8px 32px rgba(0,0,0,.08)}
+.map-wrap{display:grid;grid-template-columns:1fr 260px;gap:20px;align-items:start}
+#bct-map{height:480px;border-radius:var(--rad);overflow:hidden;border:2px solid var(--brd);box-shadow:0 8px 32px rgba(0,0,0,.07)}
+.map-info{display:flex;flex-direction:column;gap:12px}
+.mi-card{background:var(--off);border-radius:12px;padding:18px;border:1px solid var(--brd)}
+.mi-title{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--mu);margin-bottom:12px}
+.mi-row{display:flex;align-items:center;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--brd);font-size:13px}
+.mi-row:last-child{border-bottom:none}
+.mi-key{color:var(--mu)}
+.mi-val{font-weight:700;color:var(--dk)}
+.mi-val.r{color:var(--r)}
+.mi-val.b{color:var(--b)}
+.mi-live{background:var(--dk);border-radius:10px;padding:14px;display:flex;align-items:center;gap:10px}
+.mi-live-dot{width:10px;height:10px;border-radius:50%;background:#2ecc71;animation:pulse 1.5s infinite;flex-shrink:0}
+.mi-live-text{font-size:12px;color:rgba(255,255,255,.5);line-height:1.55}
+.mi-live-text strong{color:var(--t)}
 
-/* ══ SCHEDULE ══ */
-.sched-section{background:var(--off);padding:80px 0}
+/* SCHEDULE */
+.sched-section{background:var(--off);padding:88px 0}
 .sched-inner{max-width:1200px;margin:0 auto;padding:0 48px}
-.sched-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px}
+.sched-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:52px}
 .scard{background:var(--wh);border-radius:14px;padding:28px;border:1px solid var(--brd)}
 .scard-ico{font-size:28px;margin-bottom:10px;display:block}
-.scard-t{font-size:16px;font-weight:700;color:var(--dk);margin-bottom:16px}
-.srow{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--brd);gap:12px}
+.scard-t{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:var(--dk);margin-bottom:18px}
+.srow{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--brd);gap:12px}
 .srow:last-child{border-bottom:none}
 .skey{font-size:13px;color:var(--mu)}
 .sval{font-size:13px;font-weight:600;color:var(--dk);text-align:right}
 .sval.r{color:var(--r)}
 .sval.b{color:var(--b)}
-.dep-row{display:flex;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid var(--brd)}
+.dep-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--brd)}
 .dep-row:last-of-type{border-bottom:none}
 .ddot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
 .ddot.r{background:var(--r)}
+.ddot.b{background:var(--b)}
 .dep-label{font-size:13px;color:var(--mu);flex:1}
-.dep-time{font-family:'Anton',sans-serif;font-size:22px;color:var(--dk)}
-.infotb-box{background:var(--dk);border-radius:10px;padding:14px 16px;margin-top:14px;display:flex;align-items:center;gap:10px;font-size:12px;color:rgba(255,255,255,.6)}
-.itbdg{background:var(--t);color:var(--wh);font-family:'Anton',sans-serif;font-size:11px;border-radius:4px;padding:2px 6px;flex-shrink:0}
+.dep-time{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--dk)}
+.infotb-box{background:var(--dk);border-radius:10px;padding:14px 16px;margin-top:14px;display:flex;align-items:center;gap:10px;font-size:12px;color:rgba(255,255,255,.5)}
+.itbdg{background:var(--t);color:var(--wh);font-size:10px;font-weight:700;border-radius:4px;padding:2px 6px;flex-shrink:0;letter-spacing:.5px}
 
-/* ══ STOPS ══ */
-.stops-section{background:var(--dk);padding:80px 0}
+/* APP SECTION */
+.app-section{background:linear-gradient(135deg,#080d18 0%,#0d1f38 60%,#081420 100%);padding:88px 0;overflow:hidden}
+.app-inner{max-width:1200px;margin:0 auto;padding:0 48px;display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+.app-kicker{font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--y);margin-bottom:12px}
+.app-h2{font-family:'Syne',sans-serif;font-size:clamp(30px,4vw,50px);font-weight:800;letter-spacing:-1px;color:var(--wh);line-height:1.05;margin-bottom:14px}
+.app-h2 em{font-style:normal;color:var(--y)}
+.app-sub{font-size:15px;color:rgba(255,255,255,.45);line-height:1.7;margin-bottom:32px}
+.app-feats{list-style:none;margin-bottom:36px}
+.app-feat{display:flex;align-items:flex-start;gap:14px;padding:13px 0;border-bottom:1px solid rgba(255,255,255,.07)}
+.app-feat:last-child{border-bottom:none}
+.af-ico{width:40px;height:40px;border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:20px;background:rgba(255,255,255,.07)}
+.af-t{font-size:14px;font-weight:700;color:var(--wh);margin-bottom:3px}
+.af-s{font-size:12px;color:rgba(255,255,255,.38);line-height:1.5}
+.app-downloads{display:flex;gap:12px;flex-wrap:wrap}
+.app-btn{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.18);border-radius:12px;padding:12px 20px;color:var(--wh);text-decoration:none;transition:all .2s;cursor:pointer}
+.app-btn:hover{background:rgba(255,255,255,.13);border-color:rgba(255,209,0,.4)}
+.app-btn-ico{font-size:26px;line-height:1}
+.app-btn-label{font-size:11px;color:rgba(255,255,255,.45);font-weight:500;display:block}
+.app-btn-store{font-size:16px;font-weight:700;color:var(--wh);font-family:'Syne',sans-serif;display:block}
+.app-note{margin-top:14px;font-size:12px;color:rgba(255,255,255,.3);display:flex;align-items:center;gap:6px}
+
+/* PHONE MOCKUP */
+.phone-wrap{display:flex;justify-content:center;align-items:center;position:relative}
+.phone-glow{position:absolute;width:320px;height:320px;background:radial-gradient(circle,rgba(255,209,0,.12) 0%,transparent 70%);border-radius:50%;pointer-events:none}
+.phone-frame{width:256px;height:510px;background:#0a0a0a;border-radius:44px;border:5px solid #252525;padding:16px 12px;position:relative;box-shadow:0 40px 100px rgba(0,0,0,.65),inset 0 0 0 1px rgba(255,255,255,.03)}
+.phone-notch{width:76px;height:20px;background:#0a0a0a;border-radius:0 0 14px 14px;position:absolute;top:0;left:50%;transform:translateX(-50%);z-index:2}
+.phone-screen{background:#111820;border-radius:32px;height:100%;overflow:hidden;display:flex;flex-direction:column}
+.ps-header{background:#0d0d0d;padding:16px 14px 10px;display:flex;align-items:center;justify-content:space-between}
+.ps-logo{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:var(--y);letter-spacing:.3px}
+.ps-live{display:flex;align-items:center;gap:4px;font-size:9px;color:rgba(255,255,255,.4)}
+.ps-map{flex:1;position:relative;overflow:hidden;background:linear-gradient(180deg,#1a2535,#1e3050)}
+.ps-grid{position:absolute;inset:0;opacity:.07;background-image:linear-gradient(rgba(255,255,255,.4) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.4) 1px,transparent 1px);background-size:22px 22px}
+.ps-route{position:absolute;top:42%;left:12%;right:12%;height:3px;background:linear-gradient(90deg,var(--r) 0%,var(--b) 100%);border-radius:2px}
+.ps-bus{position:absolute;top:calc(42% - 9px);left:42%;width:18px;height:18px;background:var(--y);border-radius:50%;border:2px solid var(--wh);box-shadow:0 0 14px rgba(255,209,0,.7);animation:bmove 3s ease-in-out infinite alternate}
+@keyframes bmove{from{left:32%}to{left:52%}}
+.ps-pin{position:absolute;width:14px;height:14px;border-radius:50%;border:2px solid var(--wh);top:calc(42% - 7px)}
+.ps-pin.r{background:var(--r);left:18%}
+.ps-pin.b{background:var(--b);right:18%}
+.ps-notif{position:absolute;bottom:10px;left:8px;right:8px;background:rgba(5,10,20,.88);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:10px 12px;backdrop-filter:blur(8px)}
+.ps-nt{font-size:10px;font-weight:700;color:var(--y);margin-bottom:2px}
+.ps-ns{font-size:10px;color:rgba(255,255,255,.5)}
+.ps-bottom{background:#0d0d0d;padding:10px 14px;display:flex;justify-content:space-around}
+.ps-tab{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:9px;color:rgba(255,255,255,.25)}
+.ps-tab.on{color:var(--y)}
+.ps-tab-ico{font-size:16px}
+
+/* STOPS */
+.stops-section{background:var(--dk);padding:88px 0}
 .stops-inner{max-width:1200px;margin:0 auto;padding:0 48px}
-.stops-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:48px;flex-wrap:wrap;gap:16px}
-.stops-kicker{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--y);margin-bottom:6px}
-.stops-h2{font-family:'Anton',sans-serif;font-size:clamp(32px,4vw,48px);letter-spacing:.5px;color:var(--wh);line-height:1}
-.ltgl{display:flex;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:30px;padding:4px;gap:4px}
-.ltg{padding:8px 18px;border-radius:24px;border:none;font-size:13px;font-weight:600;cursor:pointer;transition:all .25s;color:rgba(255,255,255,.4);background:transparent}
+.stops-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:52px;flex-wrap:wrap;gap:16px}
+.stops-kicker{font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--y);margin-bottom:8px}
+.stops-h2{font-family:'Syne',sans-serif;font-size:clamp(30px,4vw,48px);font-weight:800;letter-spacing:-1px;color:var(--wh);line-height:1}
+.ltgl{display:flex;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:30px;padding:4px;gap:4px}
+.ltg{padding:9px 20px;border-radius:24px;border:none;font-size:13px;font-weight:600;cursor:pointer;transition:all .25s;color:rgba(255,255,255,.35);background:transparent}
 .ltg.on.r{background:var(--r);color:var(--wh);box-shadow:0 4px 14px rgba(227,30,36,.4)}
 .ltg.on.b{background:var(--b);color:var(--wh);box-shadow:0 4px 14px rgba(26,94,168,.4)}
-.stops-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-.sc{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:16px;display:flex;align-items:flex-start;gap:12px;cursor:pointer;transition:all .2s}
-.sc:hover{background:rgba(255,255,255,.09);border-color:rgba(255,215,0,.2);transform:translateY(-2px)}
-.sc-n{width:36px;height:36px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Anton',sans-serif;font-size:14px;color:var(--wh)}
-.sc-n.r{background:var(--r)}
-.sc-n.b{background:var(--b)}
-.sc-img{width:52px;height:52px;border-radius:8px;object-fit:cover;flex-shrink:0;border:2px solid rgba(255,255,255,.1)}
-.sc-info{flex:1;min-width:0}
-.sc-name{font-size:14px;font-weight:600;color:var(--wh);margin-bottom:2px}
-.sc-en{font-size:11px;color:rgba(255,255,255,.3);margin-bottom:4px}
-.sc-desc{font-size:12px;color:rgba(255,255,255,.5);line-height:1.5}
-.sc-tag{display:inline-flex;align-items:center;gap:3px;background:rgba(255,215,0,.1);color:var(--y);border-radius:4px;padding:2px 7px;font-size:11px;font-weight:500;margin-top:5px}
+.stops-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.sc{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:var(--rad);overflow:hidden;cursor:pointer;transition:all .25s;display:flex;flex-direction:column}
+.sc:hover{background:rgba(255,255,255,.07);border-color:rgba(255,215,0,.25);transform:translateY(-3px)}
+.sc-img-wrap{position:relative;height:156px;overflow:hidden;flex-shrink:0}
+.sc-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.sc:hover .sc-img-wrap img{transform:scale(1.08)}
+.sc-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 25%,rgba(0,0,0,.7) 100%)}
+.sc-n{position:absolute;top:10px;left:10px;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:var(--wh);z-index:1}
+.sc-n.r{background:var(--r);box-shadow:0 2px 8px rgba(227,30,36,.5)}
+.sc-n.b{background:var(--b);box-shadow:0 2px 8px rgba(26,94,168,.5)}
+.sc-audio{position:absolute;top:10px;right:10px;background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.18);border-radius:20px;padding:3px 8px;font-size:10px;color:var(--wh);z-index:1;display:flex;align-items:center;gap:4px;backdrop-filter:blur(4px)}
+.sc-body{padding:14px 16px;flex:1;display:flex;flex-direction:column}
+.sc-name{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--wh);margin-bottom:2px;line-height:1.2}
+.sc-en{font-size:11px;color:rgba(255,255,255,.28);margin-bottom:7px}
+.sc-desc{font-size:12px;color:rgba(255,255,255,.42);line-height:1.55;margin-bottom:10px;flex:1}
+.sc-sights{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px}
+.sc-sight{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:4px;padding:2px 7px;font-size:10px;color:rgba(255,255,255,.45)}
+.sc-tag{display:inline-flex;align-items:center;gap:3px;background:rgba(255,215,0,.1);color:var(--y);border-radius:4px;padding:3px 8px;font-size:11px;font-weight:600}
 
-/* ══ AUDIO ══ */
-.audio-section{background:linear-gradient(135deg,#0d0d1a 0%,#0a2440 100%);padding:80px 0}
-.audio-inner{max-width:1200px;margin:0 auto;padding:0 48px;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
-.a-kicker{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--t);margin-bottom:10px}
-.a-h2{font-family:'Anton',sans-serif;font-size:clamp(32px,4vw,52px);letter-spacing:.5px;color:var(--wh);line-height:1;margin-bottom:14px}
+/* AUDIO */
+.audio-section{background:linear-gradient(135deg,#0d1520 0%,#0a2440 100%);padding:88px 0}
+.audio-inner{max-width:1200px;margin:0 auto;padding:0 48px;display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+.a-kicker{font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--t);margin-bottom:12px}
+.a-h2{font-family:'Syne',sans-serif;font-size:clamp(30px,4vw,52px);font-weight:800;letter-spacing:-1px;color:var(--wh);line-height:1.05;margin-bottom:16px}
 .a-h2 em{font-style:normal;color:var(--t)}
-.a-sub{font-size:15px;color:rgba(255,255,255,.5);line-height:1.65;margin-bottom:28px}
-.a-flags{display:flex;gap:14px;flex-wrap:wrap}
-.aflag{display:flex;flex-direction:column;align-items:center;gap:6px}
-.aflag img{width:42px;height:28px;border-radius:5px;object-fit:cover;border:2px solid rgba(255,255,255,.15)}
-.aflag span{font-size:11px;color:rgba(255,255,255,.4);font-weight:500}
-.a-steps{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:28px}
-.ast-title{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--t);margin-bottom:16px}
-.astep{display:flex;gap:12px;margin-bottom:12px}
+.a-sub{font-size:15px;color:rgba(255,255,255,.42);line-height:1.7;margin-bottom:24px}
+.a-flags{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:24px}
+.aflag{display:flex;flex-direction:column;align-items:center;gap:5px}
+.aflag img{width:38px;height:25px;border-radius:4px;object-fit:cover;border:2px solid rgba(255,255,255,.12)}
+.aflag span{font-size:11px;color:rgba(255,255,255,.3);font-weight:500}
+.a-app-note{background:rgba(0,176,185,.1);border:1px solid rgba(0,176,185,.3);border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:10px;font-size:13px;color:rgba(255,255,255,.6);margin-bottom:4px}
+.a-steps{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:var(--rad);padding:28px}
+.ast-title{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--t);margin-bottom:18px}
+.astep{display:flex;gap:12px;margin-bottom:14px}
 .astep:last-child{margin-bottom:0}
-.asn{width:24px;height:24px;background:var(--t);color:var(--wh);border-radius:50%;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.ast{font-size:13px;color:rgba(255,255,255,.6);line-height:1.5;padding-top:3px}
+.asn{width:26px;height:26px;background:var(--t);color:var(--wh);border-radius:50%;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ast{font-size:13px;color:rgba(255,255,255,.5);line-height:1.55;padding-top:4px}
 
-/* ══ BTRIP ══ */
-.btrip-section{background:var(--y);padding:80px 0}
-.btrip-inner{max-width:1200px;margin:0 auto;padding:0 48px;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
-.bt-kicker{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--r);margin-bottom:10px}
-.bt-h2{font-family:'Anton',sans-serif;font-size:clamp(32px,5vw,56px);letter-spacing:.5px;color:var(--dk);line-height:1;margin-bottom:14px}
-.bt-sub{font-size:16px;color:rgba(0,0,0,.6);line-height:1.65;margin-bottom:20px}
-.bt-rating{display:flex;align-items:center;gap:8px;background:rgba(0,0,0,.07);border-radius:10px;padding:12px 16px;font-size:13px;font-weight:500;margin-bottom:14px}
-.bt-tip{display:flex;align-items:flex-start;gap:8px;background:rgba(0,0,0,.07);border-radius:10px;padding:12px 16px;font-size:13px;color:rgba(0,0,0,.65);line-height:1.5;margin-bottom:24px}
-.btn-dk{background:var(--dk);color:var(--wh);border:none;border-radius:8px;padding:14px 28px;font-size:15px;font-weight:600;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:background .2s}
+/* BTRIP */
+.btrip-section{background:var(--y);padding:88px 0}
+.btrip-inner{max-width:1200px;margin:0 auto;padding:0 48px;display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+.bt-kicker{font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--r);margin-bottom:10px}
+.bt-h2{font-family:'Syne',sans-serif;font-size:clamp(32px,5vw,56px);font-weight:800;letter-spacing:-1.5px;color:var(--dk);line-height:1;margin-bottom:14px}
+.bt-sub{font-size:16px;color:rgba(0,0,0,.56);line-height:1.7;margin-bottom:18px}
+.bt-rating{display:flex;align-items:center;gap:8px;background:rgba(0,0,0,.07);border-radius:10px;padding:12px 16px;font-size:13px;font-weight:600;margin-bottom:12px}
+.bt-tip{display:flex;align-items:flex-start;gap:8px;background:rgba(0,0,0,.07);border-radius:10px;padding:12px 16px;font-size:13px;color:rgba(0,0,0,.6);line-height:1.55;margin-bottom:28px}
+.btn-dk{background:var(--dk);color:var(--wh);border:none;border-radius:8px;padding:14px 28px;font-size:15px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:background .2s}
 .btn-dk:hover{background:#2a2a2a}
-.ccard{background:var(--wh);border-radius:16px;padding:28px;box-shadow:0 8px 32px rgba(0,0,0,.1)}
-.ccard-row{display:flex;align-items:center;gap:16px;margin-bottom:20px}
+.ccard{background:var(--wh);border-radius:var(--rad);padding:28px;box-shadow:0 8px 40px rgba(0,0,0,.12)}
+.ccard-row{display:flex;align-items:center;gap:14px;margin-bottom:18px}
 .cbox{flex:1;background:var(--off);border-radius:12px;padding:18px;text-align:center}
-.cico{font-size:32px;margin-bottom:6px}
-.clbl{font-size:14px;font-weight:700;color:var(--dk)}
+.cico{font-size:32px;margin-bottom:5px}
+.clbl{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--dk)}
 .clbl2{font-size:11px;color:var(--mu);margin-top:2px}
-.cplus{font-family:'Anton',sans-serif;font-size:32px;color:var(--r);flex-shrink:0}
+.cplus{font-family:'Syne',sans-serif;font-size:34px;font-weight:800;color:var(--r);flex-shrink:0}
 .cres{background:var(--dk);color:var(--wh);border-radius:12px;padding:16px;text-align:center}
-.cres-t{font-family:'Anton',sans-serif;font-size:18px;letter-spacing:.5px;color:var(--y)}
-.cres-s{font-size:12px;color:rgba(255,255,255,.45);margin-top:4px}
+.cres-t{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;letter-spacing:-.3px;color:var(--y)}
+.cres-s{font-size:12px;color:rgba(255,255,255,.35);margin-top:3px}
 
-/* ══ FAQ ══ */
-.faq-section{background:var(--wh);padding:80px 0}
+/* FAQ */
+.faq-section{background:var(--wh);padding:88px 0}
 .faq-inner{max-width:760px;margin:0 auto;padding:0 48px}
-.faq-list{margin-top:48px}
+.faq-list{margin-top:52px}
 .faq-item{border-bottom:1px solid var(--brd)}
 .faq-q{display:flex;align-items:center;justify-content:space-between;padding:18px 0;cursor:pointer;font-size:15px;font-weight:600;color:var(--dk);gap:16px;transition:color .2s}
 .faq-q:hover{color:var(--r)}
-.faq-icon{width:24px;height:24px;border-radius:50%;background:var(--off2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px;transition:background .2s,transform .3s;color:var(--mu)}
+.faq-icon{width:26px;height:26px;border-radius:50%;background:var(--off2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px;transition:background .2s,transform .3s;color:var(--mu)}
 .faq-item.open .faq-icon{background:var(--r);color:var(--wh);transform:rotate(45deg)}
-.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease,padding .35s}
-.faq-a-inner{font-size:14px;color:var(--mu);line-height:1.7;padding-bottom:18px}
-.faq-item.open .faq-a{max-height:200px}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.faq-a-inner{font-size:14px;color:var(--mu);line-height:1.75;padding-bottom:18px}
+.faq-item.open .faq-a{max-height:260px}
 
-/* ══ FOOTER ══ */
-footer{background:var(--dk);padding:56px 48px 28px}
+/* FOOTER */
+footer{background:var(--dk);padding:60px 48px 28px}
 .ft-inner{max-width:1200px;margin:0 auto}
-.ft-top{display:grid;grid-template-columns:1.5fr repeat(3,1fr);gap:40px;margin-bottom:40px}
-.ft-logo img{height:36px;margin-bottom:16px}
-.ft-desc{font-size:13px;color:rgba(255,255,255,.3);line-height:1.7;max-width:220px;margin-bottom:16px}
-.ft-inst{display:flex;gap:6px;flex-wrap:wrap}
-.finst{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:3px;padding:2px 7px;font-size:10px;font-weight:700;color:rgba(255,255,255,.35)}
-.ft-col h4{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--y);margin-bottom:14px}
-.ft-col a{display:block;font-size:13px;color:rgba(255,255,255,.35);text-decoration:none;margin-bottom:8px;transition:color .2s}
+.ft-top{display:grid;grid-template-columns:1.5fr repeat(3,1fr);gap:48px;margin-bottom:48px}
+.ft-logo img{height:38px;margin-bottom:16px}
+.ft-desc{font-size:13px;color:rgba(255,255,255,.27);line-height:1.75;max-width:220px;margin-bottom:16px}
+.ft-inst{display:flex;gap:5px;flex-wrap:wrap}
+.finst{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09);border-radius:3px;padding:2px 7px;font-size:10px;font-weight:700;color:rgba(255,255,255,.28);letter-spacing:.5px}
+.ft-col h4{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--y);margin-bottom:16px}
+.ft-col a{display:block;font-size:13px;color:rgba(255,255,255,.28);text-decoration:none;margin-bottom:9px;transition:color .2s}
 .ft-col a:hover{color:var(--wh)}
-.ft-bot{border-top:1px solid rgba(255,255,255,.07);padding-top:20px;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:rgba(255,255,255,.25);flex-wrap:wrap;gap:10px}
+.ft-bot{border-top:1px solid rgba(255,255,255,.07);padding-top:20px;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:rgba(255,255,255,.2);flex-wrap:wrap;gap:10px}
 .ft-soc{display:flex;gap:8px}
-.fsoc{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:5px;padding:5px 10px;font-size:11px;color:rgba(255,255,255,.35);text-decoration:none;transition:all .2s}
+.fsoc{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09);border-radius:5px;padding:5px 10px;font-size:11px;color:rgba(255,255,255,.28);text-decoration:none;transition:all .2s}
 .fsoc:hover{background:var(--y);color:var(--dk);border-color:transparent}
 
-/* ══ STICKY ══ */
-#sticky{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--dk);border:2px solid var(--y);border-radius:50px;padding:10px 12px 10px 20px;display:flex;align-items:center;gap:14px;box-shadow:0 8px 40px rgba(0,0,0,.5);z-index:99;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .3s}
-#sticky.show{opacity:1;pointer-events:auto}
-.sp{font-family:'Anton',sans-serif;font-size:17px;color:var(--y);letter-spacing:.5px}
-.sl{font-size:12px;color:rgba(255,255,255,.38)}
-.sbtn{background:var(--r);color:var(--wh);border:none;border-radius:30px;padding:8px 18px;font-size:13px;font-weight:700;cursor:pointer;text-decoration:none;transition:background .2s}
+/* STICKY */
+#sticky{position:fixed;bottom:24px;right:24px;background:var(--dk);border:2px solid var(--y);border-radius:14px;padding:12px 14px 12px 18px;display:flex;align-items:center;gap:16px;box-shadow:0 8px 40px rgba(0,0,0,.45);z-index:99;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;transform:translateY(8px)}
+#sticky.show{opacity:1;pointer-events:auto;transform:none}
+.sp{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--y);letter-spacing:-.3px}
+.sl{font-size:11px;color:rgba(255,255,255,.32);margin-top:1px}
+.sbtn{background:var(--r);color:var(--wh);border:none;border-radius:10px;padding:10px 18px;font-size:13px;font-weight:700;cursor:pointer;text-decoration:none;transition:background .2s}
 .sbtn:hover{background:var(--rd)}
 
-/* ══ UTILS ══ */
-.btn-r{background:var(--r);color:var(--wh);border:none;border-radius:8px;padding:14px 28px;font-size:15px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;box-shadow:0 4px 16px rgba(227,30,36,.25);transition:background .2s,transform .15s}
-.btn-r:hover{background:var(--rd);transform:translateY(-2px)}
-.rev{opacity:0;transform:translateY(20px);transition:opacity .65s ease,transform .65s ease}
+/* UTILS */
+.rev{opacity:0;transform:translateY(24px);transition:opacity .65s ease,transform .65s ease}
 .rev.in{opacity:1;transform:none}
 
-/* ══ ANIMATIONS ══ */
+/* ANIMATIONS */
 @keyframes run-t{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @keyframes run-s{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.7)}}
 
-/* ══ RESPONSIVE ══ */
+/* RESPONSIVE */
 @media(max-width:960px){
   .topbar,.nav-links,.nav-track{display:none}
   nav{padding:0 20px}
-  .hero-content{padding:0 20px 56px}
-  .hero-logo{height:48px}
-  .trust-inner{flex-wrap:wrap}
+  .hero-content{padding:0 20px 64px}
+  .trust-inner{flex-wrap:wrap;padding:0 20px}
   .trust-item{flex:calc(50% - 12px);border-right:none;border-bottom:1px solid var(--brd)}
-  .tickets-inner,.routes-inner,.gallery-inner,.map-inner,.sched-inner,.stops-inner,.audio-inner,.btrip-inner,.faq-inner{padding:0 20px}
-  .tickets-grid,.routes-grid,.sched-grid,.stops-grid{grid-template-columns:1fr}
+  .tickets-inner,.routes-inner,.gallery-inner,.map-inner,.sched-inner,.stops-inner,.audio-inner,.btrip-inner,.faq-inner,.app-inner{padding:0 20px}
+  .tickets-grid,.routes-grid,.sched-grid{grid-template-columns:1fr}
+  .stops-grid{grid-template-columns:1fr 1fr}
+  .map-wrap{grid-template-columns:1fr}
+  .map-info{display:grid;grid-template-columns:1fr 1fr}
   .photo-grid{grid-template-columns:1fr 1fr}
   .pgcard.big img{height:280px}
   .pgcard.sm img{height:180px}
-  .audio-inner,.btrip-inner{grid-template-columns:1fr;gap:36px}
+  .audio-inner,.btrip-inner,.app-inner{grid-template-columns:1fr;gap:40px}
+  .phone-wrap{display:none}
   .ft-top{grid-template-columns:1fr 1fr;gap:24px}
-  footer{padding:40px 20px 24px}
-  #sticky{left:16px;right:16px;transform:none;border-radius:16px}
+  footer{padding:44px 20px 24px}
+  .hoh-row{grid-template-columns:1fr}
+  .tickets-bottom{grid-template-columns:1fr}
+  #sticky{left:16px;right:16px;border-radius:12px;bottom:16px}
+}
+@media(max-width:580px){
+  .stops-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -341,7 +423,6 @@ footer{background:var(--dk);padding:56px 48px 28px}
     <span class="tb-badge">STB</span>
     <span class="tb-badge wh">TPBI</span>
     <span class="tb-badge wh">Primăria Capitalei</span>
-    <span class="tb-badge wh">izi.TRAVEL</span>
   </div>
   <div class="tb-r">
     <a href="https://bct.stb.ro" target="_blank">bct.stb.ro</a>
@@ -357,7 +438,7 @@ footer{background:var(--dk);padding:56px 48px 28px}
     <a href="#routes">Traseu & Hartă</a>
     <a href="#tickets">Bilete</a>
     <a href="#schedule">Program</a>
-    <a href="#audio">Audio ghid</a>
+    <a href="#app">Aplicație</a>
     <a href="#faq">Informații</a>
   </div>
   <div class="nav-right">
@@ -369,21 +450,21 @@ footer{background:var(--dk);padding:56px 48px 28px}
   </div>
 </nav>
 
-<!-- ══════════════════════ HERO ══════════════════════ -->
+<!-- HERO -->
 <section class="hero" id="top">
   <div class="hero-img">
     <img src="https://freetourinbucharest.com/wp-content/uploads/2025/09/hop-on-hop-off-bucharest.jpg"
          alt="Bucharest City Tour — autobuz cu etaj pe străzile Bucureștiului" id="hero-img">
   </div>
   <div class="hero-content">
-    <img src="logo1.png" alt="Bucharest City Tour" class="hero-logo">
+    <div class="hero-eyebrow">🚌 Serviciu oficial STB · TPBI</div>
     <h1 class="hero-h1">Descoperă<br><span>Bucureștiul</span><br>altfel</h1>
-    <p class="hero-sub">Urcă pe puntea superioară a autobuzului oficial și explorezi capitala la propriul ritm — 14 stații, 24 de ore, nelimitat.</p>
+    <p class="hero-sub">Urcă pe puntea superioară a autobuzului oficial și explorezi capitala la propriul ritm — 14 stații, Hop On · Hop Off nelimitat.</p>
     <div class="hero-pills">
-      <span class="hpill y">🚌 Serviciu oficial STB</span>
-      <span class="hpill">✓ 14 stații</span>
-      <span class="hpill">✓ ~30 min interval</span>
-      <span class="hpill">✓ 24h valabilitate</span>
+      <span class="hpill y">📅 Vineri · Sâmbătă · Duminică</span>
+      <span class="hpill">📍 14 stații</span>
+      <span class="hpill">⏱ ~30 min interval</span>
+      <span class="hpill">🎧 Audio ghid inclus</span>
     </div>
     <div class="hero-btns">
       <a href="#tickets" class="btn-hero">🎫 Cumpără bilet · de la 70 lei</a>
@@ -398,106 +479,108 @@ footer{background:var(--dk);padding:56px 48px 28px}
   <div class="trust-inner">
     <div class="trust-item">
       <div class="ti-icon">🏆</div>
-      <div class="ti-text"><div class="ti-label">#1 TripAdvisor</div><div class="ti-sub">Tur oficial București</div></div>
+      <div><div class="ti-label">#1 TripAdvisor</div><div class="ti-sub">Tur oficial București</div></div>
     </div>
     <div class="trust-item">
       <div class="ti-icon">📍</div>
-      <div class="ti-text"><div class="ti-label">14 Stații</div><div class="ti-sub">Circuit complet 70–85 min</div></div>
+      <div><div class="ti-label">14 Stații</div><div class="ti-sub">Circuit complet 90 min</div></div>
     </div>
     <div class="trust-item">
-      <div class="ti-icon">⏱️</div>
-      <div class="ti-text"><div class="ti-label">Valabil 24 ore</div><div class="ti-sub">Hop On · Hop Off nelimitat</div></div>
+      <div class="ti-icon">🎟️</div>
+      <div><div class="ti-label">3 Pachete</div><div class="ti-sub">1 zi · Weekend · Complet</div></div>
     </div>
     <div class="trust-item">
       <div class="ti-icon">🎧</div>
-      <div class="ti-text"><div class="ti-label">Audio ghid gratuit</div><div class="ti-sub">5 limbi via izi.TRAVEL</div></div>
+      <div><div class="ti-label">Audio ghid GPS</div><div class="ti-sub">Activare automată · 5 limbi</div></div>
     </div>
     <div class="trust-item">
       <div class="ti-icon">📡</div>
-      <div class="ti-text"><div class="ti-label">Localizare live</div><div class="ti-sub">InfoTB · info.stb.ro</div></div>
+      <div><div class="ti-label">Urmărire live</div><div class="ti-sub">InfoTB · Interval ~30 min</div></div>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════ TICKETS ══════════════════════ -->
+<!-- TICKETS -->
 <section class="tickets-section" id="tickets">
   <div class="tickets-inner">
     <div class="rev">
       <div class="sec-kicker">Tarife & Bilete</div>
-      <h2 class="sec-h2">Prețuri simple, <em>fără surprize</em></h2>
-      <p class="sec-sub">Un bilet, o zi întreagă. Valabil 24 ore de la prima validare. Urcă și coboară de câte ori vrei pe toate cele 14 stații.</p>
+      <h2 class="sec-h2">Alege <em>pachetul tău</em></h2>
+      <p class="sec-sub">Cu cât cumperi mai multe zile, cu atât economisești mai mult. Biletele sunt valabile de la prima validare, fără restricții de stație.</p>
     </div>
     <div class="tickets-grid rev">
 
-      <!-- Adult -->
+      <!-- 1 ZI -->
+      <div class="tcard">
+        <div class="tc-kicker">O singură zi</div>
+        <div class="tc-line r">● Linia Roșie (Vineri) sau Linia Albastră (Sâm/Dum)</div>
+        <div class="tc-orig">&nbsp;</div>
+        <div class="tc-amount"><span class="tc-unit">lei</span>70</div>
+        <div class="tc-period">adult · 1 zi · Hop On/Hop Off nelimitat</div>
+        <div class="tc-name">Bilet 1 Zi</div>
+        <div class="tc-child">👦 Copil 7–14 ani: <strong>35 lei</strong></div>
+        <ul class="tc-features">
+          <li><span class="tc-check g">✓</span>Hop On · Hop Off nelimitat</li>
+          <li><span class="tc-check g">✓</span>Audio ghid gratuit în app</li>
+          <li><span class="tc-check g">✓</span>Acces punte superioară</li>
+          <li><span class="tc-check g">✓</span>Reduceri la parteneri BCT</li>
+          <li><span class="tc-check mu">—</span>O singură linie (Roșie sau Albastră)</li>
+        </ul>
+        <a href="#" class="tc-btn">Cumpără bilet 1 zi →</a>
+        <div class="tc-note">Disponibil la STB sau direct în autobuz (card)</div>
+      </div>
+
+      <!-- WEEKEND -->
       <div class="tcard featured">
         <div class="tc-kicker">Cel mai popular</div>
-        <div class="tc-price">
-          <div class="tc-orig">85 lei</div>
-          <div class="tc-amount"><span class="tc-unit">lei</span>70</div>
-        </div>
-        <div class="tc-period">per persoană · valabil 24h</div>
-        <div class="tc-name">Bilet Adult</div>
-        <div class="tc-age">16+ ani</div>
+        <div class="tc-line b">● Linia Albastră · Sâmbătă + Duminică</div>
+        <div class="tc-orig">140 lei</div>
+        <div class="tc-amount"><span class="tc-unit">lei</span>120</div>
+        <div class="tc-period">adult · 2 zile · economisești 20 lei</div>
+        <div class="tc-name">Pachet Weekend</div>
+        <div class="tc-child">👦 Copil 7–14 ani: <strong>60 lei</strong></div>
         <ul class="tc-features">
-          <li><span class="tc-check g">✓</span>Hop On · Hop Off nelimitat</li>
-          <li><span class="tc-check g">✓</span>Valabil 24 ore de la validare</li>
-          <li><span class="tc-check g">✓</span>Audio ghid izi.TRAVEL inclus</li>
+          <li><span class="tc-check g">✓</span>Hop On · Hop Off 2 zile</li>
+          <li><span class="tc-check g">✓</span>Audio ghid gratuit în app</li>
+          <li><span class="tc-check g">✓</span>Acces punte superioară</li>
           <li><span class="tc-check g">✓</span>Reduceri la parteneri BCT</li>
-          <li><span class="tc-check g">✓</span>Punte superioară deschisă</li>
+          <li><span class="tc-check g">✓</span>Valabil Sâmbătă și Duminică</li>
         </ul>
-        <a href="#" class="tc-btn">Cumpără bilet adult →</a>
-        <div class="tc-note">Disponibil la punctele STB sau în autobuz (card)</div>
+        <a href="#" class="tc-btn">Cumpără pachet weekend →</a>
+        <div class="tc-note">Economisești 20 lei față de 2 bilete separate</div>
       </div>
 
-      <!-- Copil -->
-      <div class="tcard">
-        <div class="tc-kicker">Copii</div>
-        <div class="tc-price">
-          <div class="tc-orig">42 lei</div>
-          <div class="tc-amount"><span class="tc-unit">lei</span>35</div>
-        </div>
-        <div class="tc-period">per copil · valabil 24h</div>
-        <div class="tc-name">Bilet Copil</div>
-        <div class="tc-age">7–14 ani</div>
+      <!-- COMPLET -->
+      <div class="tcard best">
+        <div class="tc-kicker">Cea mai bună valoare</div>
+        <div class="tc-line rb">● Linia Roșie + Linia Albastră · 3 zile</div>
+        <div class="tc-orig">210 lei</div>
+        <div class="tc-amount"><span class="tc-unit">lei</span>160</div>
+        <div class="tc-period">adult · 3 zile · economisești 50 lei</div>
+        <div class="tc-name">Pachet Complet</div>
+        <div class="tc-child">👦 Copil 7–14 ani: <strong>80 lei</strong></div>
         <ul class="tc-features">
-          <li><span class="tc-check g">✓</span>Hop On · Hop Off nelimitat</li>
-          <li><span class="tc-check g">✓</span>Valabil 24 ore de la validare</li>
-          <li><span class="tc-check g">✓</span>Audio ghid inclus</li>
-          <li><span class="tc-check g">✓</span>Reduceri parteneri</li>
-          <li><span class="tc-check mu">—</span>Obligatoriu însoțit de adult</li>
+          <li><span class="tc-check g">✓</span>Hop On · Hop Off 3 zile</li>
+          <li><span class="tc-check g">✓</span>Ambele linii: Roșie + Albastră</li>
+          <li><span class="tc-check g">✓</span>Audio ghid gratuit în app</li>
+          <li><span class="tc-check g">✓</span>Reduceri extinse la parteneri</li>
+          <li><span class="tc-check g">✓</span>Vineri + Sâmbătă + Duminică</li>
         </ul>
-        <a href="#" class="tc-btn">Cumpără bilet copil →</a>
-        <div class="tc-note">Jumătate de preț față de biletul adult</div>
-      </div>
-
-      <!-- Gratuit -->
-      <div class="tcard free">
-        <div class="tc-kicker">Copii mici</div>
-        <div class="tc-price">
-          <div class="tc-orig">&nbsp;</div>
-          <div class="tc-amount free">Gratuit</div>
-        </div>
-        <div class="tc-period">fără bilet necesar</div>
-        <div class="tc-name">Sub 7 ani</div>
-        <div class="tc-age">0–6 ani</div>
-        <ul class="tc-features">
-          <li><span class="tc-check g">✓</span>Hop On · Hop Off nelimitat</li>
-          <li><span class="tc-check g">✓</span>Fără bilet necesar</li>
-          <li><span class="tc-check g">✓</span>Audio ghid disponibil</li>
-          <li><span class="tc-check mu">—</span>Obligatoriu cu adult cu bilet</li>
-          <li><span class="tc-check mu">—</span>Fără loc garantat separat</li>
-        </ul>
-        <a href="#" class="tc-btn">Inclus cu orice bilet adult</a>
-        <div class="tc-note">Nu necesită achiziție separată</div>
+        <a href="#" class="tc-btn">Cumpără pachet complet →</a>
+        <div class="tc-note">Economisești 50 lei față de bilete separate</div>
       </div>
 
     </div>
-    <div class="tickets-payment rev">
-      <div class="tp-icon">💳</div>
-      <div class="tp-text">
-        <strong>Unde cumperi biletul:</strong> ① La toate punctele de vânzare <strong>STB</strong> din București — numerar sau card.
-        &nbsp;② Direct <strong>în autobuz</strong> — exclusiv cu card bancar (Visa · Mastercard · Maestro).
+
+    <div class="tickets-bottom rev">
+      <div class="tc-free">
+        <span style="font-size:24px">🎁</span>
+        <div><strong>Sub 7 ani — Gratuit</strong><br>
+        <span style="color:var(--mu);font-size:12px">Fără bilet necesar, însoțit de adult cu bilet valid</span></div>
+      </div>
+      <div class="tickets-pay">
+        <span style="font-size:24px">💳</span>
+        <div><strong>Unde cumperi:</strong> ① Puncte de vânzare <strong>STB</strong> din București (numerar sau card) · ② Direct <strong>în autobuz</strong> (exclusiv card) · ③ <strong>Aplicația BCT</strong> (în curând)</div>
       </div>
     </div>
   </div>
@@ -525,54 +608,61 @@ footer{background:var(--dk);padding:56px 48px 28px}
   </div>
 </div>
 
-<!-- ══════════════════════ ROUTES ══════════════════════ -->
+<!-- ROUTES -->
 <section class="routes-section" id="routes">
   <div class="routes-inner">
     <div class="rev">
       <div class="sec-kicker">Traseu</div>
       <h2 class="sec-h2">Două linii, <em>tot Bucureștiul</em></h2>
-      <p class="sec-sub" style="margin-bottom:0">Linia Roșie operează Luni–Vineri, Linia Albastră Sâmbătă–Duminică. Ambele acoperă cele mai importante obiective ale capitalei.</p>
+      <p class="sec-sub" style="margin-bottom:0">Linia Roșie operează <strong>Vineri</strong>, Linia Albastră <strong>Sâmbătă și Duminică</strong>. Circuit complet 90 min — sau coboară oricând cu Hop On/Hop Off.</p>
     </div>
     <div class="routes-grid rev">
+
       <!-- RED LINE -->
       <div class="rcard red">
         <div class="rcard-head">
-          <div>
-            <div class="rcard-title">Linia Roșie</div>
-            <div class="rcard-days">Luni – Vineri · Red Line</div>
-          </div>
+          <div class="rcard-title">Linia Roșie</div>
+          <div class="rcard-days">Vineri · Red Line · Calea Victoriei</div>
         </div>
         <div class="rcard-body">
           <div class="rcard-stats">
             <div class="rst"><div class="rst-n">14</div><div class="rst-l">Stații</div></div>
             <div class="rst"><div class="rst-n">~30'</div><div class="rst-l">Interval</div></div>
-            <div class="rst"><div class="rst-n">70'</div><div class="rst-l">Circuit</div></div>
+            <div class="rst"><div class="rst-n">90'</div><div class="rst-l">Circuit</div></div>
+          </div>
+          <div class="hoh-row">
+            <div class="hoh"><div class="hoh-ico">🚌</div><div><div class="hoh-t">Tur complet</div><div class="hoh-s">Rămâi în autobuz · 90 min · tot traseul</div></div></div>
+            <div class="hoh"><div class="hoh-ico">🚶</div><div><div class="hoh-t">Hop On/Hop Off</div><div class="hoh-s">Coboară, explorează, urcă oricând</div></div></div>
           </div>
           <ul class="rcard-stops" id="red-stops"></ul>
         </div>
       </div>
+
       <!-- BLUE LINE -->
       <div class="rcard blue">
         <div class="rcard-head">
-          <div>
-            <div class="rcard-title">Linia Albastră</div>
-            <div class="rcard-days">Sâmbătă – Duminică · Blue Line</div>
-          </div>
+          <div class="rcard-title">Linia Albastră</div>
+          <div class="rcard-days">Sâmbătă · Duminică · Blue Line · Bd. Magheru</div>
         </div>
         <div class="rcard-body">
           <div class="rcard-stats">
             <div class="rst"><div class="rst-n">14</div><div class="rst-l">Stații</div></div>
             <div class="rst"><div class="rst-n">~30'</div><div class="rst-l">Interval</div></div>
-            <div class="rst"><div class="rst-n">70'</div><div class="rst-l">Circuit</div></div>
+            <div class="rst"><div class="rst-n">90'</div><div class="rst-l">Circuit</div></div>
+          </div>
+          <div class="hoh-row">
+            <div class="hoh"><div class="hoh-ico">🚌</div><div><div class="hoh-t">Tur complet</div><div class="hoh-s">Rămâi în autobuz · 90 min · tot traseul</div></div></div>
+            <div class="hoh"><div class="hoh-ico">🚶</div><div><div class="hoh-t">Hop On/Hop Off</div><div class="hoh-s">Coboară, explorează, urcă oricând</div></div></div>
           </div>
           <ul class="rcard-stops" id="blue-stops"></ul>
         </div>
       </div>
+
     </div>
   </div>
 </section>
 
-<!-- ══════════════════════ GALLERY ══════════════════════ -->
+<!-- GALLERY -->
 <section class="gallery-section" id="gallery">
   <div class="gallery-inner">
     <div class="rev">
@@ -594,7 +684,7 @@ footer{background:var(--dk);padding:56px 48px 28px}
       </div>
       <div class="pgcard sm">
         <img src="https://freetourinbucharest.com/wp-content/uploads/2021/01/Village-Museums-Bucharest.jpg" alt="Muzeul Satului">
-        <div class="pg-cap"><span class="pg-num">Stația 02</span><div class="pg-name">Muzeul Satului</div><div class="pg-sub">Case tradiționale · Herăstrău</div></div>
+        <div class="pg-cap"><span class="pg-num">Stația 02</span><div class="pg-name">Muzeul Satului</div><div class="pg-sub">Case tradiționale · Parcul Herăstrău</div></div>
       </div>
       <div class="pgcard sm">
         <img src="https://freetourinbucharest.com/wp-content/uploads/2025/12/Calea-Victoriei.webp" alt="Calea Victoriei">
@@ -605,7 +695,6 @@ footer{background:var(--dk);padding:56px 48px 28px}
         <div class="pg-cap"><span class="pg-num">Stația 08–09</span><div class="pg-name">Centrul Vechi</div><div class="pg-sub">Piața Unirii · Universitate</div></div>
       </div>
     </div>
-    <!-- auto-scroll strip -->
     <div class="strip-wrap rev">
       <div class="pstrip">
         <div class="psitem"><img src="https://freetourinbucharest.com/wp-content/uploads/2025/09/hop-on-hop-off-bucharest.jpg" alt="BCT"><div class="pslabel">Bucharest City Tour</div></div>
@@ -627,7 +716,7 @@ footer{background:var(--dk);padding:56px 48px 28px}
   </div>
 </section>
 
-<!-- ══════════════════════ MAP ══════════════════════ -->
+<!-- MAP -->
 <section class="map-section">
   <div class="map-inner">
     <div class="map-head rev">
@@ -636,15 +725,38 @@ footer{background:var(--dk);padding:56px 48px 28px}
         <div class="sec-h2">Traseul <em>live</em></div>
       </div>
       <div class="map-legend">
-        <div class="ml"><div class="ml-line r"></div>Linia Roșie · L–V</div>
+        <div class="ml"><div class="ml-line r"></div>Linia Roșie · Vineri</div>
         <div class="ml"><div class="ml-line b"></div>Linia Albastră · S–D</div>
       </div>
     </div>
-    <div id="bct-map" class="rev"></div>
+    <div class="map-wrap rev">
+      <div id="bct-map"></div>
+      <div class="map-info">
+        <div class="mi-card">
+          <div class="mi-title">Informații traseu</div>
+          <div class="mi-row"><span class="mi-key">Interval autobuz</span><span class="mi-val">~30 min</span></div>
+          <div class="mi-row"><span class="mi-key">Dus (45 min)</span><span class="mi-val r">Presei → Unirii</span></div>
+          <div class="mi-row"><span class="mi-key">Întors (45 min)</span><span class="mi-val b">Unirii → Presei</span></div>
+          <div class="mi-row"><span class="mi-key">Circuit complet</span><span class="mi-val">90 min</span></div>
+          <div class="mi-row"><span class="mi-key">Stații</span><span class="mi-val">14</span></div>
+        </div>
+        <div class="mi-card">
+          <div class="mi-title">Program</div>
+          <div class="mi-row"><span class="mi-key">Vineri</span><span class="mi-val r">Linia Roșie</span></div>
+          <div class="mi-row"><span class="mi-key">Sâmbătă</span><span class="mi-val b">Linia Albastră</span></div>
+          <div class="mi-row"><span class="mi-key">Duminică</span><span class="mi-val b">Linia Albastră</span></div>
+          <div class="mi-row"><span class="mi-key">Funcționare</span><span class="mi-val">10:00–20:00</span></div>
+        </div>
+        <div class="mi-live">
+          <div class="mi-live-dot"></div>
+          <div class="mi-live-text">Urmărire în timp real la <strong>info.stb.ro</strong> sau în <strong>aplicația BCT</strong></div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- ══════════════════════ SCHEDULE ══════════════════════ -->
+<!-- SCHEDULE -->
 <section class="sched-section" id="schedule">
   <div class="sched-inner">
     <div class="sec-kicker rev">Program</div>
@@ -652,35 +764,108 @@ footer{background:var(--dk);padding:56px 48px 28px}
     <div class="sched-grid rev">
       <div class="scard">
         <span class="scard-ico">🕙</span>
-        <div class="scard-t">Program zilnic</div>
-        <div class="srow"><span class="skey">Funcționare</span><span class="sval r">10:00 – 20:00</span></div>
+        <div class="scard-t">Program de funcționare</div>
+        <div class="srow"><span class="skey">Ore funcționare</span><span class="sval r">10:00 – 20:00</span></div>
         <div class="srow"><span class="skey">Interval</span><span class="sval">~30 minute</span></div>
-        <div class="srow"><span class="skey">Circuit complet</span><span class="sval">70–85 min</span></div>
-        <div class="srow"><span class="skey">Autobuz</span><span class="sval">Double-decker open top</span></div>
-        <div class="srow"><span class="skey">Linia Roșie</span><span class="sval r">Luni–Vineri</span></div>
-        <div class="srow"><span class="skey">Linia Albastră</span><span class="sval b">Sâmbătă–Duminică</span></div>
+        <div class="srow"><span class="skey">Circuit complet</span><span class="sval">90 min</span></div>
+        <div class="srow"><span class="skey">Dus / Întors</span><span class="sval">45 min + 45 min</span></div>
+        <div class="srow"><span class="skey">Vineri</span><span class="sval r">Linia Roșie</span></div>
+        <div class="srow"><span class="skey">Sâmbătă · Duminică</span><span class="sval b">Linia Albastră</span></div>
       </div>
       <div class="scard">
         <span class="scard-ico">🚌</span>
         <div class="scard-t">Ultimele curse</div>
         <div class="dep-row"><span class="ddot r"></span><span class="dep-label">Piața Presei → Unirii</span><span class="dep-time">19:20</span></div>
-        <div class="dep-row"><span class="ddot r"></span><span class="dep-label">Piața Unirii → Presei</span><span class="dep-time">20:00</span></div>
-        <div class="infotb-box"><span class="itbdg">InfoTB</span><span>Urmărește autobuzele în timp real la <strong style="color:var(--t)">info.stb.ro</strong> sau în app InfoTB</span></div>
+        <div class="dep-row"><span class="ddot b"></span><span class="dep-label">Piața Unirii → Presei</span><span class="dep-time">20:00</span></div>
+        <div class="infotb-box"><span class="itbdg">InfoTB</span><span>Urmărește autobuzele în timp real la <strong style="color:var(--t)">info.stb.ro</strong> sau în aplicația BCT</span></div>
       </div>
       <div class="scard">
         <span class="scard-ico">💡</span>
         <div class="scard-t">Sfaturi practice</div>
-        <div class="srow"><span class="skey">🌤️ Puntea superioară</span><span class="sval" style="font-size:12px">Cel mai bun loc</span></div>
+        <div class="srow"><span class="skey">🌤 Puntea superioară</span><span class="sval" style="font-size:12px">Cel mai bun loc</span></div>
         <div class="srow"><span class="skey">📸 Foto ideal</span><span class="sval" style="font-size:12px">Arcul de Triumf · St. 03</span></div>
-        <div class="srow"><span class="skey">🚶 Walking tour</span><span class="sval" style="font-size:12px">Coboară la Stația 05</span></div>
-        <div class="srow"><span class="skey">🎧 Audio ghid</span><span class="sval" style="font-size:12px">izi.TRAVEL · 5 limbi</span></div>
+        <div class="srow"><span class="skey">🏛 Palatul Parlamentului</span><span class="sval" style="font-size:12px">Reducere cu app BCT</span></div>
+        <div class="srow"><span class="skey">🎧 Audio ghid</span><span class="sval" style="font-size:12px">Activare automată GPS</span></div>
         <div class="srow"><span class="skey">💳 Plată la bord</span><span class="sval" style="font-size:12px">Doar card bancar</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ══════════════════════ STOPS DETAIL ══════════════════════ -->
+<!-- APP SECTION -->
+<section class="app-section" id="app">
+  <div class="app-inner">
+    <div class="rev">
+      <div class="app-kicker">Aplicația oficială</div>
+      <h2 class="app-h2">Bucureștiul<br>în <em>buzunarul tău</em></h2>
+      <p class="app-sub">Descarcă aplicația Bucharest City Tour și ai tot ce-ți trebuie pentru o zi perfectă în capitală — de la bilet până la povestea fiecărui obiectiv.</p>
+      <ul class="app-feats">
+        <li class="app-feat">
+          <div class="af-ico">🎫</div>
+          <div><div class="af-t">Cumpără bilet direct din telefon</div><div class="af-s">Plată online, bilet instant — fără coadă, fără ghișeu</div></div>
+        </li>
+        <li class="app-feat">
+          <div class="af-ico">🎧</div>
+          <div><div class="af-t">Audio ghid GPS automat</div><div class="af-s">Ce e pe stânga, pe dreapta — se activează singur la fiecare obiectiv</div></div>
+        </li>
+        <li class="app-feat">
+          <div class="af-ico">🗺️</div>
+          <div><div class="af-t">Hartă live & urmărire autobuz</div><div class="af-s">Unde e autobuzul acum, cât timp mai ai de așteptat</div></div>
+        </li>
+        <li class="app-feat">
+          <div class="af-ico">🎟️</div>
+          <div><div class="af-t">Bilete reduse la obiective</div><div class="af-s">Palatul Parlamentului, teatre, muzee partenere — reduceri exclusive</div></div>
+        </li>
+        <li class="app-feat">
+          <div class="af-ico">🔔</div>
+          <div><div class="af-t">Notificări în timp real</div><div class="af-s">„Autobuzul ajunge în 3 minute la stația ta"</div></div>
+        </li>
+      </ul>
+      <div class="app-downloads">
+        <div class="app-btn">
+          <div class="app-btn-ico">🍎</div>
+          <div><span class="app-btn-label">Descarcă pe</span><span class="app-btn-store">App Store</span></div>
+        </div>
+        <div class="app-btn">
+          <div class="app-btn-ico">▶️</div>
+          <div><span class="app-btn-label">Disponibil pe</span><span class="app-btn-store">Google Play</span></div>
+        </div>
+      </div>
+      <div class="app-note">⏳ Aplicația BCT — lansare în curând</div>
+    </div>
+    <div class="phone-wrap rev">
+      <div class="phone-glow"></div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <div class="ps-header">
+            <div class="ps-logo">BCT · Bucharest</div>
+            <div class="ps-live"><span class="live-dot" style="width:6px;height:6px"></span> LIVE</div>
+          </div>
+          <div class="ps-map">
+            <div class="ps-grid"></div>
+            <div class="ps-route"></div>
+            <div class="ps-bus"></div>
+            <div class="ps-pin r"></div>
+            <div class="ps-pin b"></div>
+            <div class="ps-notif">
+              <div class="ps-nt">🎧 Arcul de Triumf</div>
+              <div class="ps-ns">Construit în 1936 · 27 m înălțime · Bd. Kiseleff</div>
+            </div>
+          </div>
+          <div class="ps-bottom">
+            <div class="ps-tab on"><div class="ps-tab-ico">🗺️</div>Hartă</div>
+            <div class="ps-tab"><div class="ps-tab-ico">🎫</div>Bilet</div>
+            <div class="ps-tab"><div class="ps-tab-ico">🎧</div>Audio</div>
+            <div class="ps-tab"><div class="ps-tab-ico">🎟️</div>Oferte</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STOPS DETAIL -->
 <section class="stops-section" id="stops">
   <div class="stops-inner">
     <div class="stops-head rev">
@@ -689,21 +874,21 @@ footer{background:var(--dk);padding:56px 48px 28px}
         <div class="stops-h2">Cele 14 stații</div>
       </div>
       <div class="ltgl">
-        <button class="ltg on r" data-line="red">● Linia Roșie · L–V</button>
-        <button class="ltg b"    data-line="blue">● Linia Albastră · S–D</button>
+        <button class="ltg on r" data-line="red">● Linia Roșie · Vineri</button>
+        <button class="ltg b" data-line="blue">● Linia Albastră · S–D</button>
       </div>
     </div>
     <div class="stops-grid rev" id="stops-grid"></div>
   </div>
 </section>
 
-<!-- ══════════════════════ AUDIO ══════════════════════ -->
+<!-- AUDIO -->
 <section class="audio-section" id="audio">
   <div class="audio-inner">
-    <div>
-      <div class="a-kicker">izi.TRAVEL</div>
-      <h2 class="a-h2">Audio ghid<br>în <em>5 limbi</em></h2>
-      <p class="a-sub">Conectează-te la Wi-Fi-ul gratuit din autobuz sau descarcă izi.TRAVEL. Comentariu profesional pentru fiecare obiectiv, în limba ta.</p>
+    <div class="rev">
+      <div class="a-kicker">Audio Ghid GPS</div>
+      <h2 class="a-h2">Poveștile orașului<br>în <em>5 limbi</em></h2>
+      <p class="a-sub">Activat automat pe GPS, ghidul îți spune ce e pe stânga și pe dreapta la fiecare obiectiv. Fără căști, fără buton — pornește singur când te apropii.</p>
       <div class="a-flags">
         <div class="aflag"><img src="https://flagcdn.com/w80/ro.png" alt="RO"><span>Română</span></div>
         <div class="aflag"><img src="https://flagcdn.com/w80/gb.png" alt="EN"><span>English</span></div>
@@ -711,28 +896,28 @@ footer{background:var(--dk);padding:56px 48px 28px}
         <div class="aflag"><img src="https://flagcdn.com/w80/it.png" alt="IT"><span>Italiano</span></div>
         <div class="aflag"><img src="https://flagcdn.com/w80/de.png" alt="DE"><span>Deutsch</span></div>
       </div>
+      <div class="a-app-note">📱 <span>Disponibil în <strong style="color:var(--t)">Aplicația Bucharest City Tour</strong> — în curând pe App Store și Google Play</span></div>
     </div>
     <div class="a-steps rev">
-      <div class="ast-title">Cum activezi</div>
-      <div class="astep"><div class="asn">1</div><div class="ast">Pornește datele mobile sau Wi-Fi "City Tour" din autobuz</div></div>
-      <div class="astep"><div class="asn">2</div><div class="ast">Descarcă <strong style="color:var(--t)">izi.TRAVEL</strong> sau scanează QR-ul din autobuz</div></div>
-      <div class="astep"><div class="asn">3</div><div class="ast">Activează GPS-ul telefonului</div></div>
-      <div class="astep"><div class="asn">4</div><div class="ast">Selectează <strong style="color:var(--t)">Bucharest City Tour</strong></div></div>
-      <div class="astep"><div class="asn">5</div><div class="ast">Alege limba: RO / EN / FR / IT / DE</div></div>
-      <div class="astep"><div class="asn">6</div><div class="ast">Apasă Start Tour — poveștile pornesc automat la fiecare obiectiv</div></div>
+      <div class="ast-title">Cum funcționează</div>
+      <div class="astep"><div class="asn">1</div><div class="ast">Descarcă <strong style="color:var(--t)">Aplicația Bucharest City Tour</strong> pe telefon</div></div>
+      <div class="astep"><div class="asn">2</div><div class="ast">Activează GPS-ul și conectează-te la internet (Wi-Fi gratuit în autobuz)</div></div>
+      <div class="astep"><div class="asn">3</div><div class="ast">Selectează limba preferată: RO / EN / FR / IT / DE</div></div>
+      <div class="astep"><div class="asn">4</div><div class="ast">Apasă Start Tour — ghidul pornește automat la fiecare stație</div></div>
+      <div class="astep"><div class="asn">5</div><div class="ast">Ascultă poveștile pe stânga și pe dreapta — arhitectură, istorie, anecdote</div></div>
     </div>
   </div>
 </section>
 
-<!-- ══════════════════════ BTRIP ══════════════════════ -->
+<!-- BTRIP -->
 <section class="btrip-section">
   <div class="btrip-inner">
-    <div>
+    <div class="rev">
       <div class="bt-kicker">Parteneriat · BTrip Walking Tours</div>
       <h2 class="bt-h2">Prima zi<br>perfectă</h2>
       <p class="bt-sub">Autobuzul îți arată Bucureștiul de sus. Turul pe jos te duce în poveste. Combinația ideală pentru prima vizită în capitală.</p>
       <div class="bt-rating">⭐⭐⭐⭐⭐ &nbsp;<strong>#1 tur în București</strong> · 2.400+ recenzii TripAdvisor</div>
-      <div class="bt-tip">📍 <span>Coboară la <strong>Stația 05 · Piața Revoluției</strong> — punct de întâlnire la Ateneul Român (2 min mers)</span></div>
+      <div class="bt-tip">📍 <span>Coboară la <strong>Stația 05 · Piața Revoluției</strong> — punct de întâlnire la Ateneul Român</span></div>
       <a href="https://freetourinbucharest.com/bucharest-essential-tour/" target="_blank" class="btn-dk">🚶 Rezervă tur walking BTrip</a>
     </div>
     <div class="ccard rev">
@@ -746,7 +931,7 @@ footer{background:var(--dk);padding:56px 48px 28px}
   </div>
 </section>
 
-<!-- ══════════════════════ FAQ ══════════════════════ -->
+<!-- FAQ -->
 <section class="faq-section" id="faq">
   <div class="faq-inner">
     <div class="rev">
@@ -755,28 +940,28 @@ footer{background:var(--dk);padding:56px 48px 28px}
     </div>
     <div class="faq-list rev">
       <div class="faq-item">
-        <div class="faq-q">De câte ori pot urca și coborî cu un singur bilet?<div class="faq-icon">+</div></div>
-        <div class="faq-a"><div class="faq-a-inner">Nelimitat, timp de 24 de ore de la prima validare. Poți urca și coborî la oricare din cele 14 stații de câte ori dorești.</div></div>
+        <div class="faq-q">În ce zile funcționează autobuzul?<div class="faq-icon">+</div></div>
+        <div class="faq-a"><div class="faq-a-inner">Bucharest City Tour funcționează <strong>Vineri, Sâmbătă și Duminică</strong>. Vineri operează Linia Roșie (Calea Victoriei), iar Sâmbătă și Duminică operează Linia Albastră (Bd. Magheru). Cu Pachetul Complet ai acces în toate trei zile, pe ambele linii.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Ce înseamnă Hop On · Hop Off?<div class="faq-icon">+</div></div>
+        <div class="faq-a"><div class="faq-a-inner">Cu un singur bilet poți coborî la oricare din cele 14 stații, vizita obiectivul, apoi urca în autobuzul următor — de câte ori dorești, în limita valabilității biletului tău (1, 2 sau 3 zile). Poți și rămâne în autobuz pentru turul complet de 90 de minute.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Cum funcționează pachetele de reducere?<div class="faq-icon">+</div></div>
+        <div class="faq-a"><div class="faq-a-inner">Cu cât cumperi mai multe zile, cu atât economisești: Pachetul Weekend (2 zile) costă 120 lei în loc de 140 lei (economisești 20 lei). Pachetul Complet (3 zile) costă 160 lei în loc de 210 lei (economisești 50 lei). Copiii 7–14 ani beneficiază de jumătate din prețul adultului la orice pachet.</div></div>
       </div>
       <div class="faq-item">
         <div class="faq-q">Unde pot cumpăra biletul?<div class="faq-icon">+</div></div>
-        <div class="faq-a"><div class="faq-a-inner">① La toate punctele de vânzare STB din București (numerar sau card). ② Direct în autobuz, exclusiv cu card bancar (Visa, Mastercard, Maestro).</div></div>
+        <div class="faq-a"><div class="faq-a-inner">① La toate punctele de vânzare STB din București (numerar sau card). ② Direct în autobuz, exclusiv cu card bancar (Visa, Mastercard, Maestro). ③ În curând în aplicația Bucharest City Tour — cumpărare online înainte de a urca în autobuz.</div></div>
       </div>
       <div class="faq-item">
-        <div class="faq-q">Care este diferența dintre Linia Roșie și Linia Albastră?<div class="faq-icon">+</div></div>
-        <div class="faq-a"><div class="faq-a-inner">Linia Roșie operează Luni–Vineri, iar Linia Albastră Sâmbătă–Duminică. Traseele sunt ușor diferite — Linia Albastră trece pe Bd. Magheru/Bălcescu în loc de Calea Victoriei.</div></div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">Cum funcționează audio ghidul?<div class="faq-icon">+</div></div>
-        <div class="faq-a"><div class="faq-a-inner">Descarcă aplicația gratuită izi.TRAVEL sau conectează-te la Wi-Fi din autobuz. Selectează Bucharest City Tour și alege limba (RO/EN/FR/IT/DE). Comentariul pornește automat când te apropii de fiecare obiectiv.</div></div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">Cum urmăresc autobuzul în timp real?<div class="faq-icon">+</div></div>
-        <div class="faq-a"><div class="faq-a-inner">Prin aplicația InfoTB sau la adresa info.stb.ro poți vedea poziția în timp real a autobuzelor și estimarea timpului de așteptare la fiecare stație.</div></div>
+        <div class="faq-q">Cum funcționează audio ghidul din aplicație?<div class="faq-icon">+</div></div>
+        <div class="faq-a"><div class="faq-a-inner">Aplicația Bucharest City Tour folosește GPS-ul telefonului pentru a detecta automat stația la care ești. Când autobuzul se apropie de un obiectiv, ghidul pornește automat și îți spune ce e pe stânga și pe dreapta — în română, engleză, franceză, italiană sau germană.</div></div>
       </div>
       <div class="faq-item">
         <div class="faq-q">Copiii sub 7 ani plătesc bilet?<div class="faq-icon">+</div></div>
-        <div class="faq-a"><div class="faq-a-inner">Nu. Copiii sub 7 ani călătoresc gratuit, fără bilet, însoțiți de un adult care deține bilet valid.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">Nu. Copiii sub 7 ani călătoresc gratuit, fără bilet, însoțiți de un adult care deține bilet valid. Copiii între 7 și 14 ani beneficiază de bilet la jumătate din prețul adultului pentru orice pachet ales.</div></div>
       </div>
     </div>
   </div>
@@ -791,7 +976,7 @@ footer{background:var(--dk);padding:56px 48px 28px}
         <p class="ft-desc">Serviciu turistic oficial operat de STB și TPBI, sub coordonarea Primăriei Municipiului București.</p>
         <div class="ft-inst">
           <span class="finst">STB</span><span class="finst">TPBI</span>
-          <span class="finst">Primăria Capitalei</span><span class="finst">izi.TRAVEL</span>
+          <span class="finst">Primăria Capitalei</span>
         </div>
       </div>
       <div class="ft-col">
@@ -799,6 +984,7 @@ footer{background:var(--dk);padding:56px 48px 28px}
         <a href="#routes">Traseu și stații</a>
         <a href="#tickets">Bilete și tarife</a>
         <a href="#schedule">Program</a>
+        <a href="#app">Aplicația BCT</a>
         <a href="#audio">Audio ghid</a>
         <a href="#faq">FAQ</a>
       </div>
@@ -820,8 +1006,8 @@ footer{background:var(--dk);padding:56px 48px 28px}
     <div class="ft-bot">
       <span>© 2026 Bucharest City Tour · STB · TPBI · Primăria Capitalei București</span>
       <div class="ft-soc">
-        <a href="#" class="fsoc">bcitytour</a>
-        <a href="#" class="fsoc">bcity_tour</a>
+        <a href="#" class="fsoc">Instagram</a>
+        <a href="#" class="fsoc">Facebook</a>
         <a href="https://info.stb.ro" target="_blank" class="fsoc">InfoTB</a>
       </div>
     </div>
@@ -829,7 +1015,7 @@ footer{background:var(--dk);padding:56px 48px 28px}
 </footer>
 
 <div id="sticky">
-  <div><div class="sp">de la 70 lei</div><div class="sl">Adult · Hop On/Hop Off · 24h</div></div>
+  <div><div class="sp">de la 70 lei</div><div class="sl">1 Zi · Weekend · Pachet Complet</div></div>
   <a href="#tickets" class="sbtn">🎫 Cumpără bilet</a>
 </div>
 
@@ -837,36 +1023,120 @@ footer{background:var(--dk);padding:56px 48px 28px}
 <script>
 const STOPS={
   red:[
-    {n:1,name:'Piața Presei Libere',en:'Press Square',lat:44.4892,lng:26.0764,desc:'Punct de plecare al traseului.',tag:'🚌 Terminus',img:'https://freetourinbucharest.com/wp-content/uploads/2025/09/hop-on-hop-off-bucharest.jpg'},
-    {n:2,name:'Muzeul Satului',en:'Village Museum',lat:44.4666,lng:26.0776,desc:'Case tradiționale românești autentice, Parcul Herăstrău.',tag:'🏛️ 90+ min',img:'https://freetourinbucharest.com/wp-content/uploads/2021/01/Village-Museums-Bucharest.jpg'},
-    {n:3,name:'Arcul de Triumf',en:'Arch of Triumph',lat:44.4676,lng:26.0857,desc:'Simbolul victoriei naționale pe Bd. Kiseleff.',tag:'📸 Foto ideal',img:'https://freetourinbucharest.com/wp-content/uploads/2020/07/TRIUMPHAL-ARCH-BUCHAREST.jpg'},
-    {n:4,name:'Piața Victoriei',en:'Victory Square',lat:44.4627,lng:26.0855,desc:'Cartierul guvernamental, poarta spre Calea Victoriei.',tag:null,img:'https://freetourinbucharest.com/wp-content/uploads/2025/12/Calea-Victoriei.webp'},
-    {n:5,name:'Piața Revoluției',en:'Revolution Square',lat:44.4397,lng:26.0963,desc:'Ateneul Român, Palatul Regal, 1989.',tag:'🚶 Walking tours',img:'https://freetourinbucharest.com/wp-content/uploads/2024/08/BMR5109_1.jpg'},
-    {n:6,name:'CEC',en:'CEC Bank · Calea Victoriei',lat:44.4362,lng:26.0982,desc:'Capodoperă eclectică, cea mai veche bancă din România.',tag:null,img:'https://freetourinbucharest.com/wp-content/uploads/2025/12/Calea-Victoriei.webp'},
-    {n:7,name:'Palatul Parlamentului',en:'Palace of Parliament',lat:44.4278,lng:26.0874,desc:'A 2-a cea mai mare clădire administrativă din lume.',tag:'🏛️ Tur ghidat',img:'https://freetourinbucharest.com/wp-content/uploads/2025/02/parliament-palace-bucharest.jpg'},
-    {n:8,name:'Piața Unirii',en:'Union Square',lat:44.4267,lng:26.1023,desc:'Poartă spre Centrul Vechi.',tag:null,img:'https://freetourinbucharest.com/wp-content/uploads/2025/02/old-town-bucharest-city.jpg'},
-    {n:9,name:'Universitate',en:'University Square',lat:44.4354,lng:26.1009,desc:'Centrul academic — Universitatea, Teatrul Național.',tag:null,img:'https://freetourinbucharest.com/wp-content/uploads/2025/02/old-town-bucharest-city.jpg'},
-    {n:10,name:'Piața Romană',en:'Roman Square',lat:44.4470,lng:26.0941,desc:'Răscruce elegantă în centrul orașului.',tag:null,img:'https://freetourinbucharest.com/wp-content/uploads/2025/09/hop-on-hop-off-bucharest.jpg'},
-    {n:11,name:'Piața Charles de Gaulle',en:'Charles de Gaulle Square',lat:44.4670,lng:26.0795,desc:'La marginea Parcului Herăstrău.',tag:null,img:'https://freetourinbucharest.com/wp-content/uploads/2025/09/hop-on-hop-off-bucharest.jpg'},
-    {n:12,name:'Parcul Regele Mihai I',en:'King Michael I Park',lat:44.4695,lng:26.0774,desc:'Cel mai mare parc din București.',tag:'🌳 Lac · terase',img:'https://freetourinbucharest.com/wp-content/uploads/2021/01/Village-Museums-Bucharest.jpg'},
-    {n:13,name:'Piața Presei / Stație',en:'Intermediate Stop',lat:44.4892,lng:26.0764,desc:'Stație intermediară.',tag:null,img:'https://freetourinbucharest.com/wp-content/uploads/2025/09/hop-on-hop-off-bucharest.jpg'},
-    {n:14,name:'Muzeul Satului · Final',en:'End of Loop',lat:44.4666,lng:26.0776,desc:'Circuitul se închide — 70–85 min.',tag:'🔄 Final circuit',img:'https://freetourinbucharest.com/wp-content/uploads/2021/01/Village-Museums-Bucharest.jpg'},
+    {n:1,name:'Piața Presei Libere',en:'Press Square',lat:44.4892,lng:26.0764,
+     desc:'Punct de plecare al traseului. Casa Presei — arhitectură stalinistă monumentală din 1956.',
+     tag:'🚌 Terminus',sights:['Casa Presei Libere','Parcul Floreasca'],
+     img:'https://freetourinbucharest.com/wp-content/uploads/2025/09/hop-on-hop-off-bucharest.jpg'},
+    {n:2,name:'Muzeul Satului',en:'Village Museum',lat:44.4666,lng:26.0776,
+     desc:'250 de gospodării tradiționale din toată România, pe malul Lacului Herăstrău.',
+     tag:'🏛 90+ min',sights:['Muzeul Național al Satului','Lacul Herăstrău','Parcul Regele Mihai I'],
+     img:'https://freetourinbucharest.com/wp-content/uploads/2021/01/Village-Museums-Bucharest.jpg'},
+    {n:3,name:'Arcul de Triumf',en:'Arch of Triumph',lat:44.4676,lng:26.0857,
+     desc:'Simbolul victoriei naționale, ridicat în 1936 pe Bulevardul Kiseleff.',
+     tag:'📸 Foto ideal',sights:['Arcul de Triumf','Bd. Kiseleff','Piața Arcului de Triumf'],
+     img:'https://freetourinbucharest.com/wp-content/uploads/2020/07/TRIUMPHAL-ARCH-BUCHAREST.jpg'},
+    {n:4,name:'Piața Victoriei',en:'Victory Square',lat:44.4627,lng:26.0855,
+     desc:'Centrul guvernamental al Bucureștiului — Palatul Victoria și Muzeul Antipa.',
+     tag:null,sights:['Guvernul României','Muzeul Antipa','Muzeul de Geologie'],
+     img:'https://freetourinbucharest.com/wp-content/uploads/2025/12/Calea-Victoriei.webp'},
+    {n:5,name:'Piața Revoluției',en:'Revolution Square',lat:44.4397,lng:26.0963,
+     desc:'Inima istorică — Ateneul Român, Palatul Regal, locul Revoluției din 1989.',
+     tag:'🚶 Walking tours',sights:['Ateneul Român','Palatul Regal','Muzeul Național de Artă'],
+     img:'https://freetourinbucharest.com/wp-content/uploads/2024/08/BMR5109_1.jpg'},
+    {n:6,name:'CEC · Calea Victoriei',en:'CEC Bank',lat:44.4362,lng:26.0982,
+     desc:'Capodoperă eclectică de la 1900 — cea mai veche bancă din România.',
+     tag:null,sights:['Palatul CEC','Calea Victoriei','Palatul Poștelor'],
+     img:'https://freetourinbucharest.com/wp-content/uploads/2025/12/Calea-Victoriei.webp'},
+    {n:7,name:'Palatul Parlamentului',en:'Palace of Parliament',lat:44.4278,lng:26.0874,
+     desc:'A doua cea mai mare clădire administrativă din lume — 12 etaje, 1.100 camere.',
+     tag:'🏛 Tur ghidat',sights:['Palatul Parlamentului','Bd. Unirii','Grădina Izvor'],
+     img:'https://freetourinbucharest.com/wp-content/uploads/2025/02/parliament-palace-bucharest.jpg'},
+    {n:8,name:'Piața Unirii',en:'Union Square',lat:44.4267,lng:26.1023,
+     desc:'Cea mai mare piață din România — poartă spre Centrul Vechi și Bd. Unirii.',
+     tag:null,sights:['Centrul Vechi','Bd. Unirii','Fantânile Unirii'],
+     img:'https://freetourinbucharest.com/wp-content/uploads/2025/02/old-town-bucharest-city.jpg'},
+    {n:9,name:'Universitate',en:'University Square',lat:44.4354,lng:26.1009,
+     desc:'Centrul academic și cultural — Universitatea, Teatrul Național, Intercontinental.',
+     tag:null,sights:['Universitatea din București','Teatrul Național','Hotel Intercontinental'],
+     img:'https://freetourinbucharest.com/wp-content/uploads/2025/02/old-town-bucharest-city.jpg'},
+    {n:10,name:'Piața Romană',en:'Roman Square',lat:44.4470,lng:26.0941,
+     desc:'Răscruce elegantă între Calea Victoriei și Bd. Magheru — zona boutique-urilor.',
+     tag:null,sights:['Bd. Magheru','Calea Victoriei Nord','Piața Romană'],
+     img:'https://freetourinbucharest.com/wp-content/uploads/2025/09/hop-on-hop-off-bucharest.jpg'},
+    {n:11,name:'Piața Charles de Gaulle',en:'Charles de Gaulle Square',lat:44.4670,lng:26.0795,
+     desc:'La intrarea în Parcul Herăstrău — ambasade și vile interbelice.',
+     tag:null,sights:['Parcul Herăstrău','Ambasada Franței','Bd. Aviatorilor'],
+     img:'https://freetourinbucharest.com/wp-content/uploads/2025/09/hop-on-hop-off-bucharest.jpg'},
+    {n:12,name:'Parcul Regele Mihai I',en:'King Michael I Park',lat:44.4695,lng:26.0774,
+     desc:'Cel mai mare parc din București — 187 ha, lac, terase, Expo.',
+     tag:'🌳 Lac · terase',sights:['Lacul Herăstrău','Expo Herăstrău','Terase panoramice'],
+     img:'https://freetourinbucharest.com/wp-content/uploads/2021/01/Village-Museums-Bucharest.jpg'},
+    {n:13,name:'Stație intermediară',en:'Intermediate Stop',lat:44.4750,lng:26.0764,
+     desc:'Stație intermediară pe traseul de întoarcere spre terminus.',
+     tag:null,sights:['Bd. Ștefan cel Mare','Floreasca'],
+     img:'https://freetourinbucharest.com/wp-content/uploads/2025/09/hop-on-hop-off-bucharest.jpg'},
+    {n:14,name:'Piața Presei · Final',en:'End of Loop',lat:44.4892,lng:26.0764,
+     desc:'Circuitul se închide — 90 de minute, 14 stații, tot Bucureștiul.',
+     tag:'🔄 Final circuit',sights:['Casa Presei Libere','Punct terminus'],
+     img:'https://freetourinbucharest.com/wp-content/uploads/2025/09/hop-on-hop-off-bucharest.jpg'},
   ],
   blue:[
-    {n:1,name:'Piața Presei Libere',en:'Press Square',lat:44.4892,lng:26.0764,desc:'Punct de plecare Linia Albastră.',tag:'🚌 Terminus',img:'https://freetourinbucharest.com/wp-content/uploads/2025/09/hop-on-hop-off-bucharest.jpg'},
-    {n:2,name:'Muzeul Satului',en:'Village Museum',lat:44.4666,lng:26.0776,desc:'Case tradiționale românești autentice.',tag:null,img:'https://freetourinbucharest.com/wp-content/uploads/2021/01/Village-Museums-Bucharest.jpg'},
-    {n:3,name:'Arcul de Triumf',en:'Arch of Triumph',lat:44.4676,lng:26.0857,desc:'Simbolul victoriei naționale.',tag:'📸 Foto ideal',img:'https://freetourinbucharest.com/wp-content/uploads/2020/07/TRIUMPHAL-ARCH-BUCHAREST.jpg'},
-    {n:4,name:'Piața Victoriei',en:'Victory Square',lat:44.4627,lng:26.0855,desc:'Cartierul guvernamental.',tag:null,img:'https://freetourinbucharest.com/wp-content/uploads/2025/12/Calea-Victoriei.webp'},
-    {n:5,name:'Piața Romană',en:'Roman Square',lat:44.4470,lng:26.0941,desc:'Traseul albastru coboară pe Bd. Magheru.',tag:null,img:'https://freetourinbucharest.com/wp-content/uploads/2025/09/hop-on-hop-off-bucharest.jpg'},
-    {n:6,name:'Universitate',en:'University Square',lat:44.4354,lng:26.1009,desc:'Centrul academic.',tag:null,img:'https://freetourinbucharest.com/wp-content/uploads/2025/02/old-town-bucharest-city.jpg'},
-    {n:7,name:'Palatul Parlamentului',en:'Palace of Parliament',lat:44.4278,lng:26.0874,desc:'A 2-a cea mai mare clădire din lume.',tag:'🏛️ Tur ghidat',img:'https://freetourinbucharest.com/wp-content/uploads/2025/02/parliament-palace-bucharest.jpg'},
-    {n:8,name:'Piața Unirii',en:'Union Square',lat:44.4267,lng:26.1023,desc:'Centrul orașului.',tag:null,img:'https://freetourinbucharest.com/wp-content/uploads/2025/02/old-town-bucharest-city.jpg'},
-    {n:9,name:'Universitate',en:'University Square · Retur',lat:44.4354,lng:26.1009,desc:'A doua trecere pe traseul circular.',tag:null,img:'https://freetourinbucharest.com/wp-content/uploads/2025/02/old-town-bucharest-city.jpg'},
-    {n:10,name:'Piața Romană',en:'Roman Square · Retur',lat:44.4470,lng:26.0941,desc:'Traseul se întoarce spre nord.',tag:null,img:'https://freetourinbucharest.com/wp-content/uploads/2025/09/hop-on-hop-off-bucharest.jpg'},
-    {n:11,name:'Piața Victoriei',en:'Victory Square · Retur',lat:44.4627,lng:26.0855,desc:'Reintrare în zona guvernamentală.',tag:null,img:'https://freetourinbucharest.com/wp-content/uploads/2025/12/Calea-Victoriei.webp'},
-    {n:12,name:'Piața Charles de Gaulle',en:'Charles de Gaulle Square',lat:44.4670,lng:26.0795,desc:'La marginea Parcului Herăstrău.',tag:null,img:'https://freetourinbucharest.com/wp-content/uploads/2025/09/hop-on-hop-off-bucharest.jpg'},
-    {n:13,name:'Parcul Regele Mihai I',en:'King Michael I Park',lat:44.4695,lng:26.0774,desc:'Cel mai mare parc din București.',tag:null,img:'https://freetourinbucharest.com/wp-content/uploads/2021/01/Village-Museums-Bucharest.jpg'},
-    {n:14,name:'Muzeul Satului · Final',en:'End of Loop',lat:44.4666,lng:26.0776,desc:'Circuitul Liniei Albastre se încheie.',tag:'🔄 Final circuit',img:'https://freetourinbucharest.com/wp-content/uploads/2021/01/Village-Museums-Bucharest.jpg'},
+    {n:1,name:'Piața Presei Libere',en:'Press Square',lat:44.4892,lng:26.0764,
+     desc:'Punct de plecare Linia Albastră — operează Sâmbătă și Duminică.',
+     tag:'🚌 Terminus',sights:['Casa Presei Libere','Parcul Floreasca'],
+     img:'https://freetourinbucharest.com/wp-content/uploads/2025/09/hop-on-hop-off-bucharest.jpg'},
+    {n:2,name:'Muzeul Satului',en:'Village Museum',lat:44.4666,lng:26.0776,
+     desc:'250 de gospodării tradiționale autentice, pe malul Lacului Herăstrău.',
+     tag:'🏛 90+ min',sights:['Muzeul Național al Satului','Lacul Herăstrău'],
+     img:'https://freetourinbucharest.com/wp-content/uploads/2021/01/Village-Museums-Bucharest.jpg'},
+    {n:3,name:'Arcul de Triumf',en:'Arch of Triumph',lat:44.4676,lng:26.0857,
+     desc:'Simbolul victoriei naționale pe Bulevardul Kiseleff.',
+     tag:'📸 Foto ideal',sights:['Arcul de Triumf','Bd. Kiseleff'],
+     img:'https://freetourinbucharest.com/wp-content/uploads/2020/07/TRIUMPHAL-ARCH-BUCHAREST.jpg'},
+    {n:4,name:'Piața Victoriei',en:'Victory Square',lat:44.4627,lng:26.0855,
+     desc:'Cartierul guvernamental — Palatul Victoria, Muzeul Antipa.',
+     tag:null,sights:['Guvernul României','Muzeul Antipa'],
+     img:'https://freetourinbucharest.com/wp-content/uploads/2025/12/Calea-Victoriei.webp'},
+    {n:5,name:'Piața Romană',en:'Roman Square',lat:44.4470,lng:26.0941,
+     desc:'Traseul albastru coboară pe Bd. Magheru — bulevard art deco.',
+     tag:null,sights:['Bd. Magheru','Librăria Cărturești','Teatrul Odeon'],
+     img:'https://freetourinbucharest.com/wp-content/uploads/2025/09/hop-on-hop-off-bucharest.jpg'},
+    {n:6,name:'Universitate',en:'University Square',lat:44.4354,lng:26.1009,
+     desc:'Centrul academic — Universitatea, Teatrul Național, 1989.',
+     tag:null,sights:['Universitatea din București','Teatrul Național','Piața 21 Decembrie'],
+     img:'https://freetourinbucharest.com/wp-content/uploads/2025/02/old-town-bucharest-city.jpg'},
+    {n:7,name:'Palatul Parlamentului',en:'Palace of Parliament',lat:44.4278,lng:26.0874,
+     desc:'A doua cea mai mare clădire din lume — tur ghidat disponibil.',
+     tag:'🏛 Tur ghidat',sights:['Palatul Parlamentului','Bd. Unirii','Grădina Izvor'],
+     img:'https://freetourinbucharest.com/wp-content/uploads/2025/02/parliament-palace-bucharest.jpg'},
+    {n:8,name:'Piața Unirii',en:'Union Square',lat:44.4267,lng:26.1023,
+     desc:'Cea mai mare piață din România — poartă spre Centrul Vechi.',
+     tag:null,sights:['Centrul Vechi','Bd. Unirii','Fantânile Unirii'],
+     img:'https://freetourinbucharest.com/wp-content/uploads/2025/02/old-town-bucharest-city.jpg'},
+    {n:9,name:'Universitate · Retur',en:'University Square · Return',lat:44.4354,lng:26.1009,
+     desc:'A doua trecere pe traseul circular — spre nord pe Bd. Bălcescu.',
+     tag:null,sights:['Bd. Nicolae Bălcescu','Ateneul Român'],
+     img:'https://freetourinbucharest.com/wp-content/uploads/2025/02/old-town-bucharest-city.jpg'},
+    {n:10,name:'Piața Romană · Retur',en:'Roman Square · Return',lat:44.4470,lng:26.0941,
+     desc:'Traseul urcă spre nord — spre Piața Victoriei și Herăstrău.',
+     tag:null,sights:['Bd. Magheru Nord','Zona boutique'],
+     img:'https://freetourinbucharest.com/wp-content/uploads/2025/09/hop-on-hop-off-bucharest.jpg'},
+    {n:11,name:'Piața Victoriei · Retur',en:'Victory Square · Return',lat:44.4627,lng:26.0855,
+     desc:'Reintrare în zona guvernamentală — spre Herăstrău.',
+     tag:null,sights:['Guvernul României','Bd. Aviatorilor'],
+     img:'https://freetourinbucharest.com/wp-content/uploads/2025/12/Calea-Victoriei.webp'},
+    {n:12,name:'Piața Charles de Gaulle',en:'Charles de Gaulle Square',lat:44.4670,lng:26.0795,
+     desc:'Intrare în Parcul Herăstrău — ambasade, vile interbelice.',
+     tag:null,sights:['Parcul Herăstrău','Ambasada Franței'],
+     img:'https://freetourinbucharest.com/wp-content/uploads/2025/09/hop-on-hop-off-bucharest.jpg'},
+    {n:13,name:'Parcul Regele Mihai I',en:'King Michael I Park',lat:44.4695,lng:26.0774,
+     desc:'Cel mai mare parc din București — 187 ha, lac, terase.',
+     tag:'🌳 Lac · terase',sights:['Lacul Herăstrău','Expo Herăstrău'],
+     img:'https://freetourinbucharest.com/wp-content/uploads/2021/01/Village-Museums-Bucharest.jpg'},
+    {n:14,name:'Piața Presei · Final',en:'End of Loop',lat:44.4892,lng:26.0764,
+     desc:'Circuitul Liniei Albastre se încheie — 90 de minute.',
+     tag:'🔄 Final circuit',sights:['Casa Presei Libere','Punct terminus'],
+     img:'https://freetourinbucharest.com/wp-content/uploads/2025/09/hop-on-hop-off-bucharest.jpg'},
   ]
 };
 
@@ -876,7 +1146,7 @@ const STOPS={
   STOPS[line].slice(0,8).forEach(s=>{
     ul.innerHTML+=`<li class="rs-item"><span class="rs-dot">${s.n}</span><div><div class="rs-name">${s.name}</div><div class="rs-en">${s.en}</div></div></li>`;
   });
-  if(STOPS[line].length>8)ul.innerHTML+=`<li class="rs-item" style="color:var(--mu);font-size:12px;padding:8px 0">+ ${STOPS[line].length-8} stații suplimentare</li>`;
+  if(STOPS[line].length>8)ul.innerHTML+=`<li class="rs-item" style="color:var(--mu);font-size:12px;padding:8px 0">+ ${STOPS[line].length-8} stații suplimentare →</li>`;
 });
 
 // Stops detail
@@ -884,12 +1154,17 @@ function renderStops(line){
   const cls=line==='red'?'r':'b';
   document.getElementById('stops-grid').innerHTML=STOPS[line].map(s=>`
     <div class="sc">
-      <div class="sc-n ${cls}">${s.n}</div>
-      <img src="${s.img}" alt="${s.name}" class="sc-img" loading="lazy">
-      <div class="sc-info">
+      <div class="sc-img-wrap">
+        <img src="${s.img}" alt="${s.name}" loading="lazy">
+        <div class="sc-overlay"></div>
+        <div class="sc-n ${cls}">${s.n}</div>
+        <div class="sc-audio">🎧 Audio ghid</div>
+      </div>
+      <div class="sc-body">
         <div class="sc-name">${s.name}</div>
         <div class="sc-en">${s.en}</div>
         <div class="sc-desc">${s.desc}</div>
+        <div class="sc-sights">${s.sights.map(si=>`<span class="sc-sight">📍 ${si}</span>`).join('')}</div>
         ${s.tag?`<div class="sc-tag">${s.tag}</div>`:''}
       </div>
     </div>`).join('');
@@ -901,8 +1176,8 @@ document.querySelectorAll('.ltg').forEach(btn=>{
     const line=this.dataset.line;
     this.classList.add('on',line==='red'?'r':'b');
     renderStops(line);
-    redPoly.setStyle({opacity:line==='red'?.85:.25});
-    bluePoly.setStyle({opacity:line==='blue'?.85:.25});
+    redPoly.setStyle({opacity:line==='red'?.85:.2});
+    bluePoly.setStyle({opacity:line==='blue'?.85:.2});
   });
 });
 
@@ -910,10 +1185,10 @@ document.querySelectorAll('.ltg').forEach(btn=>{
 const map=L.map('bct-map',{center:[44.452,26.090],zoom:12,scrollWheelZoom:false});
 L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{attribution:'© OpenStreetMap · © CARTO',subdomains:'abcd',maxZoom:20}).addTo(map);
 const redPoly=L.polyline(STOPS.red.map(s=>[s.lat,s.lng]),{color:'#E31E24',weight:5,opacity:.85}).addTo(map);
-const bluePoly=L.polyline(STOPS.blue.map(s=>[s.lat,s.lng]),{color:'#1A5EA8',weight:4,opacity:.5,dashArray:'10 6'}).addTo(map);
+const bluePoly=L.polyline(STOPS.blue.map(s=>[s.lat,s.lng]),{color:'#1A5EA8',weight:4,opacity:.45,dashArray:'10 6'}).addTo(map);
 STOPS.red.forEach(s=>{
   L.marker([s.lat,s.lng],{icon:L.divIcon({className:'',html:`<div style="background:#E31E24;color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11px;border:2px solid #fff;box-shadow:0 2px 10px rgba(0,0,0,.3);font-family:sans-serif">${s.n}</div>`,iconSize:[28,28],iconAnchor:[14,14],popupAnchor:[0,-16]})}).addTo(map)
-  .bindPopup(`<strong>${s.n}. ${s.name}</strong><br><span style="font-size:12px;color:#666">${s.en}</span>`);
+  .bindPopup(`<strong>${s.n}. ${s.name}</strong><br><span style="font-size:12px;color:#666">${s.en}</span><br><span style="font-size:11px;color:#999">${s.sights[0]}</span>`);
 });
 
 // FAQ
@@ -927,7 +1202,7 @@ document.querySelectorAll('.faq-q').forEach(q=>{
 });
 
 // Reveal
-const io=new IntersectionObserver((entries)=>{entries.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('in'),i*80)});},{threshold:.1});
+const io=new IntersectionObserver((entries)=>{entries.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('in'),i*80)});},{threshold:.08});
 document.querySelectorAll('.rev').forEach(el=>io.observe(el));
 
 // Hero image animation
